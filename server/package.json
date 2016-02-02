@@ -1,0 +1,22 @@
+{
+  "name": "phil-games",
+  "version": "1.0.0",
+  "description": "Philosophy Set Theory Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dholms/phil-games.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dholms/phil-games/issues"
+  },
+  "homepage": "https://github.com/dholms/phil-games#readme",
+  "dependencies": {
+    "mongojs": "^2.3.0"
+  }
+}
