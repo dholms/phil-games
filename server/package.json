@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/dholms/phil-games#readme",
   "dependencies": {
+    "express": "^4.13.4",
     "mongojs": "^2.3.0"
   }
 }
