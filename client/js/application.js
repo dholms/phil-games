@@ -1,10 +1,12 @@
-var c;
+var canvas;
 var ctx;
 
 $(document).ready(function(){
-	c = document.getElementById("c");
-	ctx = c.getContext("2d");
+	canvas = document.getElementById("c");
+	ctx = canvas.getContext("2d");
+	canvas.addEventListener('click', function(e){
+		Venn.processClick(e);
+	}, false)
 	Venn.drawVenn();
-	Venn.fill(3);
 });
 
