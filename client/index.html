@@ -9,14 +9,25 @@
 	<!-- Bootstrap -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="js/Venn.js"></script>
+	<script type="text/javascript" src="js/Statement.js"></script>
 	<script type="text/javascript" src="js/application.js"></script>
 	
 </head>
 <body>
 	<div class="container">
 		<h1>Philosophy Games</h1>
-		<h2>Check it out!</h2>
-		<canvas id="c" height = "500px" width = "800px"></canvas>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="statements">
+
+				</div>
+				<button class="btn btn-primary check">Change Color</button>
+			</div>
+			<div class="col-md-6">
+				<canvas id="c" height = "500px" width = "500px"></canvas>
+			</div>
+		</div>
+		
 	</div>
 </body>
 </html>
