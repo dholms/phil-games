@@ -3,6 +3,7 @@ var Statement = function(text) {
 	this.color = "blue";
 	this.category = 1;
 	this.currentWords = [];
+	this.currentlyHighlighting = false;
 	this.element = this.createElement(text);
 	$('.statements').append(this.element);
 };
@@ -37,7 +38,10 @@ Statement.prototype.createElement = function(text){
 //return: nothing
 Statement.prototype.addWordListeners = function(word){
 	var self = this;
-	word.mousedown(this.toggleWord.bind(self));
+	word.mousedown(function(e){
+		self.currentlyHighlighting = !self.isHighlighted(e.currentTarget);
+		self.toggleWord(e);
+	});
 	word.mouseover(function(e){
 		if(e.buttons === 1){
 			self.toggleWord(e);
@@ -49,16 +53,41 @@ Statement.prototype.addWordListeners = function(word){
 //e: (event) event associated with click/mouseover
 //return: nothing
 Statement.prototype.toggleWord = function(e){
-	$(e.currentTarget).toggleClass(this.color);
-	var word = e.currentTarget.innerHTML;
-	var inArray = $.inArray(word, this.currentWords);
-	if(inArray === -1){
-		if(word != " " && word != "&nbsp;"){
-			this.currentWords.push(word);
-		}
+	if(this.currentlyHighlighting){
+		this.addWord(e.currentTarget);
 	} else{
+		this.removeWord(e.currentTarget);
+	}
+}
+
+//Highlights the word and adds it to the list of currently highlighted words.
+//word: (span.word) element of the word to be added
+//return: nothing
+Statement.prototype.addWord = function(word){
+	if(!this.isHighlighted(word)){
+		$(word).addClass(this.color);
+		var text = word.innerHTML;
+		if(text != " " && text != "&nbsp;"){
+			this.currentWords.push(text);
+		}
+	}
+}
+
+//Unhighlights the word and removes it from the list of currently highlighted words. 
+//word: (span.word) element of the word to be removed
+//return: nothing
+Statement.prototype.removeWord = function(word){
+	if(this.isHighlighted(word)){
+		$(word).removeClass(this.color);
+		var text = word.innerHTML;
 		this.currentWords.splice(this.currentWords.indexOf(word), 1);
 	}
+}
+
+//word (span.word) element of the word to check if it is highlighted
+//return: (boolean) whether the element is currently highlighted
+Statement.prototype.isHighlighted = function(word){
+	return $(word).hasClass(this.color);
 }
 
 //return: array of currently highlighted words
