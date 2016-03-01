@@ -137,12 +137,12 @@ Venn.prototype.findCell = function(x, y){
 	var c3 = this.inCircle(x, y, "c3");
 	if(!c1 && !c2 && !c3){return -1;}
 	if(c1 && !c2 && !c3){return 0;}
-	if(c1 && c2 && !c3){return 1;}
-	if(!c1 && c2 && !c3){return 2;}
-	if(c1 && !c2 && c3){return 3;}
-	if(c1 && c2 && c3){return 4;}
+	if(!c1 && c2 && !c3){return 1;}
+	if(!c1 && !c2 && c3){return 2;}
+	if(c1 && c2 && !c3){return 3;}
+	if(c1 && !c2 && c3){return 4;}
 	if(!c1 && c2 && c3){return 5;}
-	if(!c1 && !c2 && c3){return 6;}
+	if(c1 && c2 && c3){return 6;}
 }
 
 //color the border and mark with an X the given cell
@@ -171,7 +171,6 @@ Venn.prototype.fill = function(cell, color){
 //return: nothing
 Venn.prototype.trace = function(cell){
 	ctx.beginPath();
-	
 	switch(cell){
 		case 0:
 			this.arc("c1","c31","c21",false);
@@ -179,24 +178,24 @@ Venn.prototype.trace = function(cell){
 			this.arc("c3","c21","c11",true);
 			break;
 		case 1:
-			this.arc("c2","c31","c11",false);
-			this.arc("c1","c21","c32",false);
-			this.arc("c3","c12","c21",true);
-			break;
-		case 2:
 			this.arc("c2","c11","c32",false);
 			this.arc("c3","c22","c12",true);
 			this.arc("c1","c32","c21",true);
 			break;
+		case 2:
+			this.arc("c1","c31","c22",true);
+			this.arc("c2","c12","c32",true);
+			this.arc("c3","c22","c11",false);
+			break;
 		case 3:
+			this.arc("c2","c31","c11",false);
+			this.arc("c1","c21","c32",false);
+			this.arc("c3","c12","c21",true);
+			break;
+		case 4:
 			this.arc("c3","c11","c21",false);
 			this.arc("c2","c31","c12",true);
 			this.arc("c1","c22","c31",false);
-			break;
-		case 4:
-			this.arc("c3","c21","c12",false);
-			this.arc("c1","c32","c22",false);
-			this.arc("c2","c12","c31",false);
 			break;
 		case 5:
 			this.arc("c1","c22","c32",true);
@@ -204,9 +203,9 @@ Venn.prototype.trace = function(cell){
 			this.arc("c2","c32","c12",false);
 			break;
 		case 6:
-			this.arc("c1","c31","c22",true);
-			this.arc("c2","c12","c32",true);
-			this.arc("c3","c22","c11",false);
+			this.arc("c3","c21","c12",false);
+			this.arc("c1","c32","c22",false);
+			this.arc("c2","c12","c31",false);
 			break;
 	}
 }
