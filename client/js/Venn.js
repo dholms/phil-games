@@ -2,7 +2,6 @@ var Venn = function(x, y, r){
 	this.shaded=[false, false, false, false, false, false, false];
 	this.marked=[false, false, false, false, false, false, false, false, false, false];
 	
-
 	this.params = Venn.params;
 	this.params.r = r;
 	this.params.c1.x = x+r;
@@ -11,8 +10,6 @@ var Venn = function(x, y, r){
 	this.params.c2.y = y+r;
 	this.params.c3.x = x+1.5*r;
 	this.params.c3.y = y+2*r;
-
-	this.drawVenn();
 	canvas.addEventListener('click', this.processClick.bind(this), false)
 }
 

@@ -4,14 +4,11 @@ var ctx;
 $(document).ready(function(){
 	canvas = document.getElementById("c");
 	ctx = canvas.getContext("2d");
-	var venn = new Venn(5,5,80);
-	
-	var statement1 = new Statement("All cows are mammals");
-	var statement2 = new Statement("All mammals are nice");
+	var statements = {
+		categories: ["cows", "mammals", "nice"],
+		statementList: ["some 2 are 3 or 1", "no 1 are 3"]
+	}
+	var problem = new Problem(statements);
 
-	$('.check').click(function(e){
-		statement1.incrCategory();
-		statement2.incrCategory();
-	})
 });
 
