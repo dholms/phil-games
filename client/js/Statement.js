@@ -106,25 +106,3 @@ Statement.prototype.incrCategory = function(){
 		this.color = "green";
 	}
 }
-
-//Static Methods
-Statement.isLetter = function(character){
-	var code = character.charCodeAt();
-	var isLetter = ((code >= 65) && (code <= 90)) || ((code >= 97) && (code <= 122));
-	return letter;
-}
-
-Statement.parseWords = function(text){
-	var start = 0;
-	var words = [];
-	for(var i=0; i < text.length; i++){
-		var character = text.charAt(i)
-		var isLetter = Statement.isLetter(text.charAt(i));
-		if(!isLetter){
-			if(start != i-1){
-				words.push(text.substring(start, i));
-			}
-			start = i;
-		}
-	}
-}
