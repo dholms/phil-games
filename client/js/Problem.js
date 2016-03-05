@@ -5,25 +5,49 @@
     this.categories = problem.categories;
     this.statementList = problem.statementList;
     this.venns = [];
-    this.createVenns(this.problem);
+    this.createVenns(this.statementList);
     this.statements = [];
     this.vennDiagram = new Venn(5, 5, 80);
     var self = this;
     this.createStatements();
 
-    $('.check').click(checkCategories)
+    //function called while drawing venn from selected categories
+    //currently draws unconditionally
+    //wrapped as a func object instead of prototype for use by listener
+    this.checkCategories = function(){
+        self.vennDiagram.drawVenn();
+    }
+
+    //check if current user venn matches markup of any premise
+    //output premise matched
+    //DOES NOT CURRENTLY WORK
+    this.checkVenn = function(){
+        alert(self.vennDiagram.shaded);
+        var match = false;
+        for (var i = 0; i < self.statements.length; i++){
+            if (self.vennDiagram.shaded == self.venns[i][0]){ //&& self.vennDiagram.marked == self.venns[i][0]){
+                alert(i+1);
+                match = true;
+                break;
+            }
+        }
+        if (match == false){
+            alert("no match found");
+        }
+    }
+
 };
 
-Problem.prototype.checkCategories = function(){
-    
-}
-
+//Convert problem skeleton and category names into grammatical premises
+//Create Statement objects with grammatical premises
+//Currently passes hardcoded premises
 Problem.prototype.createStatements = function(){
-    this.statements.push(new Statement("All cows are mammals"));
-    this.statements.push(new Statement("All mammals are nice"));
+    this.statements.push(new Statement("No cows are mammals"));
+    this.statements.push(new Statement("No mammals are nice"));
 };
 
-    //outputs venn diagram arrays via alert
+//outputs venn diagram arrays via alert
+//for testing purposes
 Problem.prototype.spit = function(){
     for (var i = 0; i < this.venns.length; i++){
         alert(this.venns[i][0]);
@@ -31,6 +55,9 @@ Problem.prototype.spit = function(){
     }
 };
      
+//creates lists of shaded/selected at each premise stage
+//should be called in constructor
+//currently needs a little bit of tightening the logic
 Problem.prototype.createVenns = function(states){
     
     //create Venn for each premise
@@ -38,9 +65,15 @@ Problem.prototype.createVenns = function(states){
     for (var i = 0; i < numPremises; i++){
         
         //init shade/select arryas
-        var newVennShade = [false,false,false,false,false,false,false];
-        var newVennSelect = [false,false,false,false,false,false,false,false,false,false];
-        
+        if (i == 0){
+            var newVennShade = [false,false,false,false,false,false,false];
+            var newVennSelect = [false,false,false,false,false,false,false,false,false,false];
+        }
+        else{
+            var newVennShade = this.venns[this.venns.length-1][0];
+            var newVennSelect = this.venns[this.venns.length-1][1];
+        }
+
         //parse statement into words, assign opperators and categories
         var splicedState = states[i].split(" ");
         var opp = splicedState[0];
@@ -74,12 +107,14 @@ Problem.prototype.createVenns = function(states){
         }
         
         //check
+        /*
         alert(opp);
         alert(firstCat);
         alert(secondCat);
         alert(secondOpp);
         alert(thirdCat);
-    
+        */
+
         //Define segments of the venn diagram
         var A,B,C,AB,BC,AC,ABC;
         ABC = 6;
