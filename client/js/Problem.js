@@ -11,21 +11,27 @@
     var self = this;
     this.createStatements();
 
-    //function called while drawing venn from selected categories
-    //currently draws unconditionally
-    //wrapped as a func object instead of prototype for use by listener
-    this.checkCategories = function(){
-        self.vennDiagram.drawVenn();
-    }
+    //attach listeners to buttons    
+    $('#vennCheckButton').click(this.checkVenn.bind(this));
+    $('#catCheckButton').click(this.checkCategories.bind(this));
+    
 
-    //check if current user venn matches markup of any premise
-    //output premise matched
-    this.checkVenn = function(){
+};
+
+//function called while drawing venn from selected categories
+    //currently draws unconditionally
+Problem.prototype.checkCategories = function(){
+        this.vennDiagram.drawVenn();
+}
+
+//check if current user venn matches markup of any premise
+//output premise matched
+Problem.prototype.checkVenn = function(){
         var match = false;
-        for (var i = 0; i < self.statements.length; i++){
+        for (var i = 0; i < this.statements.length; i++){
             var equal = true;
-            for (j = 0; j < self.venns[i][0].length; j++){
-                if (self.vennDiagram.shaded[j] != self.venns[i][0][j]){ 
+            for (j = 0; j < this.venns[i][0].length; j++){
+                if (this.vennDiagram.shaded[j] != this.venns[i][0][j]){ 
                     equal = false;
                     break;
                 }
@@ -42,8 +48,6 @@
         }
     }
 
-};
-
 //Convert problem skeleton and category names into grammatical premises
 //Create Statement objects with grammatical premises
 //Currently passes hardcoded premises
@@ -53,12 +57,15 @@ Problem.prototype.createStatements = function(){
 };
 
 //outputs venn diagram arrays via alert
-//for testing purposes
+//order: premise 1 shade, premise 1 select, premise 2 shade ... user shade, user select
+//for debugging purposes
 Problem.prototype.spit = function(){
     for (var i = 0; i < this.venns.length; i++){
         alert(this.venns[i][0]);
         alert(this.venns[i][1]);
     }
+    alert(this.vennDiagram.shaded);
+    alert(this.vennDiagram.marked);
 };
      
 //creates lists of shaded/selected at each premise stage
@@ -71,9 +78,13 @@ Problem.prototype.createVenns = function(states){
     for (var i = 0; i < numPremises; i++){
         
         //init shade/select arryas
-        
         var newVennShade = [false,false,false,false,false,false,false];
         var newVennSelect = [false,false,false,false,false,false,false,false,false,false];
+        if (i > 0){
+            newVennShade = this.venns[i-1][0].slice();
+            newVennSelect = this.venns[i-1][1].slice();
+        }
+
 
         //parse statement into words, assign opperators and categories
         var splicedState = states[i].split(" ");

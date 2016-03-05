@@ -12,9 +12,5 @@ $(document).ready(function(){
 
 	var problem = new Problem(statements);
 
-	//attach listeners to buttons
-	$('#catCheckButton').click(problem.checkCategories);
-	$('#vennCheckButton').click(problem.checkVenn);
-
 });
 
