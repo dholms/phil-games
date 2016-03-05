@@ -7,7 +7,7 @@ $(document).ready(function(){
 	
 	var statements = {
 		categories: ["cows", "mammals", "nice"],
-		statementList: ["no 1 are 2", "no 1 are 3"]
+		statementList: ["no 1 are 2", "no 2 are 3"]
 	}
 
 	var problem = new Problem(statements);

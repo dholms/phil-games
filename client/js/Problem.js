@@ -20,13 +20,19 @@
 
     //check if current user venn matches markup of any premise
     //output premise matched
-    //DOES NOT CURRENTLY WORK
     this.checkVenn = function(){
-        alert(self.vennDiagram.shaded);
         var match = false;
         for (var i = 0; i < self.statements.length; i++){
-            if (self.vennDiagram.shaded == self.venns[i][0]){ //&& self.vennDiagram.marked == self.venns[i][0]){
-                alert(i+1);
+            var equal = true;
+            for (j = 0; j < self.venns[i][0].length; j++){
+                if (self.vennDiagram.shaded[j] != self.venns[i][0][j]){ 
+                    equal = false;
+                    break;
+                }
+            }
+            if (equal == true){
+                var s = "premise " + String(i+1);
+                alert(s);
                 match = true;
                 break;
             }
@@ -65,14 +71,9 @@ Problem.prototype.createVenns = function(states){
     for (var i = 0; i < numPremises; i++){
         
         //init shade/select arryas
-        if (i == 0){
-            var newVennShade = [false,false,false,false,false,false,false];
-            var newVennSelect = [false,false,false,false,false,false,false,false,false,false];
-        }
-        else{
-            var newVennShade = this.venns[this.venns.length-1][0];
-            var newVennSelect = this.venns[this.venns.length-1][1];
-        }
+        
+        var newVennShade = [false,false,false,false,false,false,false];
+        var newVennSelect = [false,false,false,false,false,false,false,false,false,false];
 
         //parse statement into words, assign opperators and categories
         var splicedState = states[i].split(" ");
