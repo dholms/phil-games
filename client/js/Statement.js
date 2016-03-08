@@ -90,11 +90,6 @@ Statement.prototype.isHighlighted = function(word){
 	return $(word).hasClass(this.color);
 }
 
-//return: array of currently highlighted words
-Statement.prototype.returnHighlight = function(){
-	return this.currentWords;
-}
-
 //Increments the category and changes the color associated with the currently highlighted words
 Statement.prototype.incrCategory = function(){
 	this.currentWords = [];
@@ -105,4 +100,20 @@ Statement.prototype.incrCategory = function(){
 	if(this.category === 3){
 		this.color = "green";
 	}
+}
+
+//category: (string) category to check if it is highlighted
+//return: (boolean) if it is properly highlighted in the statement
+Statement.prototype.isHighlightedCorrectly = function(category){
+	if(this.text.indexOf(category) > -1){
+		var isHighlighted = this.currentWords.length === 1 && this.currentWords[0] === category;
+		return isHighlighted;
+	} else{
+		var noneHighlighted = this.currentWords.length == 0;
+		return noneHighlighted;
+	}
+}
+
+Statement.prototype.currCategory = function(){
+	return this.category;
 }

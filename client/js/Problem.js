@@ -3,6 +3,7 @@
  */
  var Problem = function(problem){
     this.categories = problem.categories;
+    this.currCategory = 0;
     this.statementList = problem.statementList;
     this.venns = [];
     this.createVenns(this.statementList);
@@ -11,17 +12,55 @@
     var self = this;
     this.createStatements();
 
-    //attach listeners to buttons    
+    //attach listeners to buttons and enter key
     $('#vennCheckButton').click(this.checkVenn.bind(this));
     $('#catCheckButton').click(this.checkCategories.bind(this));
-    
-
+    $(document).keydown(function(e){
+        console.log();
+        var key = e.which || e.keyCode;
+        if (key === 13) {
+            self.submit();
+        }
+    });
 };
 
+//Handles enter key press and calls the correct checking method
+Problem.prototype.submit = function(){
+    if (this.currCategory >= 3){
+        this.checkVenn();
+    } else{
+        this.checkCategories();
+    }
+}
+
 //function called while drawing venn from selected categories
-    //currently draws unconditionally
+//currently draws unconditionally
 Problem.prototype.checkCategories = function(){
-        this.vennDiagram.drawVenn();
+    if(this.currCategory >= 3){
+        return;
+    }
+    var category = this.categories[this.currCategory];
+    var correct = true;
+    for(var i =0; i < this.statements.length; i++){
+        if(!this.statements[i].isHighlightedCorrectly(category)){
+            correct = false;
+        }
+    }
+
+    if(correct){
+        this.currCategory++;
+        for(var i=0; i < this.statements.length; i++){
+            this.statements[i].incrCategory();
+        }
+        this.vennDiagram.drawCircle("c"+this.currCategory);
+        $(".alert").hide();
+        if(this.currCategory >= 3){
+            this.vennDiagram.activate();
+            $("#statements-right").show();
+        }
+    } else{
+        $("#statements-wrong").show();
+    }
 }
 
 //check if current user venn matches markup of any premise
@@ -44,7 +83,9 @@ Problem.prototype.checkVenn = function(){
             }
         }
         if (match == false){
-            alert("no match found");
+            $("#venn-wrong").show();
+        } else{
+            $("#venn-wrong").hide();
         }
     }
 

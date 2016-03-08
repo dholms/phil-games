@@ -19,18 +19,36 @@
 		<h1>Philosophy Games</h1>
 		<div class="row">
 			<div class="col-md-6">
-				<div class="statements">
-
-				</div>
-				<button id = "catCheckButton" class="btn btn-primary check">Check Category</button>
-				<button id = "vennCheckButton" class="btn btn-primary check">Check Venn</button>
-				<!-- <a href="/problem">Try out problem logic</a> -->
+				<div class="statements"></div>
 			</div>
 			<div class="col-md-6">
-				<canvas id="c" height = "500px" width = "500px"></canvas>
+				<canvas id="c" height = "300px" width = "500px"></canvas>
 			</div>
 		</div>
-		
+		<div class="row">
+			<div class="col-md-6">
+				<button id = "catCheckButton" class="btn btn-primary check">Check Category</button>
+				<div class="alerts">
+					<div class="alert alert-success" id="statements-right" role="alert">
+						<strong>Well done!</strong> You successfully marked up the categories.
+					</div>
+					<div class="alert alert-danger" id="statements-wrong" role="alert">
+						<strong>Oops!</strong> You didn't highlight the current category correctly.
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<button id = "vennCheckButton" class="btn btn-primary check">Check Venn</button>
+				<div class="alerts">
+					<div class="alert alert-success" id="venn-right" role="alert">
+						<strong>Well done!</strong> You successfully marked up the Venn Diagram.
+					</div>
+					<div class="alert alert-danger" id="venn-wrong" role="alert">
+						<strong>Oops!</strong> You didn't mark up that premise correctly.
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
