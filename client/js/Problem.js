@@ -8,12 +8,17 @@
     this.venns = [];
     this.createVenns(this.statementList);
     this.statements = [];
-    this.vennDiagram = new Venn(5, 5, 80);
+    this.vennDiagram = new Venn(5, 5, 80, this.categories);
     var self = this;
     this.createStatements();
+    this.currPremise = 0;
+    // this.vennDiagram.drawVenn();
+    // this.vennDiagram.activate();
+    // this.statements[this.currPremise].addArrow();
 
     //attach listeners to buttons and enter key
     $('#vennCheckButton').click(this.checkVenn.bind(this));
+    $('#vennCheckButton').hide();
     $('#catCheckButton').click(this.checkCategories.bind(this));
     $(document).keydown(function(e){
         console.log();
@@ -52,42 +57,53 @@ Problem.prototype.checkCategories = function(){
         for(var i=0; i < this.statements.length; i++){
             this.statements[i].incrCategory();
         }
-        this.vennDiagram.drawCircle("c"+this.currCategory);
+        this.vennDiagram.drawCircle(this.currCategory);
         $(".alert").hide();
         if(this.currCategory >= 3){
-            this.vennDiagram.activate();
-            $("#statements-right").show();
+            this.startVenn();
         }
     } else{
         $("#statements-wrong").show();
     }
 }
 
+Problem.prototype.startVenn = function(){
+    this.vennDiagram.activate();
+    $("#statements-right").show();
+    this.statements[this.currPremise].addArrow();
+    $('#vennCheckButton').show();
+    $('#catCheckButton').hide();
+}
+
 //check if current user venn matches markup of any premise
 //output premise matched
 Problem.prototype.checkVenn = function(){
-        var match = false;
-        for (var i = 0; i < this.statements.length; i++){
-            var equal = true;
-            for (j = 0; j < this.venns[i][0].length; j++){
-                if (this.vennDiagram.shaded[j] != this.venns[i][0][j]){ 
-                    equal = false;
-                    break;
-                }
-            }
-            if (equal == true){
-                var s = "premise " + String(i+1);
-                alert(s);
-                match = true;
-                break;
-            }
-        }
-        if (match == false){
-            $("#venn-wrong").show();
-        } else{
-            $("#venn-wrong").hide();
+    var match = true;
+    for (j = 0; j < this.venns[this.currPremise][0].length; j++){
+        if (this.vennDiagram.shaded[j] != this.venns[this.currPremise][0][j]){ 
+            match = false;
+            break;
         }
     }
+    if (match){
+        $("#venn-wrong").hide();
+        this.statements[this.currPremise].removeArrow();
+        this.currPremise++;
+        if(this.currPremise >= this.statements.length){
+            $('#venn-right').show();
+            $('#vennCheckButton').hide();
+            this.showConclusion();
+        } else{
+            this.statements[this.currPremise].addArrow();
+        }
+    } else{
+        $("#venn-wrong").show();
+    }
+}
+
+Problem.prototype.showConclusion = function(){
+
+}
 
 //Convert problem skeleton and category names into grammatical premises
 //Create Statement objects with grammatical premises

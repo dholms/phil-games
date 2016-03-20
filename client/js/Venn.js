@@ -1,15 +1,15 @@
-var Venn = function(x, y, r){
+var Venn = function(x, y, r, categories){
+	this.categories = categories;
 	this.shaded=[false, false, false, false, false, false, false];
 	this.marked=[false, false, false, false, false, false, false, false, false, false];
 	this.params = Venn.params;
 	this.params.r = r;
 	this.params.c1.x = x+r;
-	this.params.c1.y = y+r;
+	this.params.c1.y = y+r+20;
 	this.params.c2.x = x+2*r;
-	this.params.c2.y = y+r;
+	this.params.c2.y = y+r+20;
 	this.params.c3.x = x+1.5*r;
-	this.params.c3.y = y+2*r;
-	// this.drawVenn();
+	this.params.c3.y = y+2*r+24;
 	this.isActive = false;
 	canvas.addEventListener('mousedown', this.processClick.bind(this), false)
 	$(canvas).bind('contextmenu', function(e){
@@ -60,21 +60,39 @@ Venn.prototype.getMarked = function(){
 
 //draw outlines of Venn diagram circles
 Venn.prototype.drawVenn = function(){
-	this.drawCircle("c1");
-	this.drawCircle("c2");
-	this.drawCircle("c3");
+	this.drawCircle(1);
+	this.drawCircle(2);
+	this.drawCircle(3);
 };
 
 //draw a specific circle
 //circle: (string) name of circle to show ie "c1"
 //return: nothing
 Venn.prototype.drawCircle = function(circle){
+	var circleName = "c" + circle;
 	var r = this.params.r;
-	var circ = this.params[circle];
+	var circ = this.params[circleName];
 	ctx.beginPath();
 	ctx.arc(circ.x,circ.y,r,0,2*Math.PI);
 	ctx.stroke();
 	ctx.stroke();
+
+	ctx.font = "16pt Arial";
+	ctx.textAlign = "center";
+	var x = circ.x;
+	var y = circ.y;
+	if(circle == 3){
+		y += Venn.params.r + 16;
+	} else{
+		y -= Venn.params.r + 8;
+		if(circle == 1){
+			x -= 8;
+		} else{
+			x += 8;
+		}
+	}
+
+	ctx.fillText(this.categories[circle-1], x, y)
 }
 
 Venn.prototype.processClick = function(e){
@@ -122,7 +140,7 @@ Venn.prototype.toggleShading = function(cell){
 //return: nothing
 Venn.prototype.shade = function(cell){
 	this.shaded[cell] = true;
-	this.fill(cell, "#FF0000");
+	this.fill(cell, "#F44336");
 }
 
 //clears the specified cell
@@ -130,7 +148,7 @@ Venn.prototype.shade = function(cell){
 //return: nothing
 Venn.prototype.clear = function(cell){
 	this.shaded[cell] = false;
-	this.fill(cell, "#FFFFFF");
+	this.fill(cell, "#FAFAFA");
 }
 
 //determines whether a value is in the given circle
@@ -179,7 +197,7 @@ Venn.prototype.toggleMark = function(cell){
 //return: nothing
 Venn.prototype.unmark = function(cell){
 	this.marked[cell] = false;
-	this.mark(cell, "#000000");
+	this.fill(cell, "#FAFAFA");
 }
 
 //marks the specified cell
@@ -187,7 +205,7 @@ Venn.prototype.unmark = function(cell){
 //return: nothing
 Venn.prototype.markup = function(cell){
 	this.marked[cell] = true;
-	this.mark(cell, "#0000FF");
+	this.fill(cell, "#1976D2");
 }
 
 //color the border and mark with an X the given cell
@@ -197,7 +215,6 @@ Venn.prototype.mark = function(cell, color){
 	ctx.strokeStyle = color;
 	this.trace(cell);
 	ctx.stroke();
-	console.log(cell);
 }
 
 //fill in the given cell

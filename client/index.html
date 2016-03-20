@@ -21,19 +21,12 @@
 				<h1>Philosophy Games</h1>
 			</div>
 			<div class="col-md-3">
-				<button class="btn btn-default" data-toggle="modal" data-target="#scoreModal">View Score</button>
+				<button class="btn btn-primary" data-toggle="modal" data-target="#scoreModal">View Score</button>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="statements"></div>
-			</div>
-			<div class="col-md-6">
-				<canvas id="c" height = "300px" width = "500px"></canvas>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6">
 				<button id = "catCheckButton" class="btn btn-primary check">Check Category</button>
 				<div class="alerts">
 					<div class="alert alert-success" id="statements-right" role="alert">
@@ -44,7 +37,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-6">				
+				<canvas id="c" height = "300px" width = "500px"></canvas>
 				<button id = "vennCheckButton" class="btn btn-primary check">Check Venn</button>
 				<div class="alerts">
 					<div class="alert alert-success" id="venn-right" role="alert">

@@ -8,6 +8,17 @@ var Statement = function(text) {
 	$('.statements').append(this.element);
 };
 
+Statement.prototype.addArrow = function(){
+	this.element.addClass('highlighted');
+	var arrow = $('<div class="arrow-left"></div>')
+	this.element.append(arrow);
+}
+
+Statement.prototype.removeArrow = function(){
+	this.element.removeClass('highlighted');
+	this.element.find(".arrow-left").remove();
+}
+
 //Creates the statements element with children elements of type span.word for each word in the statement
 //text: (string) the text of the statement
 //return: (div.statements) the "statements" element
@@ -80,7 +91,7 @@ Statement.prototype.removeWord = function(word){
 	if(this.isHighlighted(word)){
 		$(word).removeClass(this.color);
 		var text = word.innerHTML;
-		this.currentWords.splice(this.currentWords.indexOf(word), 1);
+		this.currentWords.splice(this.currentWords.indexOf(text), 1);
 	}
 }
 
