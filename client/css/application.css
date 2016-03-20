@@ -9,6 +9,10 @@
 	user-select: none;
 }
 
+#conclusion-container{
+	font-size: 36pt;
+	margin-top: 32px;
+}
 
 .highlighted{
 	background-color: #FFF59D;
@@ -56,4 +60,8 @@ body{
 
 .btn-default{
 	background-color: #1976D2;
+}
+
+#conclusion-container{
+	display: none;
 }

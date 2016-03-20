@@ -50,6 +50,10 @@ Venn.prototype.activate = function(){
 	this.isActive = true;
 }
 
+Venn.prototype.deactivate = function(){
+	this.isActive = false;
+}
+
 Venn.prototype.getShaded = function(){
 	return this.shaded;
 }

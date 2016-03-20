@@ -4,9 +4,14 @@ var Statement = function(text) {
 	this.category = 1;
 	this.currentWords = [];
 	this.currentlyHighlighting = false;
+	this.isActive = true;
 	this.element = this.createElement(text);
 	$('.statements').append(this.element);
 };
+
+Statement.prototype.deactivate = function(){
+	this.isActive = false;
+}
 
 Statement.prototype.addArrow = function(){
 	this.element.addClass('highlighted');
@@ -64,10 +69,12 @@ Statement.prototype.addWordListeners = function(word){
 //e: (event) event associated with click/mouseover
 //return: nothing
 Statement.prototype.toggleWord = function(e){
-	if(this.currentlyHighlighting){
-		this.addWord(e.currentTarget);
-	} else{
-		this.removeWord(e.currentTarget);
+	if(this.isActive){
+		if(this.currentlyHighlighting){
+			this.addWord(e.currentTarget);
+		} else{
+			this.removeWord(e.currentTarget);
+		}
 	}
 }
 

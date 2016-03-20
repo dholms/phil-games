@@ -9,12 +9,10 @@
     this.createVenns(this.statementList);
     this.statements = [];
     this.vennDiagram = new Venn(5, 5, 80, this.categories);
-    var self = this;
     this.createStatements();
     this.currPremise = 0;
-    // this.vennDiagram.drawVenn();
-    // this.vennDiagram.activate();
-    // this.statements[this.currPremise].addArrow();
+    this.conclusion = problem.conclusion
+    var self = this;
 
     //attach listeners to buttons and enter key
     $('#vennCheckButton').click(this.checkVenn.bind(this));
@@ -55,7 +53,11 @@ Problem.prototype.checkCategories = function(){
     if(correct){
         this.currCategory++;
         for(var i=0; i < this.statements.length; i++){
-            this.statements[i].incrCategory();
+            if(this.currCategory >= 3){
+                this.statements[i].deactivate();
+            } else{
+                this.statements[i].incrCategory();
+            }
         }
         this.vennDiagram.drawCircle(this.currCategory);
         $(".alert").hide();
@@ -79,7 +81,7 @@ Problem.prototype.startVenn = function(){
 //output premise matched
 Problem.prototype.checkVenn = function(){
     var match = true;
-    for (j = 0; j < this.venns[this.currPremise][0].length; j++){
+    for (var j = 0; j < this.venns[this.currPremise][0].length; j++){
         if (this.vennDiagram.shaded[j] != this.venns[this.currPremise][0][j]){ 
             match = false;
             break;
@@ -92,6 +94,7 @@ Problem.prototype.checkVenn = function(){
         if(this.currPremise >= this.statements.length){
             $('#venn-right').show();
             $('#vennCheckButton').hide();
+            this.vennDiagram.deactivate();
             this.showConclusion();
         } else{
             this.statements[this.currPremise].addArrow();
@@ -101,16 +104,28 @@ Problem.prototype.checkVenn = function(){
     }
 }
 
-Problem.prototype.showConclusion = function(){
+Problem.prototype.replaceCategories = function(s){
+    var statement = s;
+    statement = statement.replace("1", this.categories[0]);
+    statement = statement.replace("2", this.categories[1]);
+    statement = statement.replace("3", this.categories[2]);
+    return statement;
+}
 
+Problem.prototype.showConclusion = function(){
+    $('#conclusion-container').show();
+    var conclusion = this.replaceCategories(this.conclusion);
+    $('#conclusion').append(conclusion);
 }
 
 //Convert problem skeleton and category names into grammatical premises
 //Create Statement objects with grammatical premises
 //Currently passes hardcoded premises
 Problem.prototype.createStatements = function(){
-    this.statements.push(new Statement("No cows are mammals"));
-    this.statements.push(new Statement("No mammals are nice"));
+    for(var i = 0; i < this.statementList.length; i++){
+        var statement = this.replaceCategories(this.statementList[i]);
+        this.statements.push(new Statement(statement));
+    }
 };
 
 //outputs venn diagram arrays via alert
