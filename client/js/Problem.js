@@ -16,6 +16,14 @@
 
     //attach listeners to buttons and enter key
     $('#vennCheckButton').click(this.checkVenn.bind(this));
+    $('#validButton').click(function(){
+        var correct = self.evaluateConclusion();
+        alert(correct);
+    });
+    $('#invalidButton').click(function(){
+        var correct = !(self.evaluateConclusion());
+        alert(correct);
+    });
     $('#vennCheckButton').hide();
     $('#catCheckButton').click(this.checkCategories.bind(this));
     $(document).keydown(function(e){
@@ -139,6 +147,210 @@ Problem.prototype.spit = function(){
     alert(this.vennDiagram.shaded);
     alert(this.vennDiagram.marked);
 };
+
+
+Problem.prototype.evaluateConclusion = function(){
+    var splicedCon = this.conclusion.split(" ");
+    var opp = splicedCon[0];
+    splicedCon.splice(0,1);
+    var firstCat = splicedCon[0];
+    var firstNegated = false;
+    if (firstCat == "not"){
+        firstCat = splicedCon[1];
+        firstNegated = true;
+        splicedCon.splice(0,1);
+    }
+    splicedCon.splice(0,2);
+    var secondCat = splicedCon[0];
+    var secondNegated = false;
+    if (secondCat == "not"){
+        secondCat = splicedCon[1];
+        secondNegated = true;
+        splicedCon.splice(0,1);
+    }
+
+    var A,B,C,AB,BC,AC,ABC;
+    ABC = 6;
+    if (firstCat == 1){
+        A = 0;
+        BC = 5;
+        if (secondCat == 2){
+            B = 1;
+            AB = 3;
+            C = 2;
+            AC = 4;
+        }
+        else{
+            B = 2;
+            C = 1;
+            AB = 4;
+            AC = 3;   
+        }
+    } 
+    else if (firstCat == 2){
+        A = 1;
+        BC = 4;
+        if (secondCat == 1){
+            B = 0;
+            AB = 3;
+            C = 2;
+            AC = 5;
+        }
+        else{
+            B = 2;
+            C = 0;
+            AB = 5;
+            AC = 3;   
+        }
+        
+    }
+    else if (firstCat == 3){
+        A = 2;
+        BC = 3;
+        if (secondCat == 2){
+            B = 1;
+            AB = 5;
+            C = 0;
+            AC = 4;
+        }
+        else{
+            B = 0;
+            C = 1;
+            AB = 4;
+            AC = 5;   
+        }
+    }
+
+    switch(opp){
+        case "all":
+            if (firstNegated){
+                //shade B, BC
+                if (secondNegated){
+                    if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[BC] == true){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+
+                }
+                //shade C
+                else{
+                    if (this.vennDiagram.shaded[C] == true){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }     
+                }
+            }
+            else{
+                //shade AB, ABC
+                if (secondNegated){
+                    if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[ABC] == true){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                //shade A, AC
+                else{
+                    if (this.vennDiagram.shaded[A] == true && this.vennDiagram.selected[AC] == true){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+            }
+        break;
+        case "some":
+            if (firstNegated){
+                //select C
+                if (secondNegated){
+                    if (this.vennDiagram.selected[C] == true){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }                   
+                }
+                //select B, BC
+                else{
+                    if (this.vennDiagram.selected[B] == true && this.vennDiagram.selected[BC] == true){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }     
+                }
+            }
+            else{
+                //select A, AC
+                if (secondNegated){
+                    if (this.vennDiagram.selected[A] == true && this.vennDiagram.selected[AC] == true){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                //select AB, ABC
+                else{
+                    if (this.vennDiagram.selected[AB] == true && this.vennDiagram.selected[ABC] == true){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+            }
+        break;
+        case "no":
+            if (firstNegated){
+                //shade C
+                if (secondNegated){
+                    if (this.vennDiagram.shaded[C] == true){
+                       return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                //shade BC, B
+                else{
+                    if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[BC] == true){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }   
+                }
+            }
+            else{
+                //shade A, AC
+                if (secondNegated){
+                    if (this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[AC] == true){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                //shade AB, ABC
+                else{
+                    if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[ABC] == true){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+            }
+        break;
+    }
+}
      
 //creates lists of shaded/selected at each premise stage
 //should be called in constructor
@@ -190,14 +402,6 @@ Problem.prototype.createVenns = function(states){
            }
         }
         
-        //check
-        /*
-        alert(opp);
-        alert(firstCat);
-        alert(secondCat);
-        alert(secondOpp);
-        alert(thirdCat);
-        */
 
         //Define segments of the venn diagram
         var A,B,C,AB,BC,AC,ABC;
@@ -337,8 +541,9 @@ Problem.prototype.createVenns = function(states){
                         //shade A, select AB, ABC
                         else{
                             newVennShade[A] = true;
-                            newVennSelect[AB] = true;
-                            newVennSelect[ABC] = true;
+                            newVennShade[AC] = true;
+                            //newVennSelect[AB] = true;
+                            //newVennSelect[ABC] = true;
                         }
                     }
                 }
