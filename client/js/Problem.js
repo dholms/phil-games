@@ -95,6 +95,14 @@ Problem.prototype.checkVenn = function(){
             break;
         }
     }
+    for (var j = 0; j < this.venns[this.currPremise][1].length; j++){
+        if (this.vennDiagram.marked[j] != this.venns[this.currPremise][1][j]){ 
+            match = false;
+            break;
+        }
+    }
+
+
     if (match){
         $("#venn-wrong").hide();
         this.statements[this.currPremise].removeArrow();
@@ -404,7 +412,7 @@ Problem.prototype.createVenns = function(states){
         
 
         //Define segments of the venn diagram
-        var A,B,C,AB,BC,AC,ABC;
+        var A,B,C,AB,BC,AC,ABC,AABB,AACC,BBCC;
         ABC = 6;
         if (firstCat == 1){
             A = 0;
@@ -412,8 +420,10 @@ Problem.prototype.createVenns = function(states){
             if (secondCat == 2){
                 B = 1;
                 AB = 3;
+                AABB = 7;
                 C = 2;
                 AC = 4;
+                AACC = 8;
             }
             else{
                 B = 2;
@@ -421,6 +431,9 @@ Problem.prototype.createVenns = function(states){
                 AB = 4;
                 AC = 3;   
             }
+            BBCC = BC + 4;
+            AABB = AB + 4;
+            AACC = AC + 4;
         } 
         else if (firstCat == 2){
             A = 1;
@@ -437,11 +450,15 @@ Problem.prototype.createVenns = function(states){
                 AB = 5;
                 AC = 3;   
             }
+            BBCC = BC + 4;
+            AABB = AB + 4;
+            AACC = AC + 4;
         
         }
         else if (firstCat == 3){
             A = 2;
             BC = 3;
+            BBCC = 7;
             if (secondCat == 2){
                 B = 1;
                 AB = 5;
@@ -454,6 +471,9 @@ Problem.prototype.createVenns = function(states){
                 AB = 4;
                 AC = 5;   
             }
+            BBCC = BC + 4;
+            AABB = AB + 4;
+            AACC = AC + 4;
         }
         
         
@@ -615,8 +635,8 @@ Problem.prototype.createVenns = function(states){
                         }
                         //select AB, ABC
                         else{
-                            newVennSelect[AB] = true;
-                            newVennSelect[ABC] = true;
+                            newVennSelect[AABB] = true;
+                            //newVennSelect[ABC] = true;
                         }
                     }
                 }
