@@ -158,30 +158,6 @@ Problem.prototype.spit = function(){
 
 
 //determines whether a double select can be resolved to a single select (via shading the other half)
-/*
-Problem.prototype.resolveDoubleSelect = function(segment, venn){
-    switch(segment){
-        case 3:
-            if (venn[1][7] == true && venn[0][6] == true) return true;
-            return false;
-        break;
-        case 4:
-            if (venn[1][8] == true && venn[0][6] == true) return true;
-            return false;
-        break;
-        case 5:
-            if (venn[1][9] == true && venn[0][6] == true) return true;
-            return false;
-        break;
-        case 6:
-            if (venn[1][7] == true && venn[0][3] == true) return true;
-            if (venn[1][8] == true && venn[0][4] == true) return true;
-            if (venn[1][9] == true && venn[0][5] == true) return true;
-            return false;
-        break;
-    }
-    return false;
-}*/
 
 Problem.prototype.evaluateConclusion = function(){
     
@@ -233,6 +209,9 @@ Problem.prototype.evaluateConclusion = function(){
             AB = 4;
             AC = 3;   
         }
+    BBCC = BC + 4;
+    AABB = AB + 4;
+    AACC = AC + 4;        
     } 
     else if (firstCat == 2){
         A = 1;
@@ -249,7 +228,9 @@ Problem.prototype.evaluateConclusion = function(){
             AB = 5;
             AC = 3;   
         }
-        
+    BBCC = BC + 4;
+    AABB = AB + 4;
+    AACC = AC + 4;         
     }
     else if (firstCat == 3){
         A = 2;
@@ -266,6 +247,9 @@ Problem.prototype.evaluateConclusion = function(){
             AB = 4;
             AC = 5;   
         }
+    BBCC = BC + 4;
+    AABB = AB + 4;
+    AACC = AC + 4; 
     }
 
     switch(opp){
@@ -404,7 +388,7 @@ Problem.prototype.evaluateConclusion = function(){
                                 }
                                 //select AC
                                 else{
-                                    if (this.vennDiagram.marked[AC] == true){
+                                    if (this.vennDiagram.marked[AC] == true || (this.vennDiagram.marked[AACC] && this.vennDiagram.shaded[ABC])){
                                         return true;
                                     }
                                     return false;
@@ -413,7 +397,7 @@ Problem.prototype.evaluateConclusion = function(){
                             else{
                                 //select AB
                                 if (thirdNegated){
-                                    if (this.vennDiagram.marked[AB] == true){
+                                    if (this.vennDiagram.marked[AB] == true || (this.vennDiagram.marked[AABB] && this.vennDiagram.shaded[ABC])){
                                         return true;
                                     }
                                     return false;
@@ -421,6 +405,15 @@ Problem.prototype.evaluateConclusion = function(){
                                 //select ABC
                                 else{
                                     if (this.vennDiagram.marked[ABC] == true){
+                                        return true;
+                                    }
+                                    else if (this.vennDiagram.marked[AABB] && this.vennDiagram.shaded[AB]){
+                                        return true;
+                                    }
+                                    else if (this.vennDiagram.marked[AACC] && this.vennDiagram.shaded[AC]){
+                                        return true;
+                                    }
+                                    else if (this.vennDiagram.marked[BBCC] && this.vennDiagram.shaded[BC]){
                                         return true;
                                     }
                                     return false;
@@ -501,6 +494,9 @@ Problem.prototype.evaluateConclusion = function(){
                     //select AB, ABC
                     else{
                         if (this.vennDiagram.marked[AB] == true && this.vennDiagram.marked[ABC] == true){
+                            return true;
+                        }
+                        else if (thiss.vennDiagram.marked[AABB] == true){
                             return true;
                         }
                         else{
