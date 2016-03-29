@@ -2,21 +2,24 @@
  * Creates Venn diagrams in the form of two boolean arrays from premise statments
  */
  var Problem = function(problem){
-    this.categories = problem.categories;
+    this.categories = [];
+    for(var i = 0; i < problem.categories.length; i++){
+        this.categories.push(problem.categories[i].plural);
+    }
     this.currCategory = 0;
-    this.statementList = problem.statementList;
+    this.premises = problem.premises;
     this.venns = [];
-    this.createVenns(this.statementList);
+    this.createVenns(this.premises);
     this.statements = [];
     this.vennDiagram = new Venn(5, 5, 80, this.categories);
     this.createStatements();
     this.currPremise = 0;
-    this.conclusion = problem.conclusion
+    this.conclusion = problem.conclusion;
     var self = this;
 
     //attach listeners to buttons and enter key
     $('#vennCheckButton').click(this.checkVenn.bind(this));
-    $('#vennCheckButton').hide();
+    $('#catCheckButton').show();
     $('#catCheckButton').click(this.checkCategories.bind(this));
     $(document).keydown(function(e){
         console.log();
@@ -122,8 +125,8 @@ Problem.prototype.showConclusion = function(){
 //Create Statement objects with grammatical premises
 //Currently passes hardcoded premises
 Problem.prototype.createStatements = function(){
-    for(var i = 0; i < this.statementList.length; i++){
-        var statement = this.replaceCategories(this.statementList[i]);
+    for(var i = 0; i < this.premises.length; i++){
+        var statement = this.replaceCategories(this.premises[i]);
         this.statements.push(new Statement(statement));
     }
 };

@@ -11,6 +11,7 @@
 	<script type="text/javascript" src="js/Venn.js"></script>
 	<script type="text/javascript" src="js/Statement.js"></script>
 	<script type="text/javascript" src="js/Problem.js"></script>
+	<script type="text/javascript" src="js/User.js"></script>
 	<script type="text/javascript" src="js/application.js"></script>
 	
 </head>
@@ -19,9 +20,6 @@
 		<div class="row">
 			<div class="col-md-9">
 				<h1><u>Philosophy Games</u></h1>
-			</div>
-			<div class="col-md-3">
-				<button class="btn btn-primary" data-toggle="modal" data-target="#scoreModal">View Score</button>
 			</div>
 		</div>
 		<div class="row">
@@ -43,7 +41,7 @@
 					<button class="btn btn-danger">Not Valid</button>
 				</div>
 			</div>
-			<div class="col-md-6">				
+			<div class="col-md-4">				
 				<canvas id="c" height = "300px" width = "500px"></canvas>
 				<button id = "vennCheckButton" class="btn btn-primary check">Check Venn</button>
 				<div class="alerts">
@@ -55,22 +53,21 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-md-2 panel">
+				<div class="panel">
+					<div class="panel-heading"><h3>Score: </h3></div>
+					<div class="panel-body">
+						Categories Correct:<br>
+						Categories Wrong:<br>
+						Venn Correct:<br>
+						Venn Wrong:<br>
+						Conclusion Correct:<br>
+						Conclusion Incorrect:<br>
+
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">User's score</h4>
-	      </div>
-	      <div class="modal-body">
-	        <p>Number correct:</p>
-	        <p>Number wrong:</p>
-	        <p>Total Percentage: </p>
-	      </div>
-	    </div>
-	  </div>
 	</div>
 </body>
 </html>
