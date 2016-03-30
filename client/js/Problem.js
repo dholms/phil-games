@@ -21,14 +21,8 @@
     //attach listeners to buttons and enter key
     $('#vennCheckButton').click(this.checkVenn.bind(this));
     $('#catCheckButton').show();
-    $('#validButton').click(function(){
-        var correct = self.evaluateConclusion();
-        alert(correct);
-    });
-    $('#invalidButton').click(function(){
-        var correct = !(self.evaluateConclusion());
-        alert(correct);
-    });
+    $('#validButton').click(self.checkConclusion.bind(self));
+    $('#invalidButton').click(self.checkConclusion.bind(self));
     $('#catCheckButton').click(this.checkCategories.bind(this));
     $(document).keydown(function(e){
         console.log();
@@ -38,6 +32,17 @@
         }
     });
 };
+
+Problem.prototype.checkConclusion = function(){
+    var correct = this.evaluateConclusion();
+    $('#conclusion-buttons').hide();
+    $('#newProblemButton').show();
+    if(correct){
+        $("#conclusion-right").show();
+    } else{
+        $("#conclusion-wrong").show();
+    }
+}
 
 //Handles enter key press and calls the correct checking method
 Problem.prototype.submit = function(){

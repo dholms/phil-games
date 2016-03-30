@@ -1,7 +1,8 @@
 var Venn = function(x, y, r, categories){
 	this.categories = categories;
+	this.currentlySelecting = [];
 	this.shaded=[false, false, false, false, false, false, false];
-	this.marked=[false, false, false, false, false, false, false, false, false, false];
+	this.marked=[0, 0, 0, 0, 0, 0, 0];
 	this.params = Venn.params;
 	this.params.r = r;
 	this.params.c1.x = x+r;
@@ -12,6 +13,9 @@ var Venn = function(x, y, r, categories){
 	this.params.c3.y = y+2*r+24;
 	this.isActive = false;
 	canvas.addEventListener('mousedown', this.processClick.bind(this), false)
+	canvas.addEventListener('mouseup', this.mouseUp.bind(this), false)
+	canvas.addEventListener('mousemove', this.mouseOver.bind(this), false)
+
 	$(canvas).bind('contextmenu', function(e){
     	return false;
 	}); 
@@ -26,23 +30,23 @@ Venn.params={
 		c21: 5*Math.PI/3,
 		c22: Math.PI/3,
 		c31: 2*Math.PI/3,
-		c32: Math.PI/24
+		c32: Math.PI/18
 	},
 	c2: {
 		x: 192,
 		y: 128,
 		c11: 4*Math.PI/3,
 		c12: 2*Math.PI/3,
-		c31: 23*Math.PI/24,
+		c31: 17*Math.PI/18,
 		c32: Math.PI/3
 	},
 	c3: {
 		x: 160,
 		y: 192,
-		c11: 25*Math.PI/24,
+		c11: 19*Math.PI/18,
 		c12: 5*Math.PI/3,
 		c21: 4*Math.PI/3,
-		c22: 47*Math.PI/24
+		c22: 35*Math.PI/18
 	}
 };
 
@@ -102,57 +106,65 @@ Venn.prototype.drawCircle = function(circle){
 Venn.prototype.processClick = function(e){
 	e.preventDefault();
 	if(this.isActive){
-		var totalOffsetX = 0;
-	    var totalOffsetY = 0;
-	    var currentElement = canvas;
-	    do{
-	        totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
-	        totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
-	    }
-	    while(currentElement = currentElement.offsetParent)
-
-		var x = e.pageX-totalOffsetX;
-	    var y = e.pageY-totalOffsetY;
-
-	    var cell = this.findCell(x, y);
+	    var cell = this.findCell(e);
 	    if(e.which === 1){
-	    	this.toggleMark(cell);
+	    	this.currentlySelecting = [cell];
 	    }
 	    if(e.which === 3){
-	    	this.toggleShading(cell);
+	    	this.shaded[cell] = !this.shaded[cell];
+	    	this.marked[cell] = 0;
+	    	this.colorVenn();
 	    }
 	}
 }
 
-//switches the shading of the specified cell
-//cell: (int from 0-6) cell to be toggled
-//return: nothing
-Venn.prototype.toggleShading = function(cell){
-	if(cell < 0 || cell >6){
-		return;
+Venn.prototype.mouseOver = function(e){
+	e.preventDefault();
+	if(this.isActive && e.buttons === 1){
+		var cell = this.findCell(e);
+		if(!this.isCurrentlySelecting(cell) ){
+			this.currentlySelecting.push(cell);
+		}
 	}
-    if(this.shaded[cell]){
-    	this.clear(cell);
-    } else{
-    	this.unmark(cell);
-    	this.shade(cell);
-    }
 }
 
-//shades the specified cell
-//cell: (int from 0-6) cell to be shaded
-//return: nothing
-Venn.prototype.shade = function(cell){
-	this.shaded[cell] = true;
-	this.fill(cell, "#F44336");
+Venn.prototype.mouseUp = function(e){
+	e.preventDefault();
+	if(this.isActive){
+		if(this.currentlySelecting.length === 1){
+			var cell = this.currentlySelecting[0];
+			if(this.marked[cell] !== 0){
+				this.marked[cell] = 0;
+			} else{
+				this.markSelected();
+			}
+		} else{
+			this.markSelected();
+		}
+		this.currentlySelecting = [];
+	}
+	this.colorVenn();
 }
 
-//clears the specified cell
-//cell: (int from 0-6) cell to be cleared
-//return: nothing
-Venn.prototype.clear = function(cell){
-	this.shaded[cell] = false;
-	this.fill(cell, "#FAFAFA");
+Venn.prototype.markSelected = function(){
+	var max = 0;
+	for(var i = 0; i < this.marked.length; i++){
+		max = Math.max(max, this.marked[i])
+	}
+	for(var i = 0; i < this.currentlySelecting.length; i++){
+		var index = this.currentlySelecting[i];
+		this.marked[index] = max+1;
+		this.shaded[index] = false;
+	}
+}
+
+Venn.prototype.isCurrentlySelecting = function(cell){
+	for(var i = 0; i < this.currentlySelecting.length; i++){
+		if(this.currentlySelecting[i] === cell){
+			return true;
+		}
+	}
+	return false;
 }
 
 //determines whether a value is in the given circle
@@ -167,7 +179,19 @@ Venn.prototype.inCircle = function(x, y, circ){
 //finds the cell that the user clicked in
 //x: (int) x coordinate of click, y: (int) y coordinate of click
 //return: (int from -1-6) the number of the cell that the user clicked (-1 corresponds to no cell)
-Venn.prototype.findCell = function(x, y){
+Venn.prototype.findCell = function(e){
+	var totalOffsetX = 0;
+    var totalOffsetY = 0;
+    var currentElement = canvas;
+    do{
+        totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
+        totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
+    }
+    while(currentElement = currentElement.offsetParent)
+
+	var x = e.pageX-totalOffsetX;
+    var y = e.pageY-totalOffsetY;
+
 	var c1 = this.inCircle(x, y, "c1");
 	var c2 = this.inCircle(x, y, "c2");
 	var c3 = this.inCircle(x, y, "c3");
@@ -181,56 +205,85 @@ Venn.prototype.findCell = function(x, y){
 	if(c1 && c2 && c3){return 6;}
 }
 
-//switches the markup of the specified cell
-//cell: (int from 0-6) cell to be toggled
-//return: nothing
-Venn.prototype.toggleMark = function(cell){
-	if(cell < 0 || cell > 6){
-		return;
-	}
-	if(this.marked[cell]){
-		this.unmark(cell);
-	} else{
-		this.clear(cell);
-		this.markup(cell);
-	}
-}
-
-//removes marking the specified cell
-//cell: (int from 0-6) cell to be unmarked
-//return: nothing
-Venn.prototype.unmark = function(cell){
-	this.marked[cell] = false;
-	this.fill(cell, "#FAFAFA");
-}
-
-//marks the specified cell
-//cell: (int from 0-6) cell to be marked
-//return: nothing
-Venn.prototype.markup = function(cell){
-	this.marked[cell] = true;
-	this.fill(cell, "#1976D2");
-}
-
-//color the border and mark with an X the given cell
-//cell: (integer from 0-6) cell to be marked, color: (string) hex value of color for border
-//return: nothign
-Venn.prototype.mark = function(cell, color){
-	ctx.strokeStyle = color;
-	this.trace(cell);
-	ctx.stroke();
-}
-
 //fill in the given cell
 //cell: (integer from 0-6) cell to be colored, color: (string) hex value of color for fill
 //return: nothing
 Venn.prototype.fill = function(cell, color){
+	ctx.beginPath();
 	ctx.fillStyle=color;
-	ctx.strokeStyle="#000000";
+	ctx.strokeStyle=color;
 	this.trace(cell);
 	ctx.fill();
 	ctx.stroke();
 }
+
+Venn.prototype.drawArc = function(circ, start, end, cc){
+	ctx.beginPath();
+	ctx.strokeStyle="#000000";
+	this.arc(circ, start, end, cc);
+	ctx.stroke();
+	ctx.stroke();
+}
+
+Venn.prototype.colorVenn = function(){
+	for(var i = 0; i < this.shaded.length; i++){
+		if(this.shaded[i]){
+			this.fill(i, "red");
+		} else if(this.marked[i]){
+			this.fill(i, "blue");
+		} else{
+			this.fill(i, "white");
+		}
+	}
+	if(!this.sameMark(0,3)){
+		this.drawArc("c2", "c31", "c11", false);
+	}
+	if(!this.sameMark(0,4)){
+		this.drawArc("c3", "c11", "c21", false);
+	}
+	if(!this.sameMark(1,3)){
+		this.drawArc("c1", "c21", "c32", false);
+	}
+	if(!this.sameMark(1,5)){
+		this.drawArc("c3", "c12", "c22", false);
+	}
+	if(!this.sameMark(2,4)){
+		this.drawArc("c1", "c22", "c31", false);
+	}
+	if(!this.sameMark(2,5)){
+		this.drawArc("c2", "c32", "c12", false);
+	}
+	if(!this.sameMark(3,6)){
+		this.drawArc("c3", "c21", "c12", false);
+	}
+	if(!this.sameMark(4,6)){
+		this.drawArc("c2", "c12", "c31", false);
+	}
+	if(!this.sameMark(5,6)){
+		this.drawArc("c1", "c32", "c22", false);
+	}
+
+
+	this.drawBorder();
+}
+
+Venn.prototype.sameMark = function(i, j){
+	if(this.marked[i] === 0 || this.marked[j] ===0){
+		return false;
+	}
+	return (this.marked[i] === this.marked[j]);
+}
+
+Venn.prototype.drawBorder = function(){
+	ctx.beginPath();
+	ctx.strokeStyle="#000000";
+	this.arc("c1", "c31", "c21", false);
+	this.arc("c2", "c11", "c32", false);
+	this.arc("c3", "c22", "c11", false);
+	ctx.stroke();
+	ctx.stroke();
+}
+
 
 //ctx traces path around the given cell
 //cell: (integer from 0-6) cell to be traced around
@@ -282,4 +335,60 @@ Venn.prototype.trace = function(cell){
 Venn.prototype.arc = function(circ, start, end, cc){
 	var circle = this.params[circ];
 	ctx.arc(circle.x, circle.y, this.params.r, circle[start], circle[end], cc);
+}
+
+//shades the specified cell
+//cell: (int from 0-6) cell to be shaded
+//return: nothing
+Venn.prototype.shade = function(cell){
+	this.shaded[cell] = true;
+	this.fill(cell, "#F44336");
+}
+
+//clears the specified cell
+//cell: (int from 0-6) cell to be cleared
+//return: nothing
+Venn.prototype.clear = function(cell){
+	this.shaded[cell] = false;
+	this.fill(cell, "#FAFAFA");
+}
+
+//switches the markup of the specified cell
+//cell: (int from 0-6) cell to be toggled
+//return: nothing
+Venn.prototype.toggleMark = function(cell){
+	if(cell < 0 || cell > 6){
+		return;
+	}
+	if(this.marked[cell]){
+		this.unmark(cell);
+	} else{
+		this.clear(cell);
+		this.markup(cell);
+	}
+}
+
+//removes marking the specified cell
+//cell: (int from 0-6) cell to be unmarked
+//return: nothing
+Venn.prototype.unmark = function(cell){
+	this.marked[cell] = false;
+	this.fill(cell, "#FAFAFA");
+}
+
+//marks the specified cell
+//cell: (int from 0-6) cell to be marked
+//return: nothing
+Venn.prototype.markup = function(cell){
+	this.marked[cell] = true;
+	this.fill(cell, "#1976D2");
+}
+
+//color the border and mark with an X the given cell
+//cell: (integer from 0-6) cell to be marked, color: (string) hex value of color for border
+//return: nothign
+Venn.prototype.mark = function(cell, color){
+	ctx.strokeStyle = color;
+	this.trace(cell);
+	ctx.stroke();
 }

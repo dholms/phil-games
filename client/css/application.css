@@ -41,9 +41,13 @@ body, html{
 	border-right: 2px black;
 }
 
-#conclusion-container{
+#conclusion{
 	font-size: 36pt;
 	margin-top: 32px;
+}
+
+#newProblemButton {
+	display: none;
 }
 
 .check{
