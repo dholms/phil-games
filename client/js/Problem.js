@@ -1,7 +1,8 @@
 /* 
  * Creates Venn diagrams in the form of two boolean arrays from premise statments
  */
- var Problem = function(problem){
+ var Problem = function(problem, user){
+    this.user = user;
     this.categories = [];
     for(var i = 0; i < problem.categories.length; i++){
         this.categories.push(problem.categories[i].plural);

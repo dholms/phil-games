@@ -1,7 +1,19 @@
-var User = function(name, password) {
+var User = function(name, pid, isAdmin) {
 	this.name = name;
-	this.password = password;
+	this.pid = pid;
 	this.problem;
+	this.loggedIn = false;
+	if(this.name && this.pid){
+		this.loggedIn = true;
+	}
+}
+
+User.prototype.login = function(){
+	//if no user, then do nothing
+	if(!this.loggedIn){
+		return;
+	}
+	$('.panel-body').html("<i>Welcome " + this.name + "!</i>");
 }
 
 User.prototype.getProblem = function(){
@@ -18,7 +30,7 @@ User.prototype.getProblem = function(){
 				premises: premises,
 				conclusion: conclusion
 			}
-			this.problem = new Problem(problemJSON);
+			this.problem = new Problem(problemJSON, this);
 		},
 		error: function(errors) {
 			console.log(errors);
