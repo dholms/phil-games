@@ -15,13 +15,13 @@ Statement.prototype.deactivate = function(){
 
 Statement.prototype.addArrow = function(){
 	this.element.addClass('highlighted');
-	var arrow = $('<div class="arrow-left"></div>')
+	var arrow = $('<div class="arrow-right"></div>')
 	this.element.append(arrow);
 }
 
 Statement.prototype.removeArrow = function(){
 	this.element.removeClass('highlighted');
-	this.element.find(".arrow-left").remove();
+	this.element.find(".arrow-right").remove();
 }
 
 //Creates the statements element with children elements of type span.word for each word in the statement
