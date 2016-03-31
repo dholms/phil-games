@@ -8,10 +8,10 @@
         this.categories.push(problem.categories[i].plural);
     }
     this.currCategory = 0;
+    this.selectedCategories = [];
     this.premises = problem.premises;
     this.venns = [];
     this.createVenns(this.premises);
-    //this.spit();
     this.statements = [];
     this.vennDiagram = new Venn(5, 5, 80, this.categories);
     this.createStatements();
@@ -57,7 +57,7 @@ Problem.prototype.checkValid = function(){
 
 //Handles enter key press and calls the correct checking method
 Problem.prototype.submit = function(){
-    if (this.currCategory >= 3){
+    if (this.selectedCategories.length >= 3){
         this.checkVenn();
     } else{
         this.checkCategories();
@@ -67,29 +67,39 @@ Problem.prototype.submit = function(){
 //function called while drawing venn from selected categories
 //currently draws unconditionally
 Problem.prototype.checkCategories = function(){
-    if(this.currCategory >= 3){
+    if(this.selectedCategories.length >= 3){
         return;
     }
-    var category = this.categories[this.currCategory];
-    var correct = true;
-    for(var i =0; i < this.statements.length; i++){
-        if(!this.statements[i].isHighlightedCorrectly(category)){
-            correct = false;
+    var correct = false;
+    for(var i = 0; i < this.categories.length; i++){
+        var category = this.categories[i];
+        var match = true;
+        for(var j = 0; j < this.statements.length; j++){
+            if(!this.statements[j].isHighlightedCorrectly(category)){
+                match = false;
+                break;
+            }
+        }
+        if(match && this.selectedCategories.indexOf(category) < 0){
+            correct = true;
+            this.selectedCategories.push(category);
+            break;
         }
     }
-
+    var catNum = this.selectedCategories.length;
     if(correct){
-        this.currCategory++;
         for(var i=0; i < this.statements.length; i++){
-            if(this.currCategory >= 3){
+            if(catNum >= 3){
                 this.statements[i].deactivate();
             } else{
                 this.statements[i].incrCategory();
             }
         }
-        this.vennDiagram.drawCircle(this.currCategory);
+        var lastCat = this.selectedCategories[catNum-1];
+        var toDraw = this.categories.indexOf(lastCat) + 1;
+        this.vennDiagram.drawCircle(toDraw);
         $(".alert").hide();
-        if(this.currCategory >= 3){
+        if(catNum >= 3){
             this.startVenn();
         }
     } else{

@@ -14,7 +14,7 @@ var Venn = function(x, y, r, categories){
 	this.isActive = false;
 	canvas.addEventListener('mousedown', this.processClick.bind(this), false)
 	canvas.addEventListener('mouseup', this.mouseUp.bind(this), false)
-	canvas.addEventListener('mousemove', this.mouseOver.bind(this), false)
+	canvas.addEventListener('mousemove', this.mouseMove.bind(this), false)
 
 	$(canvas).bind('contextmenu', function(e){
     	return false;
@@ -118,7 +118,7 @@ Venn.prototype.processClick = function(e){
 	}
 }
 
-Venn.prototype.mouseOver = function(e){
+Venn.prototype.mouseMove = function(e){
 	e.preventDefault();
 	if(this.isActive && e.buttons === 1){
 		var cell = this.findCell(e);
@@ -142,8 +142,8 @@ Venn.prototype.mouseUp = function(e){
 			this.markSelected();
 		}
 		this.currentlySelecting = [];
+		this.colorVenn();
 	}
-	this.colorVenn();
 }
 
 Venn.prototype.markSelected = function(){

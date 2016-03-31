@@ -21,7 +21,6 @@ $(document).ready(function(){
 		conclusion: "some 3 are 1"
 	}
 	var problem = new Problem(userJson, user);
-	// user.getProblem();
 });
 
 var getUrlParameter = function(sParam) {
