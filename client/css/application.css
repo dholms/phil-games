@@ -22,6 +22,7 @@
 .panel{
 	height: 100%;
 	min-height: 100%;
+	background-color: #F0F0F0;
 }
 
 body, html{
@@ -103,7 +104,7 @@ body, html{
 }
 
 body{
-	background-color: #FAFAFA;
+	background-color: white;
 }
 
 .btn-default{

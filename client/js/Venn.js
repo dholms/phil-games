@@ -228,9 +228,9 @@ Venn.prototype.drawArc = function(circ, start, end, cc){
 Venn.prototype.colorVenn = function(){
 	for(var i = 0; i < this.shaded.length; i++){
 		if(this.shaded[i]){
-			this.fill(i, "red");
+			this.fill(i, "#FF5722");
 		} else if(this.marked[i]){
-			this.fill(i, "blue");
+			this.fill(i, "#1976D2");
 		} else{
 			this.fill(i, "white");
 		}
