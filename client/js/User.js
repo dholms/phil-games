@@ -18,7 +18,7 @@ User.prototype.login = function(){
 
 User.prototype.getProblem = function(){
 	$.ajax({
-		url: dbUrl,
+		url: dbUrl + "problem/",
 		type: 'GET',
 		success: function(response) {
 			var categories = response.categories.slice(0,3);
@@ -36,6 +36,20 @@ User.prototype.getProblem = function(){
 			console.log(errors);
 		}
 	});
+}
+
+User.prototype.getUser = function(){
+	$.ajax({
+		url:dbUrl + "user/",
+		type: "GET",
+		data:{user_id: this.pid, name: this.name},
+		success: function(response){
+			console.log(response);
+		},
+		error: function(errors){
+			console.log(errors);
+		}
+	})
 }
 
 User.prototype.addToDB = function(){

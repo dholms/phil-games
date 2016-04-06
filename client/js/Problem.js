@@ -25,6 +25,7 @@
     $('#validButton').click(self.checkValid.bind(self));
     $('#invalidButton').click(self.checkInvalid.bind(self));
     $('#catCheckButton').click(this.checkCategories.bind(this));
+    $('#vennRevertButton').click(this.revertVenn.bind(self));
     $(document).keydown(function(e){
         console.log();
         var key = e.which || e.keyCode;
@@ -112,7 +113,13 @@ Problem.prototype.startVenn = function(){
     $("#statements-right").show();
     this.statements[this.currPremise].addArrow();
     $('#vennCheckButton').show();
+    $('#vennRevertButton').show();
     $('#catCheckButton').hide();
+}
+
+Problem.prototype.revertVenn = function(){
+    this.vennDiagram.revertMarkup();
+    this.vennDiagram.colorVenn();
 }
 
 //check if current user venn matches markup of any premise
@@ -143,12 +150,15 @@ Problem.prototype.checkVenn = function(){
 
 
     if (match){
+        $("#vennRevertButton").html('Revert');
         $("#venn-wrong").hide();
+        this.vennDiagram.saveMarkup();
         this.statements[this.currPremise].removeArrow();
         this.currPremise++;
         if(this.currPremise >= this.statements.length){
             $('#venn-right').show();
             $('#vennCheckButton').hide();
+            $("#vennRevertButton").hide();
             this.vennDiagram.deactivate();
             this.showConclusion();
         } else{

@@ -1,6 +1,6 @@
 var canvas;
 var ctx;
-var dbUrl = "http://philgames-neta.apps.unc.edu/problem/";
+var dbUrl = "http://philgames-neta.apps.unc.edu/";
 
 $(document).ready(function(){
 	canvas = document.getElementById("c");
@@ -15,6 +15,7 @@ $(document).ready(function(){
 	} else{
 		user = new User();
 	}
+	
 	var userJson = {
 		categories: [{plural:'cats'}, {plural:'dogs'}, {plural:'rain'}],
 		premises: ["some not 2 are 3", "no 1 are 3 and not 2", "all 3 are not 1"],

@@ -3,6 +3,10 @@ var Venn = function(x, y, r, categories){
 	this.currentlySelecting = [];
 	this.shaded=[false, false, false, false, false, false, false];
 	this.marked=[0, 0, 0, 0, 0, 0, 0];
+	this.lastMarkup={
+		shaded: [false, false, false, false, false, false, false],
+		marked: [0, 0, 0, 0, 0, 0, 0]
+	};
 	this.params = Venn.params;
 	this.params.r = r;
 	this.params.c1.x = x+r;
@@ -49,6 +53,26 @@ Venn.params={
 		c22: 35*Math.PI/18
 	}
 };
+
+Venn.prototype.saveMarkup = function(){
+	this.lastMarkup = {
+		shaded: [],
+		marked: []
+	}
+	for(var i = 0; i < this.shaded.length; i++){
+		this.lastMarkup.shaded.push(this.shaded[i]);
+		this.lastMarkup.marked.push(this.marked[i]);
+	}
+}
+
+Venn.prototype.revertMarkup = function(){
+	this.shaded = [];
+	this.marked = [];
+	for(var i = 0; i < this.lastMarkup.shaded.length; i++){
+		this.shaded.push(this.lastMarkup.shaded[i]);
+		this.marked.push(this.lastMarkup.marked[i]);
+	}
+}
 
 Venn.prototype.activate = function(){
 	this.isActive = true;
