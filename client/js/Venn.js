@@ -131,10 +131,10 @@ Venn.prototype.processClick = function(e){
 	e.preventDefault();
 	if(this.isActive){
 	    var cell = this.findCell(e);
-	    if(e.which === 1){
+	    if(e.which === 1 && !e.shiftKey){
 	    	this.currentlySelecting = [cell];
 	    }
-	    if(e.which === 3){
+	    if(e.which === 3 || (e.which === 1 && e.shiftKey)){
 	    	this.shaded[cell] = !this.shaded[cell];
 	    	this.marked[cell] = 0;
 	    	this.colorVenn();
