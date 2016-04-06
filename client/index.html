@@ -36,17 +36,16 @@
 	<div class="main">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<h1><u>Philosophy Games</u></h1>
-				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-7">
+					<h2>Premises: </h2>
 					<div class="statements"></div>
 					<button id = "catCheckButton" class="btn btn-primary check">Check Category</button>
 					<div class="alerts">
 						<div class="alert alert-success" id="statements-right" role="alert">
 							<strong>Well done!</strong> You successfully marked up the categories.
+						</div>
+						<div class="alert alert-warning" id="statements-missed" role="alert">
+							<strong>Oops!</strong> You missed a category in one of the premises.
 						</div>
 						<div class="alert alert-danger" id="statements-wrong" role="alert">
 							<strong>Oops!</strong> You didn't highlight the current category correctly.

@@ -72,17 +72,26 @@ Problem.prototype.checkCategories = function(){
         return;
     }
     var correct = false;
+    var correctCat = -1;
+    var missed;
     for(var i = 0; i < this.categories.length; i++){
         var category = this.categories[i];
         var match = true;
+        missed = false;
         for(var j = 0; j < this.statements.length; j++){
-            if(!this.statements[j].isHighlightedCorrectly(category)){
+            var highlight = this.statements[j].isHighlightedCorrectly(category);
+            if(highlight===0){
                 match = false;
                 break;
+            } else if(highlight===1){
+                missed = true;
+            } else{
+
             }
         }
-        if(match && this.selectedCategories.indexOf(category) < 0){
+        if(match && this.selectedCategories.indexOf(category) < 0 && !missed){
             correct = true;
+            correctCat = i;
             this.selectedCategories.push(category);
             break;
         }
@@ -104,7 +113,13 @@ Problem.prototype.checkCategories = function(){
             this.startVenn();
         }
     } else{
-        $("#statements-wrong").show();
+        if(missed){
+            $("#statements-wrong").hide();
+            $("#statements-missed").show();
+        } else{
+            $("#statements-wrong").show();
+            $("#statements-missed").hide();
+        }
     }
 }
 
