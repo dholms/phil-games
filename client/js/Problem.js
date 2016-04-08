@@ -336,70 +336,142 @@ Problem.prototype.evaluateConclusion = function(){
                 if (thirdCat!=null){
                     switch(secondOpp){
                         case "and":
-                            if (secondNegated){
-                                //shade AB, AC, ABC
-                                if (thirdNegated){
-                                    if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true && this.vennDiagram.shaded[ABC] == true){
-                                        return true;
+                            if (firstNegated){
+                                if (secondNegated){
+                                    //shade B, C, BC
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[C] == true && this.vennDiagram.shaded[BC] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade B, BC
+                                    else{
+                                        if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[BC] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
-                                //shade A, AB, ABC
                                 else{
-                                    if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[ABC] == true){
-                                        return true;
+                                    //shade C, BC
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[C] == true && this.vennDiagram.shaded[BC] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade B, C
+                                    else{
+                                        if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[C] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
                             }
                             else{
-                                //shade A, AC, ABC
-                                if (thirdNegated){
-                                    if (this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[AC] == true && this.vennDiagram.shaded[ABC] == true){
-                                        return true;
+                                if (secondNegated){
+                                    //shade AB, AC, ABC
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true && this.vennDiagram.shaded[ABC] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade A, AB, ABC
+                                    else{
+                                        if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[ABC] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
-                                //shade A, AB, AC
                                 else{
-                                    if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true && this.vennDiagram.shaded[A] == true){
-                                        return true;
+                                    //shade A, AC, ABC
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[AC] == true && this.vennDiagram.shaded[ABC] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade A, AB, AC
+                                    else{
+                                        if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true && this.vennDiagram.shaded[A] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
                             }
                         break;
                         case "or":
-                            if (secondNegated){
-                                //shade A, ABC
-                                if (thirdNegated){
-                                    if (this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[ABC] == true){
-                                        return true;
+                            if (firstNegated){
+                                if (secondNegated){
+                                    //shade BC
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[BC] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade B, C
+                                    else{
+                                        if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[C] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
-                                //shade AC, AB
                                 else{
-                                    if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true){
-                                        return true;
+                                    //shade B, C
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[C] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade BC
+                                    else{
+                                        if (this.vennDiagram.shaded[BC] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
                             }
                             else{
-                                //shade AB, AC
-                                if (thirdNegated){
-                                    if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true){
-                                        return true;
+                                if (secondNegated){
+                                    //shade A, ABC
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[ABC] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade AC, AB
+                                    else{
+                                        if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
-                                //shade A, ABC
                                 else{
-                                    if (this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[ABC] == true){
-                                        return true;
+                                    //shade AB, AC
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade A, ABC
+                                    else{
+                                        if (this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[ABC] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
                             }
                         break;  
@@ -456,26 +528,52 @@ Problem.prototype.evaluateConclusion = function(){
                     
                     switch(secondOpp){
                         case "and":
-                            if (secondNegated){
-                                
-                                //select A
-                                if (thirdNegated){
-                                    return this.checkSelected(this.vennDiagram.marked, A, null);
-                                }
+                            if (firstNegated){
+                                if (secondNegated){
+                                    
+                                    //impossible
+                                    if (thirdNegated){
+                                        return false;
+                                    }
 
-                                //select AC
+                                    //select C
+                                    else{
+                                        return this.checkSelected(this.vennDiagram.marked, C, null);
+                                    }
+                                }
                                 else{
-                                    return this.checkSelected(this.vennDiagram.marked, AC, null);
+                                    //select B
+                                    if (thirdNegated){
+                                        return this.checkSelected(this.vennDiagram.marked, B, null);
+                                    }
+                                    //select BC
+                                    else{
+                                        return this.checkSelected(this.vennDiagram.marked, BC, null);
+                                    }
                                 }
                             }
                             else{
-                                //select AB
-                                if (thirdNegated){
-                                    return this.checkSelected(this.vennDiagram.marked, AB, null);
+                                if (secondNegated){
+                                    
+                                    //select A
+                                    if (thirdNegated){
+                                        return this.checkSelected(this.vennDiagram.marked, A, null);
+                                    }
+
+                                    //select AC
+                                    else{
+                                        return this.checkSelected(this.vennDiagram.marked, AC, null);
+                                    }
                                 }
-                                //select ABC
                                 else{
-                                    return this.checkSelected(this.vennDiagram.marked, ABC, null);
+                                    //select AB
+                                    if (thirdNegated){
+                                        return this.checkSelected(this.vennDiagram.marked, AB, null);
+                                    }
+                                    //select ABC
+                                    else{
+                                        return this.checkSelected(this.vennDiagram.marked, ABC, null);
+                                    }
                                 }
                             }
                         break;
@@ -535,70 +633,139 @@ Problem.prototype.evaluateConclusion = function(){
                 if (thirdCat!=null){
                     switch(secondOpp){
                         case "and":
-                            if (secondNegated){
-                                //shade A
-                                if (thirdNegated){
-                                    if (this.vennDiagram.shaded[A] == true){
-                                        return true;
+                            if (firstNegated){
+                                if (secondNegated){
+                                    //Impossible
+                                    if (thirdNegated){
+                                        return false;
                                     }
-                                    return false;
+                                    //shade C
+                                    else{
+                                        if (this.vennDiagram.shaded[C] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
-                                //shade AC
                                 else{
-                                    if (this.vennDiagram.shaded[AC] == true){
-                                        return true;
+                                    //shade B
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[B] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade BC
+                                    else{
+                                        if (this.vennDiagram.shaded[BC] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
                             }
                             else{
-                                //shade AB
-                                if (thirdNegated){
-                                    if (this.vennDiagram.shaded[AB] == true){
-                                        return true;
+                                if (secondNegated){
+                                    //shade A
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[A] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade AC
+                                    else{
+                                        if (this.vennDiagram.shaded[AC] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
-                                //shade ABC
                                 else{
-                                    if (this.vennDiagram.shaded[ABC] == true){
-                                        return true;
+                                    //shade AB
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[AB] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade ABC
+                                    else{
+                                        if (this.vennDiagram.shaded[ABC] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
                             }
                         break;
                         case "or":
-                            if (secondNegated){
-                                //shade AB, AC
-                                if (thirdNegated){
-                                    if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true){
-                                        return true;
+                            if (firstNegated){
+                                if (secondNegated){
+                                    //shade B, C
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[C] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade BC
+                                    else{
+                                        if (this.vennDiagram.shaded[BC] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
-                                //shade ABC, A
                                 else{
-                                    if (this.vennDiagram.shaded[ABC] == true && this.vennDiagram.shaded[A] == true){
-                                        return true;
+                                    //shade BC
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[BC] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade B, C
+                                    else{
+                                        if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[C] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
                             }
                             else{
-                                //shade ABC, A
-                                if (thirdNegated){
-                                    if (this.vennDiagram.shaded[ABC] == true && this.vennDiagram.shaded[A] == true){
-                                        return true;
+                                if (secondNegated){
+                                    //shade AB, AC
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade ABC, A
+                                    else{
+                                        if (this.vennDiagram.shaded[ABC] == true && this.vennDiagram.shaded[A] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
-                                //shade AB, AC
                                 else{
-                                    if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true){
-                                        return true;
+                                    //shade ABC, A
+                                    if (thirdNegated){
+                                        if (this.vennDiagram.shaded[ABC] == true && this.vennDiagram.shaded[A] == true){
+                                            return true;
+                                        }
+                                        return false;
                                     }
-                                    return false;
+                                    //shade AB, AC
+                                    else{
+                                        if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true){
+                                            return true;
+                                        }
+                                        return false;
+                                    }
                                 }
                             }
                         break;  
@@ -769,61 +936,117 @@ Problem.prototype.createVenns = function(states){
                 if (thirdCat!=null){
                     switch(secondOpp){
                         case "and":
-                            if (secondNegated){
-                                
-                                //shade AB, AC, ABC
-                                if (thirdNegated){
-                                    newVennShade[AB] = true;
-                                    newVennShade[AC] = true;
-                                    newVennShade[ABC] = true;
+                            if (firstNegated){
+                                if (secondNegated){
+                                    
+                                    //shade B, C, BC
+                                    if (thirdNegated){
+                                        newVennShade[B] = true;
+                                        newVennShade[C] = true;
+                                        newVennShade[BC] = true;
+                                    }
+                                    //shade B, BC
+                                    else{
+                                        newVennShade[B] = true;
+                                        newVennShade[BC] = true;
+                                    }
                                 }
-                                //shade A, AB, ABC
                                 else{
-                                    newVennShade[A] = true;
-                                    newVennShade[AB] = true;
-                                    newVennShade[ABC] = true;
+                                    //shade C, BC
+                                    if (thirdNegated){
+                                        newVennShade[C] = true;
+                                        newVennShade[BC] = true;
+                                    }
+                                    //shade B, C
+                                    else{
+                                        newVennShade[B] = true;
+                                        newVennShade[C] = true;
+                                    }
                                 }
                             }
                             else{
-                                //shade A, AC, ABC
-                                if (thirdNegated){
-                                    newVennShade[A] = true;
-                                    newVennShade[AC] = true;
-                                    newVennShade[ABC] = true;
+                                if (secondNegated){
+                                    
+                                    //shade AB, AC, ABC
+                                    if (thirdNegated){
+                                        newVennShade[AB] = true;
+                                        newVennShade[AC] = true;
+                                        newVennShade[ABC] = true;
+                                    }
+                                    //shade A, AB, ABC
+                                    else{
+                                        newVennShade[A] = true;
+                                        newVennShade[AB] = true;
+                                        newVennShade[ABC] = true;
+                                    }
                                 }
-                                //shade A, AB, AC
                                 else{
-                                    newVennShade[A] = true;
-                                    newVennShade[AB] = true;
-                                    newVennShade[AC] = true;
+                                    //shade A, AC, ABC
+                                    if (thirdNegated){
+                                        newVennShade[A] = true;
+                                        newVennShade[AC] = true;
+                                        newVennShade[ABC] = true;
+                                    }
+                                    //shade A, AB, AC
+                                    else{
+                                        newVennShade[A] = true;
+                                        newVennShade[AB] = true;
+                                        newVennShade[AC] = true;
+                                    }
                                 }
                             }
                         break;
                         case "or":
-                            if (secondNegated){
-                                //shade A, ABC
-                                if (thirdNegated){
-                                    newVennShade[A] = true;
-                                    newVennShade[ABC] = true;
+                            if (firstNegated){
+                                if (secondNegated){
+                                    //shade BC
+                                    if (thirdNegated){
+                                        newVennShade[BC] = true;
+                                    }
+                                    //shade B, C
+                                    else{
+                                        newVennShade[C] = true;
+                                        newVennShade[B] = true;
+                                    }
                                 }
-                                //shade AC, AB
                                 else{
-                                    newVennShade[AC] = true;
-                                    newVennShade[AB] = true;
+                                    //shade B, C
+                                    if (thirdNegated){
+                                        newVennShade[C] = true;
+                                        newVennShade[B] = true;
+                                    }
+                                    //shade BC
+                                    else{
+                                        newVennShade[BC] = true;
+                                    }
                                 }
                             }
                             else{
-                                //shade AC, AB
-                                if (thirdNegated){
-                                    newVennShade[AC] = true;
-                                    newVennShade[AB] = true;
+                                if (secondNegated){
+                                    //shade A, ABC
+                                    if (thirdNegated){
+                                        newVennShade[A] = true;
+                                        newVennShade[ABC] = true;
+                                    }
+                                    //shade AC, AB
+                                    else{
+                                        newVennShade[AC] = true;
+                                        newVennShade[AB] = true;
+                                    }
                                 }
-                                //shade A, ABC
                                 else{
-                                    newVennShade[A] = true;
-                                    newVennShade[ABC] = true;
+                                    //shade AC, AB
+                                    if (thirdNegated){
+                                        newVennShade[AC] = true;
+                                        newVennShade[AB] = true;
+                                    }
+                                    //shade A, ABC
+                                    else{
+                                        newVennShade[A] = true;
+                                        newVennShade[ABC] = true;
+                                    }
                                 }
-                            }
+                            }  
                         break;  
                     }
                 }
@@ -859,43 +1082,101 @@ Problem.prototype.createVenns = function(states){
                 if (thirdCat!=null){
                     switch(secondOpp){
                         case "and":
-                            if (secondNegated){
-                                if (thirdNegated){
-                                    newVennSelect[A] = newVal;
+                            if (firstNegated){
+                                if (secondNegated){
+                                    //do nothing
+                                    if (thirdNegated){
+                                       
+                                    }
+                                    //select C
+                                    else{
+                                        newVennSelect[C] = newVal;
+                                    }
                                 }
                                 else{
-                                    newVennSelect[AC] = newVal;
+                                    //select B
+                                    if (thirdNegated){
+                                        newVennSelect[B] = newVal;
+                                    }
+                                    //select BC
+                                    else{
+                                        newVennSelect[BC] = newVal;
+                                    }
                                 }
                             }
                             else{
-                                if (thirdNegated){
-                                    newVennSelect[AB] = newVal;
+                                if (secondNegated){
+                                    //select A
+                                    if (thirdNegated){
+                                        newVennSelect[A] = newVal;
+                                    }
+                                    //select AC
+                                    else{
+                                        newVennSelect[AC] = newVal;
+                                    }
                                 }
                                 else{
-                                    newVennSelect[ABC] = newVal;
+                                    //select AB
+                                    if (thirdNegated){
+                                        newVennSelect[AB] = newVal;
+                                    }
+                                    //select ABC
+                                    else{
+                                        newVennSelect[ABC] = newVal;
+                                    }
                                 }
                             }
                         break;
                         
                         case "or":
-                            if (secondNegated){
-                                if (thirdNegated){
-                                    newVennSelect[AB] = newVal;
-                                    newVennSelect[AC] = newVal;
+                            if (firstNegated){
+                                if (secondNegated){
+                                    //select B, C
+                                    if (thirdNegated){
+                                        newVennSelect[B] = newVal;
+                                        newVennSelect[C] = newVal;
+                                    }
+                                    //select BC
+                                    else{
+                                        newVennSelect[BC] = newVal;
+                                    }
                                 }
                                 else{
-                                    newVennSelect[ABC] = newVal;
-                                    newVennSelect[A] = newVal;
+                                    //select BC
+                                    if (thirdNegated){
+                                        newVennSelect[BC] = newVal;
+                                    }
+                                    //select B, C
+                                    else{
+                                        newVennSelect[B] = newVal;
+                                        newVennSelect[C] = newVal;
+                                    }
                                 }
                             }
                             else{
-                                if (thirdNegated){
-                                    newVennSelect[ABC] = newVal;
-                                    newVennSelect[A] = newVal;
+                                if (secondNegated){
+                                    //select AB, AC
+                                    if (thirdNegated){
+                                        newVennSelect[AB] = newVal;
+                                        newVennSelect[AC] = newVal;
+                                    }
+                                    //select ABC, A
+                                    else{
+                                        newVennSelect[ABC] = newVal;
+                                        newVennSelect[A] = newVal;
+                                    }
                                 }
                                 else{
-                                    newVennSelect[AB] = newVal;
-                                    newVennSelect[AC] = newVal;
+                                    //select ABC, A
+                                    if (thirdNegated){
+                                        newVennSelect[ABC] = newVal;
+                                        newVennSelect[A] = newVal;
+                                    }
+                                    //select AB, AC
+                                    else{
+                                        newVennSelect[AB] = newVal;
+                                        newVennSelect[AC] = newVal;
+                                    }
                                 }
                             }
                         break;  
@@ -917,8 +1198,8 @@ Problem.prototype.createVenns = function(states){
                     else{
                         //select A, AC
                         if (secondNegated){
-                        newVennSelect[A] = newVal;
-                        newVennSelect[AC] = newVal;     
+                            newVennSelect[A] = newVal;
+                            newVennSelect[AC] = newVal;     
                         }
                         //select AB, ABC
                         else{
@@ -932,43 +1213,101 @@ Problem.prototype.createVenns = function(states){
                 if (thirdCat!=null){
                     switch(secondOpp){
                         case "and":
-                            if (secondNegated){
-                                if (thirdNegated){
-                                    newVennShade[A] = true;
+                            if (firstNegated){
+                                if (secondNegated){
+                                    //always true
+                                    if (thirdNegated){
+                                        return true;
+                                    }
+                                    //shade C
+                                    else{
+                                        newVennShade[C] = true;
+                                    }
                                 }
                                 else{
-                                    newVennShade[AC] = true;
+                                    //shade B
+                                    if (thirdNegated){
+                                        newVennShade[B] = true;
+                                    }
+                                    //shade BC
+                                    else{
+                                        newVennShade[BC] = true;
+                                    }
                                 }
                             }
                             else{
-                                if (thirdNegated){
-                                    newVennShade[AB] = true;
+                                if (secondNegated){
+                                    //shade A
+                                    if (thirdNegated){
+                                        newVennShade[A] = true;
+                                    }
+                                    //shade AC
+                                    else{
+                                        newVennShade[AC] = true;
+                                    }
                                 }
                                 else{
-                                    newVennShade[ABC] = true;
+                                    //shade AB
+                                    if (thirdNegated){
+                                        newVennShade[AB] = true;
+                                    }
+                                    //shade ABC
+                                    else{
+                                        newVennShade[ABC] = true;
+                                    }
                                 }
                             }
                         break;
                         
                         case "or":
-                            if (secondNegated){
-                                if (thirdNegated){
-                                    newVennShade[AB] = true;
-                                    newVennShade[AC] = true;
+                            if (firstNegated){
+                                if (secondNegated){
+                                    //shade B, C
+                                    if (thirdNegated){
+                                        newVennShade[B] = true;
+                                        newVennShade[C] = true;
+                                    }
+                                    //shade BC
+                                    else{
+                                        newVennShade[BC] = true;
+                                    }
                                 }
                                 else{
-                                    newVennShade[ABC] = true;
-                                    newVennShade[A] = true;
+                                    //shade BC
+                                    if (thirdNegated){
+                                        newVennShade[BC] = true;
+                                    }
+                                    //shade B, C
+                                    else{
+                                        newVennShade[B] = true;
+                                        newVennShade[C] = true;
+                                    }
                                 }
                             }
                             else{
-                                if (thirdNegated){
-                                    newVennShade[ABC] = true;
-                                    newVennShade[A] = true;
+                                if (secondNegated){
+                                    //shade AB, AC
+                                    if (thirdNegated){
+                                        newVennShade[AB] = true;
+                                        newVennShade[AC] = true;
+                                    }
+                                    //shade ABC, A
+                                    else{
+                                        newVennShade[ABC] = true;
+                                        newVennShade[A] = true;
+                                    }
                                 }
                                 else{
-                                    newVennShade[AB] = true;
-                                    newVennShade[AC] = true;
+                                    //shade ABC, A
+                                    if (thirdNegated){
+                                        newVennShade[ABC] = true;
+                                        newVennShade[A] = true;
+                                    }
+                                    //shade AB, AC
+                                    else{
+                                        newVennShade[AB] = true;
+                                        newVennShade[AC] = true;
+                                    }
                                 }
                             }
                         break;  
