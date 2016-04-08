@@ -29,14 +29,17 @@ Statement.prototype.removeArrow = function(){
 //return: (div.statements) the "statements" element
 Statement.prototype.createElement = function(text){
 	var element = $('<div class="statement"></div>')
-	var words = text.split(" ")
+	var words = text.split(/ |-/);
 	for(var i=0; i < words.length; i++){
 		var word = $('<span class="word">'+words[i]+'</span>')
 		this.addWordListeners(word);
 		element.append(word);
 
 		var delimeter;
-		if(i < words.length-1){
+		if (words[i] == "non"){
+			delimeter = $('<span class = "hyphen">-</span>');
+		}
+		else if(i < words.length-1){
 			delimeter = $('<span class="space">&nbsp;</span>');
 			this.addWordListeners(delimeter);
 		}

@@ -204,7 +204,13 @@ Problem.prototype.showConclusion = function(){
 Problem.prototype.createStatements = function(){
     for(var i = 0; i < this.premises.length; i++){
         var statement = this.replaceCategories(this.premises[i]);
-        this.statements.push(new Statement(statement));
+        var spliced = statement.split(" ");
+        if (spliced[1] == "not"){
+            spliced.splice(1,1);
+            spliced[1] = "non-" + spliced[1];
+        }
+        var final = spliced.join(" ");
+        this.statements.push(new Statement(final));
     }
 };
 
