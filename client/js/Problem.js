@@ -223,17 +223,42 @@ Problem.prototype.spit = function(){
 
 Problem.prototype.checkSelected = function(selected, index1, index2){
     var value = selected[index1];
-    if (value <= 0) return false;
     if (index2 == null){
+        if (value <= 0) return false;
         for (var i = 0; i < selected.length; i++){
             if (i != index1 && selected[i] == value) return false;
         }
     }
     else{
         var value2 = selected[index2];
-        if (value2 != value) return false;
-        for (var i = 0; i < selected.length; i++){
-            if (i != index1 &&  i != index2 && selected[i] == value) return false;
+        if (value == value2){
+            if (value == 0) return false;
+            for (var i = 0; i < selected.length; i++){
+                if (i != index1 && i != index2 && selected[i] == value) return false;
+            }
+        }
+        else{
+            if (value == 0){
+                for (var i = 0; i < selected.length; i++){
+                    if (i != index2 && selected[i] == value2) return false;
+                }
+            }
+            else if (value2 == 0){
+                for (var i = 0; i < selected.length; i++){
+                    if (i != index1 && selected[i] == value) return false;
+                }
+            }
+            else{
+                var cushion = true;
+                for (var i = 0; i < selected.length; i++){
+                    if (i != index1 && selected[i] == value) cushion = false;
+                }
+                for (var i = 0; i < selected.length; i++){
+                    if (i != index2 && selected[i] == value2) return cushion;
+                }
+            }
+
+
         }
     }
     return true;
@@ -1353,3 +1378,4 @@ Problem.prototype.createVenns = function(states){
     } 
 
 }
+
