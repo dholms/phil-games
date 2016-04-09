@@ -195,6 +195,12 @@ Problem.prototype.replaceCategories = function(s){
 Problem.prototype.showConclusion = function(){
     $('#conclusion-container').show();
     var conclusion = this.replaceCategories(this.conclusion);
+    var splicedCon = conclusion.split(" ");
+    if (splicedCon[1] == 'not'){
+        splicedCon.splice(1,1);
+        splicedCon[1] = "non-" + splicedCon[1];
+    }
+    conclusion = splicedCon.join(" ");
     $('#conclusion').append(conclusion);
 }
 
@@ -210,6 +216,7 @@ Problem.prototype.createStatements = function(){
             spliced[1] = "non-" + spliced[1];
         }
         var final = spliced.join(" ");
+        //this.statements.push(new Statement(statement));
         this.statements.push(new Statement(final));
     }
 };
@@ -226,7 +233,9 @@ Problem.prototype.spit = function(){
     alert(this.vennDiagram.marked);
 };
 
-
+//determines if 1 or 2 segments passed are selected
+//expects null for index2 if 1 segment desired
+//will return false if selected region is part of multiple select (unless region is segment1+segment2)
 Problem.prototype.checkSelected = function(selected, index1, index2){
     var value = selected[index1];
     if (index2 == null){
@@ -279,6 +288,7 @@ Problem.prototype.maxValue = function(selected){
     return max;
 }
 
+//does a lot of branching 'if' statements to see if conclusion is logically entailed by internal venns
 Problem.prototype.evaluateConclusion = function(){
     var splicedCon = this.conclusion.split(" ");
     var opp = splicedCon[0];
@@ -849,14 +859,14 @@ Problem.prototype.evaluateConclusion = function(){
     
 }
 
-//creates lists of shaded/selected at each premise stage
-//should be called in constructor
-//currently needs a little bit of tightening the logic
 
 
+//does a lot of branching 'if' statements to create internal representations of venn diagrams
+//venns are stored in pairs of arrays corresponding to shaded regions and selected regions
+//venns are created premise by premise
 Problem.prototype.createVenns = function(states){
     
-    //create Venn for each premise
+    //loop for each premise
     var numPremises = states.length;
     for (var i = 0; i < numPremises; i++){
         
@@ -864,7 +874,7 @@ Problem.prototype.createVenns = function(states){
         var newVennShade = [false,false,false,false,false,false,false];
         var newVennSelect = [0,0,0,0,0,0,0];
         
-        //new array builds on previous arrays
+        //new array builds on previous arrays, init to most recent completed premise
         if (i > 0){
             newVennShade = this.venns[i-1][0].slice();
             newVennSelect = this.venns[i-1][1].slice();
@@ -905,7 +915,7 @@ Problem.prototype.createVenns = function(states){
         
         
         //Define segments of the venn diagram
-        var A,B,C,AB,BC,AC,ABC,AABB,AACC,BBCC;
+        var A,B,C,AB,BC,AC,ABC;
         ABC = 6;
         if (firstCat == 1){
             A = 0;
