@@ -1,6 +1,6 @@
 .statement{
 	font-size: 28pt;
-	display: inline-block;
+	display: block;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -9,6 +9,11 @@
 	user-select: none;
 	max-width: 100%;
 	word-wrap: break-word;
+	padding-left: 22px;
+}
+
+.statement > :first-child{
+	margin-left: -22px;
 }
 
 .word{
@@ -72,10 +77,10 @@ body, html{
 	display: inline-block;
 	position: absolute;
 	left: -12px;
-	width: 0; 
-	height: 0; 
+	width: 0;
+	height: 0;
 	border-top: 24px solid transparent;
-	border-bottom: 24px solid transparent; 
+	border-bottom: 24px solid transparent;
 	border-left: 24px solid #1976D2;
 }
 
