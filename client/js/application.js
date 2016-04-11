@@ -15,13 +15,7 @@ $(document).ready(function(){
 	} else{
 		user = new User();
 	}
-
-	var userJson = {
-		categories: [{plural:'cats'}, {plural:'dogs'}, {plural:'rain'}],
-		premises: ["some not 1 are 2", "no 2 are 3"],
-		conclusion: "some not 1 are 3"
-	}
-	var problem = new Problem(userJson, user);
+	user.getProblem();
 });
 
 var getUrlParameter = function(sParam) {

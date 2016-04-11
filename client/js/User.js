@@ -3,6 +3,7 @@ var User = function(name, pid, isAdmin) {
 	this.pid = pid;
 	this.problem;
 	this.loggedIn = false;
+	this.self = this;
 	if(this.name && this.pid){
 		this.loggedIn = true;
 	}
@@ -30,8 +31,12 @@ User.prototype.getProblem = function(){
 				premises: premises,
 				conclusion: conclusion
 			}
+			// if(this.problem){
+			// 	this.problem.tearDown();
+			// }
 			this.problem = new Problem(problemJSON, this);
-		},
+			console.log('here')
+		}.bind(this.self),
 		error: function(errors) {
 			console.log(errors);
 		}

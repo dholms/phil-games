@@ -22,7 +22,7 @@ var Venn = function(x, y, r, categories){
 
 	$(canvas).bind('contextmenu', function(e){
     	return false;
-	}); 
+	});
 }
 
 //coordinates for circles and angles of intersection

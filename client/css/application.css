@@ -61,10 +61,6 @@ body, html{
 	margin-top: 32px;
 }
 
-#newProblemButton {
-	display: none;
-}
-
 .check{
 	display: none;
 }

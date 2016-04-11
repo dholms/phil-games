@@ -94,7 +94,7 @@ Statement.prototype.addWord = function(word){
 	}
 }
 
-//Unhighlights the word and removes it from the list of currently highlighted words. 
+//Unhighlights the word and removes it from the list of currently highlighted words.
 //word: (span.word) element of the word to be removed
 //return: nothing
 Statement.prototype.removeWord = function(word){
@@ -117,7 +117,7 @@ Statement.prototype.incrCategory = function(){
 	this.category++;
 	if(this.category === 2){
 		this.color = "red";
-	} 
+	}
 	if(this.category === 3){
 		this.color = "green";
 	}
