@@ -319,32 +319,47 @@ Problem.prototype.evaluateConclusion = function(){
     splicedCon.splice(0,1);
     var firstCat = splicedCon[0];
     var firstNegated = false;
+    var secondOpp = null;
+    var secondCat = null;
+    var thirdCat = null;
+    var exist = false;
+    var secondNegated = false;
+    var thirdNegated = false;
     if (firstCat == "not"){
         firstCat = splicedCon[1];
         firstNegated = true;
         splicedCon.splice(0,1);
     }
-    splicedCon.splice(0,2);
-    var secondCat = splicedCon[0];
-    var secondNegated = false;
-    if (secondCat == "not"){
-        secondCat = splicedCon[1];
-        secondNegated = true;
-        splicedCon.splice(0,1);
-    }
     splicedCon.splice(0,1);
-    var thirdCat = null;
-    var thirdNegated = false;
-    var secondOpp = null;
-    if (splicedCon.length > 0){
-        secondOpp = splicedCon[0];
-        thirdCat = splicedCon[1];
-        if (thirdCat == "not"){
-            thirdCat = splicedCon[2];
-            thirdNegated = true;
+    if (splicedCon[0] == 'and'){
+        secondOpp = 'and';
+    }
+    if (splicedCon[0] == 'exist'){
+        exist = true
+    }
+    else{
+        splicedCon.splice(0,1);
+        var secondCat = splicedCon[0];
+        if (secondCat == "not"){
+            secondCat = splicedCon[1];
+            secondNegated = true;
+            splicedCon.splice(0,1);
+        }
+        splicedCon.splice(0,1);
+        if (splicedCon.length > 0){
+            if (splicedCon[0] == 'exist'){
+                exist = true;
+            }
+            else{
+                if (secondOpp == null) secondOpp = splicedCon[0];
+                thirdCat = splicedCon[1];
+                if (thirdCat == "not"){
+                    thirdCat = splicedCon[2];
+                    thirdNegated = true;
+                }
+            }
         }
     }
-
     var A,B,C,AB,BC,AC,ABC;
     ABC = 6;
     if (firstCat == 1){
@@ -1117,10 +1132,10 @@ Problem.prototype.createVenns = function(states){
                 }
                 else{
                     if (firstNegated){
-                        //shade BC, ABC
+                        //shade BC, B
                         if (secondNegated){
                             newVennShade[BC] = true;
-                            newVennShade[ABC] = true;
+                            newVennShade[B] = true;
                         }
                         //shade C, AC
                         else{
