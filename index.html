@@ -22,14 +22,19 @@
 				<h3>Progress </h3>
 			</div>
 			<div class="panel-body">
-				<i>Please login to view your progress.</i>
-				<form action="https://onyen.unc.edu/cgi-bin/unc_id/authenticator.pl" name="form1" method="GET">
-					<input type="hidden" name="title" value="Login for Philosophy Games">
-					<input type="hidden" name="getpid" value="pid">
-					<input type="hidden" name="locationpass" value="http://dholms.github.io/phil-games/client/">
-					<input type="hidden" name="locationfail" value="http://dholms.github.io/phil-games/client/">
-					<input class="btn btn-primary" type="submit" name="submit" value="Login">
-				</form>
+				<div class="score-header">
+					<i>Please login to view your progress.</i>
+				</div>
+				<br>
+				<div class="score-body">
+					<form action="https://onyen.unc.edu/cgi-bin/unc_id/authenticator.pl" name="form1" method="GET">
+						<input type="hidden" name="title" value="Login for Philosophy Games">
+						<input type="hidden" name="getpid" value="pid">
+						<input type="hidden" name="locationpass" value="https://dholms.github.io/phil-games/">
+						<input type="hidden" name="locationfail" value="https://dholms.github.io/phil-games/">
+						<input class="btn btn-primary" type="submit" name="submit" value="Login">
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -52,7 +57,7 @@
 						</div>
 					</div>
 					<div id="conclusion-container">
-						<h2>Conclusion:</h2>
+						<hr>
 						<div id="conclusion"></div>
 						<div id="conclusion-buttons">
 							<button id = "validButton" class="btn btn-primary">Valid</button>

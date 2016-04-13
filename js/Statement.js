@@ -35,16 +35,14 @@ Statement.prototype.createElement = function(text){
 		this.addWordListeners(word);
 		element.append(word);
 
-		var delimeter;
+		var delimeter = "";
 		if (words[i] == "non"){
-			delimeter = $('<span class = "hyphen">-</span>');
+			delimeter = $('<span class="space">-</span>');
+			this.addWordListeners(delimeter);
 		}
 		else if(i < words.length-1){
 			delimeter = $('<span class="space">&nbsp;</span>');
 			this.addWordListeners(delimeter);
-		}
-		else{
-			delimeter = ".";
 		}
 		element.append(delimeter);
 	}

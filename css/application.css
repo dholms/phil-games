@@ -12,6 +12,15 @@
 	padding-left: 22px;
 }
 
+hr{
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #333;
+    margin: 1em 0;
+    padding: 0;
+}
+
 .statement > :first-child{
 	margin-left: -22px;
 }

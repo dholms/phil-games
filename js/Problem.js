@@ -2,6 +2,8 @@
  * Creates Venn diagrams in the form of two boolean arrays from premise statments
  */
  var Problem = function(problem, user){
+    this.catRight = true;
+    this.markRight = true;
     this.user = user;
     this.categories = [];
     for(var i = 0; i < problem.categories.length; i++){
@@ -61,8 +63,10 @@ Problem.prototype.checkInvalid = function(){
     $("#conclusion-wrong").hide();
     if(correct){
         $("#conclusion-right").show();
+        this.user.validRight();
     } else{
         $("#conclusion-wrong").show();
+        this.user.validWrong();
     }
 }
 
@@ -74,8 +78,10 @@ Problem.prototype.checkValid = function(){
     $('#newProblemButton').show();
     if(correct){
         $("#conclusion-right").show();
+        this.user.validRight();
     } else{
         $("#conclusion-wrong").show();
+        this.user.validWrong();
     }
 }
 
@@ -142,11 +148,16 @@ Problem.prototype.checkCategories = function(){
         } else{
             $("#statements-wrong").show();
             $("#statements-missed").hide();
+            this.catRight = false;
+            this.user.catWrong();
         }
     }
 }
 
 Problem.prototype.startVenn = function(){
+    if(this.catRight){
+        this.user.catRight();
+    }
     this.vennDiagram.activate();
     $("#statements-right").show();
     this.statements[this.currPremise].addArrow();
@@ -194,6 +205,9 @@ Problem.prototype.checkVenn = function(){
         this.statements[this.currPremise].removeArrow();
         this.currPremise++;
         if(this.currPremise >= this.statements.length){
+            if(this.markRight){
+                this.user.markRight();
+            }
             $('#venn-right').show();
             $('#vennCheckButton').hide();
             $("#vennRevertButton").hide();
@@ -204,6 +218,8 @@ Problem.prototype.checkVenn = function(){
         }
     } else{
         $("#venn-wrong").show();
+        this.markRight = false;
+        this.user.markWrong();
     }
 }
 

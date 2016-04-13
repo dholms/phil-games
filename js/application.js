@@ -9,9 +9,8 @@ $(document).ready(function(){
 	var status = getUrlParameter('status')
 	if(status === 'pass'){
 		var onyen = getUrlParameter('onyen');
-		var pid = getUrlParameter('pid');
-		user = new User(onyen, pid);
-		user.login();
+		var uid = getUrlParameter('uid');
+		user = new User(onyen, uid);
 	} else{
 		user = new User();
 	}
