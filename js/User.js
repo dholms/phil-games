@@ -18,6 +18,9 @@ User.prototype.validRight = function(){this.postScore('validright');}
 User.prototype.validWrong = function(){this.postScore('validwrong');}
 
 User.prototype.postScore = function(param){
+	if(!this.loggedIn)
+		return;
+
 	this.score[param] = this.score[param] + 1;
 	var data = {
 		onyen: this.name,
