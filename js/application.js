@@ -14,7 +14,7 @@ $(document).ready(function(){
 	} else{
 		user = new User();
 	}
-	history.pushState("http://dholms.github.io/phil-games/");
+	history.pushState(null, null, "http://dholms.github.io/phil-games/");
 	user.getProblem();
 });
 
