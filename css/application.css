@@ -12,6 +12,10 @@
 	padding-left: 22px;
 }
 
+h1 > small {
+	color: #484848;
+}
+
 .main{
 	width: 100%;
 	min-height: 90%;
