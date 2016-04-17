@@ -16,74 +16,79 @@
 
 </head>
 <body>
-	<div class="sidebar">
-		<div class="panel">
-			<div class="panel-heading">
-				<h3>Progress </h3>
-			</div>
-			<div class="panel-body">
-				<div class="score-header">
-					<i>Please login to view your progress.</i>
+	<div class="title">
+		<h1>VennD <small>Venn Diagram Exercises for Deductive Logic</small></h1>
+	</div>
+	<div class="main">
+		<div class="sidebar">
+			<div class="panel">
+				<div class="panel-heading">
+					<h3>Progress </h3>
 				</div>
-				<br>
-				<div class="score-body">
-					<form action="https://onyen.unc.edu/cgi-bin/unc_id/authenticator.pl" name="form1" method="GET">
-						<input type="hidden" name="title" value="Login for Philosophy Games">
-						<input type="hidden" name="getpid" value="pid">
-						<input type="hidden" name="locationpass" value="http://dholms.github.io/phil-games/">
-						<input type="hidden" name="locationfail" value="http://dholms.github.io/phil-games/">
-						<input class="btn btn-primary" type="submit" name="submit" value="Login">
-					</form>
+				<div class="panel-body">
+					<div class="score-header">
+						<i>Please login to view your progress.</i>
+					</div>
+					<br>
+					<div class="score-body">
+						<form action="https://onyen.unc.edu/cgi-bin/unc_id/authenticator.pl" name="form1" method="GET">
+							<input type="hidden" name="title" value="Login for Philosophy Games">
+							<input type="hidden" name="getpid" value="pid">
+							<input type="hidden" name="locationpass" value="http://dholms.github.io/phil-games/">
+							<input type="hidden" name="locationfail" value="http://dholms.github.io/phil-games/">
+							<input class="btn btn-primary" type="submit" name="submit" value="Login">
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="main">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-7">
-					<h2>Premises: </h2>
-					<div class="statements"></div>
-					<button id = "catCheckButton" class="btn btn-primary check">Check Category</button>
-					<div class="alerts">
-						<div class="alert alert-success" id="statements-right" role="alert">
-							<strong>Well done!</strong> You successfully marked up the categories.
-						</div>
-						<div class="alert alert-warning" id="statements-missed" role="alert">
-							<strong>Oops!</strong> You missed a category in one of the premises.
-						</div>
-						<div class="alert alert-danger" id="statements-wrong" role="alert">
-							<strong>Oops!</strong> You didn't highlight the current category correctly.
-						</div>
-					</div>
-					<div id="conclusion-container">
-						<hr>
-						<div id="conclusion"></div>
-						<div id="conclusion-buttons">
-							<button id = "validButton" class="btn btn-primary">Valid</button>
-							<button id = "invalidButton" class="btn btn-danger">Not Valid</button>
-						</div>
+		<div class="game">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-7">
+						<h2>Premises: </h2>
+						<div class="statements"></div>
+						<button id = "catCheckButton" class="btn btn-primary check">Check Category</button>
 						<div class="alerts">
-							<div class="alert alert-success" id="conclusion-right" role="alert">
-								<strong>Well done!</strong> You successfully evaluated the conclusion.
+							<div class="alert alert-success" id="statements-right" role="alert">
+								<strong>Well done!</strong> You successfully marked up the categories.
 							</div>
-							<div class="alert alert-danger" id="conclusion-wrong" role="alert">
-								<strong>Oops!</strong> You didn't evaluate the conclusion correctly.
+							<div class="alert alert-warning" id="statements-missed" role="alert">
+								<strong>Oops!</strong> You missed a category in one of the premises.
+							</div>
+							<div class="alert alert-danger" id="statements-wrong" role="alert">
+								<strong>Oops!</strong> You didn't highlight the current category correctly.
 							</div>
 						</div>
-						<button id="newProblemButton" class="check btn btn-primary">New Problem</button>
+						<div id="conclusion-container">
+							<hr>
+							<div id="conclusion"></div>
+							<div id="conclusion-buttons">
+								<button id = "validButton" class="btn btn-primary">Valid</button>
+								<button id = "invalidButton" class="btn btn-danger">Not Valid</button>
+							</div>
+							<div class="alerts">
+								<div class="alert alert-success" id="conclusion-right" role="alert">
+									<strong>Well done!</strong> You successfully evaluated the conclusion.
+								</div>
+								<div class="alert alert-danger" id="conclusion-wrong" role="alert">
+									<strong>Oops!</strong> You didn't evaluate the conclusion correctly.
+								</div>
+							</div>
+							<button id="newProblemButton" class="check btn btn-primary">New Problem</button>
+						</div>
 					</div>
-				</div>
-				<div class="col-md-5" id="venn-container">
-					<canvas id="c" height = "300px" width = "500px"></canvas>
-					<button id = "vennCheckButton" class="btn btn-primary check">Check Venn</button>
-					<button id="vennRevertButton" class="btn btn-primary check">Clear</button>
-					<div class="alerts">
-						<div class="alert alert-success" id="venn-right" role="alert">
-							<strong>Well done!</strong> You successfully marked up the Venn Diagram.
-						</div>
-						<div class="alert alert-danger" id="venn-wrong" role="alert">
-							<strong>Oops!</strong> You didn't mark up that premise correctly.
+					<div class="col-md-5" id="venn-container">
+						<canvas id="c" height = "300px" width = "500px"></canvas>
+						<button id = "vennCheckButton" class="btn btn-primary check">Check Venn</button>
+						<button id="vennRevertButton" class="btn btn-primary check">Clear</button>
+						<div class="alerts">
+							<div class="alert alert-success" id="venn-right" role="alert">
+								<strong>Well done!</strong> You successfully marked up the Venn Diagram.
+							</div>
+							<div class="alert alert-danger" id="venn-wrong" role="alert">
+								<strong>Oops!</strong> You didn't mark up that premise correctly.
+							</div>
 						</div>
 					</div>
 				</div>
