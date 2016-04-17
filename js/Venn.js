@@ -14,7 +14,11 @@ var Venn = function(x, y, r, categories){
 	this.params.c2.x = x+2*r;
 	this.params.c2.y = y+r+20;
 	this.params.c3.x = x+1.5*r;
-	this.params.c3.y = y+2*r+24;
+	this.params.c3.y = y+2*r+20;
+	var img = document.getElementById("pattern");
+	// console.log(img)
+	// img.source = "cross-pattern.jpg";
+	this.markPattern = ctx.createPattern(img, "repeat");
 	this.isActive = false;
 	canvas.addEventListener('mousedown', this.processClick.bind(this), false)
 	canvas.addEventListener('mouseup', this.mouseUp.bind(this), false)
@@ -232,9 +236,13 @@ Venn.prototype.findCell = function(e){
 //fill in the given cell
 //cell: (integer from 0-6) cell to be colored, color: (string) hex value of color for fill
 //return: nothing
-Venn.prototype.fill = function(cell, color){
+Venn.prototype.fill = function(cell, color, pattern){
+	if(pattern){
+		ctx.fillStyle = this.markPattern;
+	} else{
+		ctx.fillStyle=color;
+	}
 	ctx.beginPath();
-	ctx.fillStyle=color;
 	ctx.strokeStyle=color;
 	this.trace(cell);
 	ctx.fill();
@@ -254,7 +262,7 @@ Venn.prototype.colorVenn = function(){
 		if(this.shaded[i]){
 			this.fill(i, "#FF5722");
 		} else if(this.marked[i]){
-			this.fill(i, "#1976D2");
+			this.fill(i, "white", true);
 		} else{
 			this.fill(i, "white");
 		}
