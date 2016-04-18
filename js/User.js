@@ -124,6 +124,18 @@ User.prototype.getProblem = function(){
 	});
 }
 
+User.prototype.getLocalProblem = function(){
+	var categories = ["Squibs","Muggles","Purebloods"];
+	var premises = ["some 1 are 2","some 1 are 3"];
+	var conclusion = "some 1 are not 2";
+	var problemJSON = {
+		categories: categories,
+		premises: premises,
+		conclusion: conclusion
+	}
+	this.problem = new Problem(problemJSON, this);
+}
+
 User.prototype.addToDB = function(){
 	$(ajax)
 }
