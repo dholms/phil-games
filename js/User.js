@@ -1,6 +1,7 @@
-var User = function(name, uid, isAdmin) {
+var User = function(name, uid, pid, isAdmin) {
 	this.name = name;
 	this.uid = uid;
+	this.pid = pid;
 	this.problem;
 	this.loggedIn = false;
 	this.self = this;
@@ -23,8 +24,7 @@ User.prototype.postScore = function(param){
 
 	this.score[param] = this.score[param] + 1;
 	var data = {
-		onyen: this.name,
-		uid: this.uid
+		UID: this.uid
 	}
 	data[param] = true;
 	$.ajax({
@@ -69,7 +69,7 @@ User.prototype.getScore = function(){
 	$.ajax({
 		url: dbUrl + "getScore/",
 		type: 'GET',
-		data: {onyen: this.name, uid: this.uid},
+		data: {UID: this.uid},
 		success: function(response) {
 			this.score = response;
 			this.displayScore();
@@ -85,7 +85,7 @@ User.prototype.getUser = function(){
 	$.ajax({
 		url: dbUrl + "user/",
 		type: 'GET',
-		data: {onyen: this.name, uid: this.uid},
+		data: {onyen: this.name, UID: this.uid, PID: this.pid},
 		success: function(response) {
 			this.loggedIn = true;
 			$('.score-header').html("<i>Welcome " + this.name + "!</i>");

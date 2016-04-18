@@ -94,6 +94,90 @@ Problem.prototype.submit = function(){
     }
 }
 
+//category: (string) category to check if it is highlighted
+//return: (int) 0: highlighted wrong category, 1: missed the category, 2: highlighted correctly
+Problem.prototype.checkCategory = function(category){
+    var match = true;
+    var missed = false;
+    for(var i = 0; i < this.statements.length; i++){
+        var highlight = this.statements[i].isHighlightedCorrectly(category);
+        if(highlight===0){
+            match = false;
+            break;
+        } else if(highlight===1){
+            missed = true;
+        } else{
+
+        }
+    }
+    if(!match){
+        return 0;
+    } else if (missed){
+        return 1;
+    } else{
+        return 2;
+    }
+}
+// Problem.prototype.checkCategoriesNew = function(){
+//     if(this.selectedCategories.length >= 3){
+//         return;
+//     }
+//     var wrong = false;
+//     var correct = false;
+//     var missed = false;
+//     var correctCat = -1;
+//     for(var i = 0; i < this.categories.length; i++){
+//         var category = this.categories[i];
+//         var isCorrect = this.checkCategory(category);
+//         if(isCorrect === 2 && this.selectedCategories.indexOf(category < 0)){
+//             correct = true;
+//             correctCat = 1;
+//         } else if(isCorrect == 1){
+//             var
+//             for(var j = 0; j < this.categories.length; j++){
+//                 if(i !== j){
+//                     var otherCat = this.checkCategory(this.categories[j]);
+//
+//                 }
+//             }
+//
+//         }
+//         if(match && this.selectedCategories.indexOf(category) < 0){
+//             missed = false;
+//             correct = true;
+//             correctCat = i;
+//             this.selectedCategories.push(category);
+//             break;
+//         }
+//     }
+//     var catNum = this.selectedCategories.length;
+//     if(correct){
+//         for(var i=0; i < this.statements.length; i++){
+//             if(catNum >= 3){
+//                 this.statements[i].deactivate();
+//             } else{
+//                 this.statements[i].incrCategory();
+//             }
+//         }
+//         var lastCat = this.selectedCategories[catNum-1];
+//         var toDraw = this.categories.indexOf(lastCat) + 1;
+//         this.vennDiagram.drawCircle(toDraw);
+//         $(".alert").hide();
+//         if(catNum >= 3){
+//             this.startVenn();
+//         }
+//     } else{
+//         if(missed){
+//             $("#statements-wrong").hide();
+//             $("#statements-missed").show();
+//         } else{
+//             $("#statements-wrong").show();
+//             $("#statements-missed").hide();
+//             this.catRight = false;
+//             this.user.catWrong();
+//         }
+//     }
+// }
 //function called while drawing venn from selected categories
 //currently draws unconditionally
 Problem.prototype.checkCategories = function(){
@@ -102,23 +186,25 @@ Problem.prototype.checkCategories = function(){
     }
     var correct = false;
     var correctCat = -1;
-    var missed;
+    var missed = false;
     for(var i = 0; i < this.categories.length; i++){
         var category = this.categories[i];
         var match = true;
-        missed = false;
+        // missed = false;
         for(var j = 0; j < this.statements.length; j++){
             var highlight = this.statements[j].isHighlightedCorrectly(category);
             if(highlight===0){
                 match = false;
                 break;
             } else if(highlight===1){
+                match = false;
                 missed = true;
             } else{
 
             }
         }
-        if(match && this.selectedCategories.indexOf(category) < 0 && !missed){
+        if(match && this.selectedCategories.indexOf(category) < 0){
+            missed = false;
             correct = true;
             correctCat = i;
             this.selectedCategories.push(category);

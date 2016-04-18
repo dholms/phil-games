@@ -10,7 +10,8 @@ $(document).ready(function(){
 	if(status === 'pass'){
 		var onyen = getUrlParameter('onyen');
 		var uid = getUrlParameter('uid');
-		user = new User(onyen, uid);
+		var pid = getUrlParameter('pid')
+		user = new User(onyen, uid, pid);
 	} else{
 		user = new User();
 	}
