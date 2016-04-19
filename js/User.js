@@ -125,7 +125,7 @@ User.prototype.getProblem = function(){
 }
 
 User.prototype.getLocalProblem = function(){
-	var categories = ["Squibs","Muggles","Purebloods"];
+	var categories = [{'plural':"squibs"},{'plural':"muggles"},{'plural':"purebloods"}];
 	var premises = ["some 1 are 2","some 1 are 3"];
 	var conclusion = "some 1 are not 2";
 	var problemJSON = {
