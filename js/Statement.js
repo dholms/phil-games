@@ -122,24 +122,16 @@ Statement.prototype.incrCategory = function(){
 }
 
 //category: (string) category to check if it is highlighted
-//return: (int) 0: highlighted wrong category, 1: missed the category, 2: highlighted correctly
+//return: (int) 0: missed highlight, 1: highlighted (if present), 2: not present
 Statement.prototype.isHighlightedCorrectly = function(category){
 	if(this.text.indexOf(category) > -1){
-		if(this.currentWords.length===0){
+		if(this.currentWords.indexOf(category) > -1){
 			return 1;
-		}
-		if(this.currentWords.length === 1 && this.currentWords[0] === category){
-			return 2;
-		} else{
-			return 0;
-		}
-	} else{
-		if(this.currentWords.length === 0){
-			return 2;
 		} else{
 			return 0;
 		}
 	}
+	return 2;
 }
 
 Statement.prototype.currCategory = function(){
