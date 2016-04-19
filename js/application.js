@@ -14,6 +14,9 @@ $(document).ready(function(){
 		user = new User(onyen, uid, pid);
 	} else{
 		user = new User();
+		if(status === 'fail'){
+			$('.score-header').html("<span class='error'>Failed to login. Please try again.</span>");
+		}
 	}
 	// history.pushState(null, null, "http://dholms.github.io/phil-games/");
 	user.getProblem();

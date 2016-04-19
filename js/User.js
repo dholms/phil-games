@@ -93,7 +93,7 @@ User.prototype.getUser = function(){
 			this.getScore();
 		}.bind(this.self),
 		error: function(errors) {
-			$('.score-header').html("<i>Failed to login. Please try again.</i>")
+			$('.score-header').html("<span class='error'>Failed to login. Please try again.</span>");
 			console.log(errors);
 		}
 	});
