@@ -260,7 +260,7 @@ Venn.prototype.drawArc = function(circ, start, end, cc){
 Venn.prototype.colorVenn = function(){
 	for(var i = 0; i < this.shaded.length; i++){
 		if(this.shaded[i]){
-			this.fill(i, "#FF5722");
+			this.fill(i, "#F44336");
 		} else if(this.marked[i]){
 			this.fill(i, "white", true);
 		} else{

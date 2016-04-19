@@ -51,6 +51,11 @@ hr{
 	display: inline-block;
 }
 
+.error{
+	color: red;
+	font-style: italic;
+}
+
 .container{
 	max-width: 100%;
 	overflow:hidden;
