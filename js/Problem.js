@@ -647,18 +647,63 @@ Problem.prototype.evaluateConclusion = function(){
         break;
 
         case "some":
+            //check for exist keyword
+
             if (exist){
+                
+                //only 1 category involved
                 if (secondCat == null){
-                    if (this.vennDiagram.marked[A] || this.vennDiagram.marked[AB] || this.vennDiagram.marked[AC] || this.vennDiagram.marked[ABC]){
-                        return true;
+                    //select B, BC, C
+                    if (firstNegated){
+                        if (this.vennDiagram.marked[B] || this.vennDiagram.marked[BC] || this.vennDiagram.marked[C]){
+                            return true;
+                        }
+                        return false;
                     }
-                    return false;
+                    //select A, AB, AC, ABC
+                    else{
+                        if (this.vennDiagram.marked[A] || this.vennDiagram.marked[AB] || this.vennDiagram.marked[AC] || this.vennDiagram.marked[ABC]){
+                            return true;
+                        }
+                        return false;
+                    }
                 }
+
+                //two categories involved
                 else{
-                    if (this.vennDiagram.marked[AB] || this.vennDiagram.marked[ABC]){
-                        return true;
+                    if (firstNegated){
+                        //select C
+                        if (secondNegated){
+                            if (this.vennDiagram.marked[C]){
+                                return true;
+                            }
+                            return false;
+
+                        }
+                        //select B, BC
+                        else{
+                            if (this.vennDiagram.marked[B] || this.vennDiagram.marked[BC]){
+                                return true;
+                            }
+                            return false;
+                        }
                     }
-                    return false;
+                    else{
+                        //select A, AC
+                        if (secondNegated){
+                            if (this.vennDiagram.marked[A] || this.vennDiagram.marked[AC]){
+                                return true;
+                            }
+                            return false;
+                        }
+                        //select AB, ABC
+                        else{
+                            if (this.vennDiagram.marked[AB] || this.vennDiagram.marked[ABC]){
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
                 }
             }
             else{
@@ -744,17 +789,63 @@ Problem.prototype.evaluateConclusion = function(){
 
         case "no":
             if (exist){
+                
+                //only 1 category involved
                 if (secondCat == null){
-                    if (this.vennDiagram.shaded[A] && this.vennDiagram.shaded[AB] && this.vennDiagram.shaded[AC] && this.vennDiagram.shaded[ABC]){
-                        return true;
+                    //shade B, BC, C
+                    if (firstNegated){
+                        if (this.vennDiagram.shaded[B] && this.vennDiagram.shaded[BC] && this.vennDiagram.shaded[C]){
+                            return true;
+                        }
+                        return false;
                     }
-                    return false;
+                    //shade A, AB, AC, ABC
+                    else{
+                        if (this.vennDiagram.shaded[A] && this.vennDiagram.shaded[AB] && this.vennDiagram.shaded[AC] && this.vennDiagram.shaded[ABC]){
+                            return true;
+                        }
+                        return false;
+                    }
                 }
+                
+                //two categories involved
                 else{
-                    if (this.vennDiagram.shaded[AB] && this.vennDiagram.shaded[ABC]){
-                        return true;
+
+                    if (firstNegated){
+                        
+                        //shade C
+                        if (secondNegated){
+                            if (this.vennDiagram.shaded[C]){
+                                return true;
+                            }
+                            return false;
+
+                        }
+                        //shade B, BC
+                        else{
+                            if (this.vennDiagram.shaded[B] && this.vennDiagram.shaded[BC]){
+                                return true;
+                            }
+                            return false;
+                        }
                     }
-                    return false;
+                    else{
+                        
+                        //shade A, AC
+                        if (secondNegated){
+                            if (this.vennDiagram.shaded[A] && this.vennDiagram.shaded[AC]){
+                                return true;
+                            }
+                            return false;
+                        }
+                        //shade AB, ABC
+                        else{
+                            if (this.vennDiagram.shaded[AB] && this.vennDiagram.shaded[ABC]){
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
                 }
             }
             else{
