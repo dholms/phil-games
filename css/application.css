@@ -23,15 +23,10 @@ h1 > small {
 }
 
 .title{
-	padding-left: 64px;
 	background-color: #f0f0f0;
-	padding-top: 8px;
-	height: 10%;
+	height: 12%;
 	border-bottom: 1px solid #c0c0c0;
-}
-
-.title > h1{
-	margin: 0;
+	padding-bottom: 64px;
 }
 
 hr{
@@ -61,10 +56,23 @@ hr{
 	overflow:hidden;
 }
 
-.panel{
+.score-info{
 	height: 100%;
 	min-height: 100%;
 	background-color: #d8d8d8;
+	border-radius: 0;
+}
+
+.term-panel{
+	margin-top: 32px;
+}
+
+.scrollable{
+	overflow: scroll;
+}
+
+.hidden{
+	display: none;
 }
 
 body, html{

@@ -1,4 +1,4 @@
-var User = function(name, uid, pid, isAdmin) {
+var User = function(name, uid, pid) {
 	this.name = name;
 	this.uid = uid;
 	this.pid = pid;
@@ -134,8 +134,4 @@ User.prototype.getLocalProblem = function(){
 		conclusion: conclusion
 	}
 	this.problem = new Problem(problemJSON, this);
-}
-
-User.prototype.addToDB = function(){
-	$(ajax)
 }

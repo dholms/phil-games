@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/application.css">
+
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/User.js"></script>
+	<script type="text/javascript" src="js/Admin.js"></script>
+	<script type="text/javascript" src="js/adminpage.js"></script>
+
+</head>
+<body>
+	<div class="title">
+		<div class="container">
+			<h1>VennD <small>Venn Diagram Exercises for Deductive Logic</small></h1>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="scrollable">
+					<table class="table table-condensed">
+						<thead>
+							<tr>
+								<th>PID</th>
+								<th>Cat Right</th>
+								<th>Cat Wrong</th>
+								<th>Venn Right</th>
+								<th>Venn Wrong</th>
+								<th>Concl Right</th>
+								<th>Concl Wrong</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="panel panel-default term-panel">
+					<div class="panel-heading">
+						<h3 class="panel-title">See Term</h3>
+					</div>
+					<div class="panel-body">
+						<strong>Current Term: </strong><span id="current-term"></span><br><br>
+						<select class="form-control" id="term-select">
+
+						</select>
+					</div>
+				</div>
+				<div class="panel panel-default admin-panel">
+					<div class="panel-heading">
+						<h3 class="panel-title">Add/Remove an Admin</h3>
+					</div>
+					<div class="panel-body">
+						<form class="form-inline">
+							<div class="form-group">
+								<label for="onyenInput">Onyen: </label>
+								<input type="text" class="form-control" id="onyen-input" placeholder="onyen">
+							</div>
+							<span class="glyphicon glyphicon-ok-circle hidden text-success" id="admin-success" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-remove-circle hidden text-danger" id="admin-failure" aria-hidden="true"></span>
+							<button id="makeAdmin" class="btn btn-primary">Make Admin</button>
+							<button id="removeAdmin" class="btn btn-primary">Remove Admin</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<img id="pattern" style="display: none" src="cross-pattern.jpg" alt="" />
