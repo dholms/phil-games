@@ -51,7 +51,7 @@ hr{
 	font-style: italic;
 }
 
-.container{
+.game-container{
 	max-width: 100%;
 	overflow:hidden;
 }
@@ -63,8 +63,8 @@ hr{
 	border-radius: 0;
 }
 
-.term-panel{
-	margin-top: 32px;
+.admin-container{
+	padding-top: 32px;
 }
 
 .scrollable{

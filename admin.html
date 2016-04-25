@@ -2,7 +2,7 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="css/application.css">
+	<link rel="stylesheet" type="text/css" href="css/adminpage.css">
 
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
@@ -17,10 +17,11 @@
 			<h1>VennD <small>Venn Diagram Exercises for Deductive Logic</small></h1>
 		</div>
 	</div>
-	<div class="container">
+	<div class="admin-container container">
 		<div class="row">
 			<div class="col-md-8">
-				<div class="scrollable">
+				<div class="panel panel-default">
+					<div class="panel-heading"><strong>Term: <span id="current-term"></span></strong></div>
 					<table class="table table-condensed">
 						<thead>
 							<tr>
@@ -44,9 +45,7 @@
 					</div>
 					<div class="panel-body">
 						<strong>Current Term: </strong><span id="current-term"></span><br><br>
-						<select class="form-control" id="term-select">
-
-						</select>
+						<select class="form-control" id="term-select"></select>
 					</div>
 				</div>
 				<div class="panel panel-default admin-panel">
