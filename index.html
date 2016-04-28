@@ -2,7 +2,7 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="css/game.css">
+	<link rel="stylesheet" type="text/css" href="css/application.css">
 
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
@@ -11,8 +11,7 @@
 	<script type="text/javascript" src="js/Problem.js"></script>
 	<script type="text/javascript" src="js/User.js"></script>
 	<script type="text/javascript" src="js/Admin.js"></script>
-	<script type="text/javascript" src="js/game.js"></script>
-
+	<script type="text/javascript" src="js/application.js"></script>
 </head>
 <body>
 	<div class="title">
@@ -40,11 +39,18 @@
 							<input class="btn btn-primary" type="submit" name="submit" value="Login">
 						</form>
 					</div>
+                    <div class="term-body">
+                        <hr>
+                        <strong>Current Term:</strong> <span id="current-term"></span><br>
+						<input type="text" class="form-control" id="term-input" placeholder="phil105-spring">
+						<button id="update-term" class="btn btn-primary">Update Term</button>
+						<div id="term-alert"></div>
+                    </div>
 				</div>
 			</div>
 		</div>
 		<div class="game">
-			<div class="game-container container">
+			<div class="container">
 				<div class="row">
 					<div class="col-md-7">
 						<h2>Premises: </h2>

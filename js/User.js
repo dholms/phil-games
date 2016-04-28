@@ -3,6 +3,7 @@ var User = function(name, uid, pid) {
 	this.uid = uid;
 	this.pid = pid;
 	this.problem;
+	this.term = "";
 	this.loggedIn = false;
 	this.self = this;
 	this.score = {};
@@ -41,6 +42,30 @@ User.prototype.postScore = function(param){
 	this.displayScore();
 }
 
+User.prototype.displayTerm = function(){
+	$('.term-body').show();
+	$('#current-term').html(this.term);
+	$('#update-term').click(this.assignTerm.bind(this));
+}
+
+User.prototype.assignTerm = function(){
+	var newTerm = $('#term-input').val();
+	$.ajax({
+		url: dbUrl + "assignTerm/",
+		type: "GET",
+		data:{UID:this.uid, term:newTerm},
+		success: function(response) {
+			this.term = newTerm;
+			$('#current-term').html(this.term);
+			$('#term-alert').html('<i>Successfully Added</i>');
+		}.bind(this.self),
+		error: function(errors) {
+			console.log(errors)
+			$('#term-alert').html('<i class="error">Term does not exist.</i>')
+		}
+	});
+}
+
 User.prototype.displayScore = function(){
 	var numberify = function(num){
 		if(isNaN(num)){
@@ -61,7 +86,7 @@ User.prototype.displayScore = function(){
 	html += "Venns Percent: " +  score.markpercent +  "%<br><br>";
 	html += "Conclusions Right: " + score.validright +  "<br>";
 	html += "Conclusions Wrong: " + score.validwrong +  "<br>";
-	html += "Conclusions Percent: " +  score.validpercent +  "%<br><br>";
+	html += "Conclusions Percent: " +  score.validpercent +  "%<br>";
 	$('.score-body').html(html);
 }
 
@@ -90,7 +115,9 @@ User.prototype.getUser = function(){
 			this.loggedIn = true;
 			$('.score-header').html("<i>Welcome " + this.name + "!</i>");
 			this.score = response.score;
+			this.term = response.term;
 			this.getScore();
+			this.displayTerm();
 		}.bind(this.self),
 		error: function(errors) {
 			$('.score-header').html("<span class='error'>Failed to login. Please try again.</span>");
@@ -103,6 +130,7 @@ User.prototype.getProblem = function(){
 	$.ajax({
 		url: dbUrl + "problem/",
 		type: 'GET',
+		data:{difficult: 'easy'},
 		success: function(response) {
 			var categories = response.categories.slice(0,3);
 			var structure = response.categories.slice(3,4)[0];

@@ -88,6 +88,20 @@ Admin.prototype.removeAdmin = function(){
 	});
 }
 
+Admin.prototype.getStudentsNew = function(){
+    $.ajax({
+		url: dbUrl + "getTerm/",
+		type: "GET",
+		data:{term:'phil105'},
+		success: function(response) {
+			console.log(response)
+		}.bind(this.self),
+		error: function(errors) {
+			console.log(errors)
+		}
+	});
+}
+
 Admin.prototype.getStudents = function(){
     var randNum = function(length){
         var result = ""
