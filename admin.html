@@ -46,15 +46,11 @@
 					<div class="panel-body">
 						<strong>Current Term: </strong><span class="current-term"></span><br><br>
 						<select class="form-control" id="term-select"></select><hr>
-						<form class="form-inline">
-							<div class="form-group">
-								<label for="onyenInput">Create Term: </label>
-								<input type="text" class="form-control" id="onyen-input" placeholder="phil105-spring">
-							</div>
-							<span class="glyphicon glyphicon-ok-circle hidden text-success" id="term-success" aria-hidden="true"></span>
-							<span class="glyphicon glyphicon-remove-circle hidden text-danger" id="term-failure" aria-hidden="true"></span>
-							<button id="createTerm" class="btn btn-primary">Create</button>
-						</form>
+						<label for="term-input">Create Term: </label>
+						<input type="text" class="form-control" id="term-input" placeholder="phil105-spring">
+						<span class="glyphicon glyphicon-ok-circle hidden text-success" id="term-success" aria-hidden="true"></span>
+						<span class="glyphicon glyphicon-remove-circle hidden text-danger" id="term-failure" aria-hidden="true"></span>
+						<button id="createTerm" class="btn btn-primary">Create</button>
 					</div>
 				</div>
 				<div class="panel panel-default admin-panel">
@@ -62,16 +58,14 @@
 						<h3 class="panel-title">Add/Remove an Admin</h3>
 					</div>
 					<div class="panel-body">
-						<form class="form-inline">
-							<div class="form-group">
-								<label for="onyenInput">Onyen: </label>
-								<input type="text" class="form-control" id="onyen-input" placeholder="onyen">
-							</div>
-							<span class="glyphicon glyphicon-ok-circle hidden text-success" id="admin-success" aria-hidden="true"></span>
-							<span class="glyphicon glyphicon-remove-circle hidden text-danger" id="admin-failure" aria-hidden="true"></span>
-							<button id="makeAdmin" class="btn btn-primary">Make Admin</button>
-							<button id="removeAdmin" class="btn btn-primary">Remove Admin</button>
-						</form>
+						<div class="form-group">
+							<label for="onyenInput">Onyen: </label>
+							<input type="text" class="form-control" id="onyen-input" placeholder="onyen">
+						</div>
+						<span class="glyphicon glyphicon-ok-circle hidden text-success" id="admin-success" aria-hidden="true"></span>
+						<span class="glyphicon glyphicon-remove-circle hidden text-danger" id="admin-failure" aria-hidden="true"></span>
+						<button id="makeAdmin" class="btn btn-primary">Make Admin</button>
+						<button id="removeAdmin" class="btn btn-primary">Remove Admin</button>
 					</div>
 				</div>
 			</div>
