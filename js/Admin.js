@@ -166,11 +166,11 @@ Admin.prototype.makeAdmin = function(){
 }
 
 Admin.prototype.removeAdmin = function(){
-    var onyen = $('onyen-input').val();
+    var onyen = $('#onyen-input').val();
     $.ajax({
 		url: dbUrl + "removeAdmin/",
 		type: 'GET',
-		data: {onyen: onyen, adminUID: this.uid},
+		data: {onyen: onyen, UID: this.uid},
 		success: function(response) {
             $('#admin-failure').hide();
 			$('#admin-success').show();
