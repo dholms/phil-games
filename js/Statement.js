@@ -13,12 +13,14 @@ Statement.prototype.deactivate = function(){
 	this.isActive = false;
 }
 
+//adds arrow to statement to tell which statement currently has the focus
 Statement.prototype.addArrow = function(){
 	this.element.addClass('highlighted');
 	var arrow = $('<div class="arrow-right"></div>')
 	this.element.append(arrow);
 }
 
+//removes that arrow
 Statement.prototype.removeArrow = function(){
 	this.element.removeClass('highlighted');
 	this.element.find(".arrow-right").remove();
@@ -134,6 +136,7 @@ Statement.prototype.isHighlightedCorrectly = function(category){
 	return 2;
 }
 
+//returns true if a word is highlighted in the statement that isn't a category
 Statement.prototype.highlightedNonCategory = function(categories){
 	for(var i = 0; i < this.currentWords.length; i++){
 		if(!(categories.indexOf(this.currentWords[i]) >-1)){
