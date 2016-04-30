@@ -186,7 +186,9 @@ Problem.prototype.startVenn = function(){
     this.vennDiagram.activate();
     $("#statements-right").show();
     this.statements[this.currPremise].addArrow();
-    $('#venn-container').show();
+    $('#venn-container > .instructions').show();
+    $('#vennCheckButton').show();
+    $('#vennRevertButton').show();
     $('#catCheckButton').hide();
 }
 

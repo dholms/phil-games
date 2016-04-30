@@ -189,7 +189,7 @@ body{
 	font-style: italic;
 }
 
-#venn-container{
+#venn-container > .instructions{
 	display: none;
 }
 

@@ -96,14 +96,14 @@
 						</div>
 					</div>
 					<div class="col-md-5" id="venn-container">
+						<canvas id="c" height = "300px" width = "500px"></canvas>
+						<button id = "vennCheckButton" class="btn btn-primary check">Check Venn</button>
+						<button id="vennRevertButton" class="btn btn-primary check">Clear</button>
 						<div class="instructions">
 							-Mark up one premise at a time then click 'Check Venn' or press enter.<br>
 							-Left-click and drag to say that something exists in that region.<br>
 							-Right-click to say that nothing exists in that region.
 						</div>
-						<canvas id="c" height = "300px" width = "500px"></canvas>
-						<button id = "vennCheckButton" class="btn btn-primary check">Check Venn</button>
-						<button id="vennRevertButton" class="btn btn-primary check">Clear</button>
 						<div class="alerts">
 							<div class="alert alert-success" id="venn-right" role="alert">
 								<strong>Well done!</strong> You successfully marked up the Venn Diagram.

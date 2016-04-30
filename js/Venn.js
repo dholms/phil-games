@@ -15,10 +15,8 @@ var Venn = function(x, y, r, categories){
 	this.params.c2.y = y+r+20;
 	this.params.c3.x = x+1.5*r;
 	this.params.c3.y = y+2*r+20;
-	var img = document.getElementById("pattern");
-	// console.log(img)
-	// img.source = "cross-pattern.jpg";
-	this.markPattern = ctx.createPattern(img, "repeat");
+	//get markPattern later (on activation) so server has time to load it
+	this.markPattern;
 	this.isActive = false;
 	canvas.addEventListener('mousedown', this.processClick.bind(this), false)
 	canvas.addEventListener('mouseup', this.mouseUp.bind(this), false)
@@ -80,6 +78,8 @@ Venn.prototype.revertMarkup = function(){
 
 Venn.prototype.activate = function(){
 	this.isActive = true;
+	var img = document.getElementById("pattern");
+	this.markPattern = ctx.createPattern(img, "repeat");
 }
 
 Venn.prototype.deactivate = function(){
