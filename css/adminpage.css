@@ -22,7 +22,7 @@ h1 > small {
 	padding-top: 32px;
 }
 
-.hidden{
+.glyphicon{
 	display: none;
 }
 
@@ -32,4 +32,19 @@ h1 > small {
 
 .btn-default{
 	background-color: #1976D2;
+}
+
+#term-input, #onyen-input{
+	width: 60%;
+	display: inline-block;
+}
+
+.title-buttons{
+	text-align: right;
+
+}
+
+.title-buttons > button, .title-buttons > a > button{
+	top: 16px;
+	position: relative;
 }

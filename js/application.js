@@ -18,6 +18,7 @@ $(document).ready(function(){
 			$('.score-header').html("<span class='error'>Failed to login. Please try again.</span>");
 		}
 	}
+	// user = new User('testAdmin',720333020,123456);
 	// user = new User('dholms',209012,720333240);
 	// history.pushState(null, null, "http://dholms.github.io/phil-games/");
 	user.getProblem();

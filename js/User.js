@@ -1,13 +1,14 @@
-var User = function(name, uid, pid) {
-	this.name = name;
+var User = function(onyen, uid, pid) {
+	this.onyen = onyen;
 	this.uid = uid;
 	this.pid = pid;
 	this.problem;
 	this.term = "";
 	this.loggedIn = false;
+	this.isAdmin = false;
 	this.self = this;
 	this.score = {};
-	if(this.name && this.uid){
+	if(this.onyen && this.uid){
 		this.getUser();
 	}
 }
@@ -40,6 +41,11 @@ User.prototype.postScore = function(param){
 		}
 	});
 	this.displayScore();
+}
+
+User.prototype.addAdminbutton = function(){
+	var parameters = "?onyen=" + this.onyen +"&pid=" + this.pid + "&uid=" + this.uid;
+	$('.title-buttons').append('<a href="admin.html' + parameters + '"><button class="btn btn-primary">Admin</button></a>');
 }
 
 User.prototype.displayTerm = function(){
@@ -110,14 +116,19 @@ User.prototype.getUser = function(){
 	$.ajax({
 		url: dbUrl + "user/",
 		type: 'GET',
-		data: {onyen: this.name, UID: this.uid, PID: this.pid},
+		data: {onyen: this.onyen, UID: this.uid, PID: this.pid},
 		success: function(response) {
 			this.loggedIn = true;
-			$('.score-header').html("<i>Welcome " + this.name + "!</i>");
+			$('.score-header').html("<i>Welcome " + this.onyen + "!</i>");
 			this.score = response.score;
 			this.term = response.term;
+			this.isAdmin = response.isAdmin
 			this.getScore();
-			this.displayTerm();
+			if(!this.isAdmin){
+				this.displayTerm();
+			} else{
+				this.addAdminbutton();
+			}
 		}.bind(this.self),
 		error: function(errors) {
 			$('.score-header').html("<span class='error'>Failed to login. Please try again.</span>");

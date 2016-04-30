@@ -1,16 +1,46 @@
-var Admin = function(name, uid, pid){
-    User.call(this, name, uid, pid);
+var Admin = function(onyen, uid, pid){
+    this.self = this;
+    this.onyen = onyen;
+	this.uid = uid;
+	this.pid = pid;
     this.students = [];
     this.terms = [];
-    // this.getStudents();
-    // this.displayStudents();
+    this.verify();
     this.getTerms();
     this.addListeners();
 }
-Admin.prototype = Object.create(User.prototype);
 
 Admin.prototype.verify = function(){
-    return true;
+    if(!this.onyen || !this.uid || !this.pid){
+        this.redirect();
+        return;
+    }
+    $.ajax({
+        url: dbUrl + 'verifyAdmin/',
+        type: 'GET',
+        data:{UID: this.uid},
+        success: function(response){
+            if(response.isAdmin){
+                this.addGameButton();
+                this.getTerms()
+            } else{
+                this.redirect();
+            }
+        }.bind(this),
+        error: function(errors){
+            this.redirect();
+        }.bind(this)
+    })
+}
+
+Admin.prototype.addGameButton = function(){
+    var parameters = "?status=pass&onyen=" + this.onyen +"&pid=" + this.pid + "&uid=" + this.uid;
+	$('.title-buttons').append('<a href="index.html' + parameters + '"><button class="btn btn-primary">Back To Game</button></a>');
+}
+
+Admin.prototype.redirect = function(){
+    alert('Sorry. You are not an admin.');
+    window.location.replace('http://dholms.github.io/phil-games/');
 }
 
 Admin.prototype.addListeners = function(){
@@ -46,11 +76,15 @@ Admin.prototype.displayStudents = function(){
         var student = this.students[i];
         table.append(this.tableRow(this.students[i]));
     }
+    $('tr').mouseover(function(){
+            $(this).tooltip({placement:'left'});
+            $(this).tooltip('show');
+    });
 }
 
 Admin.prototype.tableRow = function(student){
     var score = student.score
-    var html = "<tr>";
+    var html = "<tr data-toggle='tooltip' title='" + student.onyen +"'>";
     html += "<th>" + student.PID + "</th>";
     html += "<th>" + score.catright + "</th>";
     html += "<th>" + score.catwrong + "</th>";
@@ -71,9 +105,13 @@ Admin.prototype.createTerm = function(){
         success: function(response) {
             console.log(response);
             this.getTerms();
+            $('#term-success').show();
+            $('#term-failure').hide();
 		}.bind(this.self),
 		error: function(errors) {
 			console.log(errors);
+            $('#term-success').hide();
+            $('#term-failure').show();
 		}
     });
 }
@@ -102,23 +140,19 @@ Admin.prototype.getTerm = function(term){
             this.students = response.users;
             this.displayStudents();
             console.log(response);
-            $('#admin-failure').hide();
-			$('#admin-success').show();
 		}.bind(this),
 		error: function(errors) {
 			// console.log(errors);
-            $('#admin-failure').show();
-			$('#admin-success').hide();
 		}
 	});
 }
 
 Admin.prototype.makeAdmin = function(){
-    var onyen = $('onyen-input').val();
+    var onyen = $('#onyen-input').val();
     $.ajax({
 		url: dbUrl + "makeAdmin/",
 		type: 'GET',
-		data: {onyen: onyen, adminUID: this.uid},
+		data: {onyen: onyen, UID: this.uid},
 		success: function(response) {
             $('#admin-failure').hide();
 			$('#admin-success').show();
@@ -174,9 +208,9 @@ Admin.prototype.getStudentsOld = function(term){
         }
         return parseInt(result)
     }
-    var randStudent = function(name){
+    var randStudent = function(onyen){
         var student = {
-            name: name,
+            onyen: onyen,
             pid: randNum(9),
             uid: randNum(6),
             score:{

@@ -13,7 +13,7 @@ $(document).ready(function(){
 	// 		window.location.replace('https://dholms.github.io/phil-games/');
 	// 	}
 	// }
-	user = new Admin('testAdmin',720333020,123456);
+	admin = new Admin('testAdmin',720333020,123456);
 	// history.pushState(null, null, "https://dholms.github.io/phil-games/admin.html");
 });
 
