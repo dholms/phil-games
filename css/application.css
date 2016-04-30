@@ -177,3 +177,22 @@ body{
 	top: 16px;
 	position: relative;
 }
+.help-image{
+	width: auto;
+	height: auto;
+	max-height: 100%;
+	max-width: 100%;
+	display: block;
+}
+
+.instructions{
+	font-style: italic;
+}
+
+#venn-container{
+	display: none;
+}
+
+#c{
+	margin-top: 16px;
+}

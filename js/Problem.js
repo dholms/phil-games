@@ -186,8 +186,7 @@ Problem.prototype.startVenn = function(){
     this.vennDiagram.activate();
     $("#statements-right").show();
     this.statements[this.currPremise].addArrow();
-    $('#vennCheckButton').show();
-    $('#vennRevertButton').show();
+    $('#venn-container').show();
     $('#catCheckButton').hide();
 }
 
@@ -452,8 +451,8 @@ Problem.prototype.evaluateConclusion = function(){
         }
     }
 
-    
-    
+
+
     switch(opp){
 
         case "all":
@@ -650,7 +649,7 @@ Problem.prototype.evaluateConclusion = function(){
             //check for exist keyword
 
             if (exist){
-                
+
                 //only 1 category involved
                 if (secondCat == null){
                     //select B, BC, C
@@ -789,7 +788,7 @@ Problem.prototype.evaluateConclusion = function(){
 
         case "no":
             if (exist){
-                
+
                 //only 1 category involved
                 if (secondCat == null){
                     //shade B, BC, C
@@ -807,12 +806,12 @@ Problem.prototype.evaluateConclusion = function(){
                         return false;
                     }
                 }
-                
+
                 //two categories involved
                 else{
 
                     if (firstNegated){
-                        
+
                         //shade C
                         if (secondNegated){
                             if (this.vennDiagram.shaded[C]){
@@ -830,7 +829,7 @@ Problem.prototype.evaluateConclusion = function(){
                         }
                     }
                     else{
-                        
+
                         //shade A, AC
                         if (secondNegated){
                             if (this.vennDiagram.shaded[A] && this.vennDiagram.shaded[AC]){
@@ -1035,7 +1034,7 @@ Problem.prototype.evaluateConclusion = function(){
             }
         break;
     }
-    
+
 
 }
 
@@ -1199,8 +1198,8 @@ Problem.prototype.createVenns = function(states){
 
 
         //determine shading/selecting
-        
-    
+
+
         switch(opp){
             case "all":
                 if (thirdCat!=null){
@@ -1359,7 +1358,7 @@ Problem.prototype.createVenns = function(states){
                     else{
                         //assuming 'and'
                         newVennSelect[AB] = true;
-                        newVennSelect[ABC] = true;                        
+                        newVennSelect[ABC] = true;
                     }
                 }
                 else{
@@ -1505,7 +1504,7 @@ Problem.prototype.createVenns = function(states){
                     else{
                         //assuming 'and'
                         newVennShade[AB] = true;
-                        newVennShade[ABC] = true;                        
+                        newVennShade[ABC] = true;
                     }
                 }
                 else{
@@ -1640,7 +1639,7 @@ Problem.prototype.createVenns = function(states){
                 }
             break;
         }
-        
+
 
         for (var l = 0; l < newVennSelect.length; l++){
             if (newVennShade[l] == true) newVennSelect[l] = 0;
