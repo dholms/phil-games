@@ -56,6 +56,7 @@ Venn.params={
 	}
 };
 
+//Stores the current markup
 Venn.prototype.saveMarkup = function(){
 	this.lastMarkup = {
 		shaded: [],
@@ -67,6 +68,7 @@ Venn.prototype.saveMarkup = function(){
 	}
 }
 
+//Reverts markup of the venn to the last markup saved
 Venn.prototype.revertMarkup = function(){
 	this.shaded = [];
 	this.marked = [];
@@ -76,6 +78,7 @@ Venn.prototype.revertMarkup = function(){
 	}
 }
 
+//activates the venn and adds the pattern for use in markup
 Venn.prototype.activate = function(){
 	this.isActive = true;
 	var img = document.getElementById("pattern");
@@ -146,6 +149,8 @@ Venn.prototype.processClick = function(e){
 	}
 }
 
+//mouseMove is used for selecting more than one area of the venn at a time
+//adds anything moused over to the currently selected list
 Venn.prototype.mouseMove = function(e){
 	e.preventDefault();
 	if(this.isActive && e.buttons === 1){
@@ -156,6 +161,8 @@ Venn.prototype.mouseMove = function(e){
 	}
 }
 
+//mouseUp is the end of selecting an area
+//colors and groups together everything added during mouseMove
 Venn.prototype.mouseUp = function(e){
 	e.preventDefault();
 	if(this.isActive){
@@ -174,6 +181,7 @@ Venn.prototype.mouseUp = function(e){
 	}
 }
 
+//
 Venn.prototype.markSelected = function(){
 	var max = 0;
 	for(var i = 0; i < this.marked.length; i++){
@@ -186,6 +194,7 @@ Venn.prototype.markSelected = function(){
 	}
 }
 
+//
 Venn.prototype.isCurrentlySelecting = function(cell){
 	for(var i = 0; i < this.currentlySelecting.length; i++){
 		if(this.currentlySelecting[i] === cell){

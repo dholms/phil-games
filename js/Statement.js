@@ -134,6 +134,15 @@ Statement.prototype.isHighlightedCorrectly = function(category){
 	return 2;
 }
 
+Statement.prototype.highlightedNonCategory = function(categories){
+	for(var i = 0; i < this.currentWords.length; i++){
+		if(!(categories.indexOf(this.currentWords[i]) >-1)){
+			return true;
+		}
+	}
+	return false;
+}
+
 Statement.prototype.currCategory = function(){
 	return this.category;
 }

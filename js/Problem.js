@@ -126,29 +126,42 @@ Problem.prototype.checkCategories = function(){
     var wrong = false;
     var correct = false;
     var correctCat = -1;
-    var highlights = []
-    for(var i = 0; i < this.categories.length; i++){
-        highlights.push(this.checkCategory(this.categories[i]));
-    }
-    for(var i = 0; i < highlights.length; i++){
-        for(var j = 0; j < highlights.length; j++){
-            //if i is highlighted in at least some statements
-            if(highlights[i] !== 0 && i!==j){
-                //if j is highlighted in at least some statements
-                //then wrong
-                if(highlights[j] !== 0){
-                    wrong = true;
-                    break;
-                }
-            }
-        }
-        if(wrong){
+    var highlights = [];
+    for(var i = 0; i < this.statements.length; i++){
+        if(this.statements[i].highlightedNonCategory(this.categories)){
+            wrong = true;
             break;
         }
-        if(highlights[i] ==2){
-            correct = true;
-            correctCat = i;
-            this.selectedCategories.push(this.categories[i]);
+    }
+    if(!wrong){
+        for(var i = 0; i < this.categories.length; i++){
+            highlights.push(this.checkCategory(this.categories[i]));
+        }
+        for(var i = 0; i < highlights.length; i++){
+            for(var j = 0; j < highlights.length; j++){
+                //if i is highlighted in at least some statements
+                if(highlights[i] !== 0 && i!==j){
+                    //if j is highlighted in at least some statements
+                    //then wrong
+                    if(highlights[j] !== 0){
+                        wrong = true;
+                        break;
+                    }
+                }
+            }
+            if(wrong){
+                break;
+            }
+            if(highlights[i] ==2){
+                if(this.selectedCategories.indexOf(this.categories[i]) > -1){
+                    wrong = true;
+                } else{
+                    correct = true;
+                    correctCat = i;
+                    this.selectedCategories.push(this.categories[i]);
+                }
+                break;
+            }
         }
     }
     var catNum = this.selectedCategories.length;
