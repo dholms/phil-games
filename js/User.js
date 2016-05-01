@@ -43,6 +43,7 @@ User.prototype.postScore = function(param){
 	this.displayScore();
 }
 
+//button to open admin panel
 User.prototype.addAdminbutton = function(){
 	var parameters = "?onyen=" + this.onyen +"&pid=" + this.pid + "&uid=" + this.uid;
 	$('.title-buttons').append('<a href="admin.html' + parameters + '"><button class="btn btn-primary">Admin</button></a>');
@@ -72,6 +73,7 @@ User.prototype.assignTerm = function(){
 	});
 }
 
+//adds score info to user panel
 User.prototype.displayScore = function(){
 	var numberify = function(num){
 		if(isNaN(num)){
@@ -96,6 +98,7 @@ User.prototype.displayScore = function(){
 	$('.score-body').html(html);
 }
 
+//gets score and then displays it
 User.prototype.getScore = function(){
 	$.ajax({
 		url: dbUrl + "getScore/",
@@ -191,6 +194,7 @@ User.prototype.getProblem = function(dif){
 	}
 }
 
+//for testing problems locally
 User.prototype.getLocalProblem = function(){
 	var categories = [{'plural':"squibs"},{'plural':"muggles"},{'plural':"purebloods"}];
 	var premises = ["some 1 and 2 exist","no 2 are 3"];

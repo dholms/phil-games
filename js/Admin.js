@@ -10,6 +10,7 @@ var Admin = function(onyen, uid, pid){
     this.addListeners();
 }
 
+//make sure user is an admin otherwise redirect to game
 Admin.prototype.verify = function(){
     if(!this.onyen || !this.uid || !this.pid){
         this.redirect();
@@ -33,6 +34,7 @@ Admin.prototype.verify = function(){
     })
 }
 
+//link back to game
 Admin.prototype.addGameButton = function(){
     var parameters = "?status=pass&onyen=" + this.onyen +"&pid=" + this.pid + "&uid=" + this.uid;
 	$('.title-buttons').append('<a href="index.html' + parameters + '"><button class="btn btn-primary">Back To Game</button></a>');
@@ -46,7 +48,7 @@ Admin.prototype.redirect = function(){
 Admin.prototype.addListeners = function(){
     $('#makeAdmin').click(this.makeAdmin.bind(this));
     $('#removeAdmin').click(this.removeAdmin.bind(this));
-    $('#createTerm').click(this.createTerm.bind(this));
+    $('#addTerm').click(this.addTerm.bind(this));
     $('#term-select').change(this.selectTerm.bind(this));
 }
 
@@ -69,6 +71,7 @@ Admin.prototype.selectTerm = function(){
     this.getTerm(term);
 }
 
+//populates term table with students list
 Admin.prototype.displayStudents = function(){
     var table = $('.table > tbody');
     table.html('');
@@ -96,7 +99,7 @@ Admin.prototype.tableRow = function(student){
     return html;
 }
 
-Admin.prototype.createTerm = function(){
+Admin.prototype.addTerm = function(){
     var term = $('#term-input').val();
     $.ajax({
         url: dbUrl + 'createTerm/',
@@ -197,34 +200,4 @@ Admin.prototype.getStudents = function(){
             // console.log(errors);
 		}
 	});
-}
-
-Admin.prototype.getStudentsOld = function(term){
-    var randNum = function(length){
-        var result = ""
-        for(var i = 0; i < length; i++){
-            var int = Math.floor(Math.random() * 10);
-            result += int;
-        }
-        return parseInt(result)
-    }
-    var randStudent = function(onyen){
-        var student = {
-            onyen: onyen,
-            pid: randNum(9),
-            uid: randNum(6),
-            score:{
-                catRight: Math.floor(Math.random() * 50),
-                catWrong: Math.floor(Math.random() * 50),
-                markRight: Math.floor(Math.random() * 50),
-                markWrong: Math.floor(Math.random() * 50),
-                validRight: Math.floor(Math.random() * 50),
-                validWrong: Math.floor(Math.random() * 50)
-            }
-        }
-        return student;
-    }
-    for(var i = 0; i < 50; i++){
-        this.students.push(randStudent("test" + (i+1)));
-    }
 }
