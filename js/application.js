@@ -21,7 +21,7 @@ $(document).ready(function(){
 	// user = new User('testAdmin',720333020,123456);
 	// user = new User('dholms',209012,720333240);
 	// history.pushState(null, null, "http://dholms.github.io/phil-games/");
-	user.getProblem();
+	user.getProblem('easy');
 });
 
 var getUrlParameter = function(sParam) {
