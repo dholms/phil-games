@@ -137,30 +137,58 @@ User.prototype.getUser = function(){
 	});
 }
 
-User.prototype.getProblem = function(){
-	$.ajax({
-		url: dbUrl + "problem/",
-		type: 'GET',
-		data:{difficult: 'easy'},
-		success: function(response) {
-			var categories = response.categories.slice(0,3);
-			var structure = response.categories.slice(3,4)[0];
-			var premises = structure.premises;
-			var conclusion = structure.conclusion;
-			var problemJSON = {
-				categories: categories,
-				premises: premises,
-				conclusion: conclusion
+User.prototype.getProblem = function(dif){
+
+	if (dif == 'easy' || dif == 'medium' || dif == 'hard'){
+		$.ajax({
+			url: dbUrl + "problem/",
+			type: 'GET',
+			data:{difficulty: 'easy'},
+			success: function(response) {
+				var categories = response.categories.slice(0,3);
+				var structure = response.categories.slice(3,4)[0];
+				var premises = structure.premises;
+				var conclusion = structure.conclusion;
+				var problemJSON = {
+					categories: categories,
+					premises: premises,
+					conclusion: conclusion
+				}
+				// if(this.problem){
+				// 	this.problem.tearDown();
+				// }
+				this.problem = new Problem(problemJSON, this);
+			}.bind(this.self),
+			error: function(errors) {
+				console.log(errors);
 			}
-			// if(this.problem){
-			// 	this.problem.tearDown();
-			// }
-			this.problem = new Problem(problemJSON, this);
-		}.bind(this.self),
-		error: function(errors) {
-			console.log(errors);
-		}
-	});
+		});
+	}
+	else{
+		$.ajax({
+			url: dbUrl + "problem/",
+			type: 'GET',
+			data:{difficulty: dif},
+			success: function(response) {
+				var categories = response.categories.slice(0,3);
+				var structure = response.categories.slice(3,4)[0];
+				var premises = structure.premises;
+				var conclusion = structure.conclusion;
+				var problemJSON = {
+					categories: categories,
+					premises: premises,
+					conclusion: conclusion
+				}
+				// if(this.problem){
+				// 	this.problem.tearDown();
+				// }
+				this.problem = new Problem(problemJSON, this);
+			}.bind(this.self),
+			error: function(errors) {
+				console.log(errors);
+			}
+		});
+	}
 }
 
 User.prototype.getLocalProblem = function(){
