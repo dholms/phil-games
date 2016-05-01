@@ -19,6 +19,7 @@
     this.createStatements();
     this.currPremise = 0;
     this.conclusion = problem.conclusion;
+    this.replaced = true;
     var self = this;
 
     //attach listeners to buttons and enter key
@@ -28,7 +29,28 @@
     $('#invalidButton').click(self.checkInvalid.bind(self));
     $('#catCheckButton').click(this.checkCategories.bind(this));
     $('#vennRevertButton').click(this.revertVenn.bind(self));
-    $('#newProblemButton').click(this.replace.bind(self));
+    $('#newProblemButton').click(function(){
+        $('#difficultyModal').modal();
+        self.replaced = false;
+    });
+    $('#easyButton').click(function(){
+        if (!self.replaced){
+            self.replace('easy');
+            self.replaced = true;
+        }
+    });
+    $('#mediumButton').click(function(){
+        if (!self.replaced){
+            self.replace('medium');
+            self.replaced = true;
+        }
+    });
+    $('#hardButton').click(function(){
+        if (!self.replaced){
+            self.replace('hard');
+            self.replaced = true;
+        }
+    });
     $(document).on('keydown', function(e){
         var key = e.which || e.keyCode;
         if (key === 13) {
@@ -37,7 +59,7 @@
     });
 };
 
-Problem.prototype.replace = function(){
+Problem.prototype.replace = function(difficulty){
     var self = this;
     $('.statements').html("");
     $('#conclusion').html("");
@@ -53,7 +75,7 @@ Problem.prototype.replace = function(){
     canvas = newCanvas.get(0);
     ctx = canvas.getContext("2d");
     //this.user.getLocalProblem();
-    this.user.getProblem();
+    this.user.getProblem(difficulty);
 }
 
 Problem.prototype.checkInvalid = function(){
