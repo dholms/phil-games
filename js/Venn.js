@@ -15,10 +15,8 @@ var Venn = function(x, y, r, categories){
 	this.params.c2.y = y+r+20;
 	this.params.c3.x = x+1.5*r;
 	this.params.c3.y = y+2*r+20;
-	var img = document.getElementById("pattern");
-	// console.log(img)
-	// img.source = "cross-pattern.jpg";
-	this.markPattern = ctx.createPattern(img, "repeat");
+	//get markPattern later (on activation) so server has time to load it
+	this.markPattern;
 	this.isActive = false;
 	canvas.addEventListener('mousedown', this.processClick.bind(this), false)
 	canvas.addEventListener('mouseup', this.mouseUp.bind(this), false)
@@ -58,6 +56,7 @@ Venn.params={
 	}
 };
 
+//Stores the current markup
 Venn.prototype.saveMarkup = function(){
 	this.lastMarkup = {
 		shaded: [],
@@ -69,6 +68,7 @@ Venn.prototype.saveMarkup = function(){
 	}
 }
 
+//Reverts markup of the venn to the last markup saved
 Venn.prototype.revertMarkup = function(){
 	this.shaded = [];
 	this.marked = [];
@@ -78,8 +78,11 @@ Venn.prototype.revertMarkup = function(){
 	}
 }
 
+//activates the venn and adds the pattern for use in markup
 Venn.prototype.activate = function(){
 	this.isActive = true;
+	var img = document.getElementById("pattern");
+	this.markPattern = ctx.createPattern(img, "repeat");
 }
 
 Venn.prototype.deactivate = function(){
@@ -146,6 +149,8 @@ Venn.prototype.processClick = function(e){
 	}
 }
 
+//mouseMove is used for selecting more than one area of the venn at a time
+//adds anything moused over to the currently selected list
 Venn.prototype.mouseMove = function(e){
 	e.preventDefault();
 	if(this.isActive && e.buttons === 1){
@@ -156,6 +161,8 @@ Venn.prototype.mouseMove = function(e){
 	}
 }
 
+//mouseUp is the end of selecting an area
+//colors and groups together everything added during mouseMove
 Venn.prototype.mouseUp = function(e){
 	e.preventDefault();
 	if(this.isActive){
@@ -174,6 +181,7 @@ Venn.prototype.mouseUp = function(e){
 	}
 }
 
+//changes internal representation when a user finishes clicking and dragging
 Venn.prototype.markSelected = function(){
 	var max = 0;
 	for(var i = 0; i < this.marked.length; i++){
@@ -186,6 +194,7 @@ Venn.prototype.markSelected = function(){
 	}
 }
 
+//checks to see if a cell is currently being selected during a click and drag
 Venn.prototype.isCurrentlySelecting = function(cell){
 	for(var i = 0; i < this.currentlySelecting.length; i++){
 		if(this.currentlySelecting[i] === cell){
@@ -249,6 +258,9 @@ Venn.prototype.fill = function(cell, color, pattern){
 	ctx.stroke();
 }
 
+//Uses the arc function to stroke an arc
+//circ: (string) of circle name, start/end: (string) points of intersection, cc: (boolean) counterclockwise
+//return: nothing
 Venn.prototype.drawArc = function(circ, start, end, cc){
 	ctx.beginPath();
 	ctx.strokeStyle="#000000";
@@ -257,6 +269,8 @@ Venn.prototype.drawArc = function(circ, start, end, cc){
 	ctx.stroke();
 }
 
+//completely colors Venn
+//shades, marks, clears, and draws outline based on current markup
 Venn.prototype.colorVenn = function(){
 	for(var i = 0; i < this.shaded.length; i++){
 		if(this.shaded[i]){
@@ -299,6 +313,7 @@ Venn.prototype.colorVenn = function(){
 	this.drawBorder();
 }
 
+//checks if two sections are in the same selection
 Venn.prototype.sameMark = function(i, j){
 	if(this.marked[i] === 0 || this.marked[j] ===0){
 		return false;
@@ -306,6 +321,7 @@ Venn.prototype.sameMark = function(i, j){
 	return (this.marked[i] === this.marked[j]);
 }
 
+//draws the entire borders for the venn in black
 Venn.prototype.drawBorder = function(){
 	ctx.beginPath();
 	ctx.strokeStyle="#000000";
@@ -361,66 +377,10 @@ Venn.prototype.trace = function(cell){
 	}
 }
 
-//draw arc
+//traces arc
 //circ: (string) of circle name, start/end: (string) points of intersection, cc: (boolean) counterclockwise
 //return: nothing
 Venn.prototype.arc = function(circ, start, end, cc){
 	var circle = this.params[circ];
 	ctx.arc(circle.x, circle.y, this.params.r, circle[start], circle[end], cc);
-}
-
-//shades the specified cell
-//cell: (int from 0-6) cell to be shaded
-//return: nothing
-Venn.prototype.shade = function(cell){
-	this.shaded[cell] = true;
-	this.fill(cell, "#F44336");
-}
-
-//clears the specified cell
-//cell: (int from 0-6) cell to be cleared
-//return: nothing
-Venn.prototype.clear = function(cell){
-	this.shaded[cell] = false;
-	this.fill(cell, "#FAFAFA");
-}
-
-//switches the markup of the specified cell
-//cell: (int from 0-6) cell to be toggled
-//return: nothing
-Venn.prototype.toggleMark = function(cell){
-	if(cell < 0 || cell > 6){
-		return;
-	}
-	if(this.marked[cell]){
-		this.unmark(cell);
-	} else{
-		this.clear(cell);
-		this.markup(cell);
-	}
-}
-
-//removes marking the specified cell
-//cell: (int from 0-6) cell to be unmarked
-//return: nothing
-Venn.prototype.unmark = function(cell){
-	this.marked[cell] = false;
-	this.fill(cell, "#FAFAFA");
-}
-
-//marks the specified cell
-//cell: (int from 0-6) cell to be marked
-//return: nothing
-Venn.prototype.markup = function(cell){
-	this.marked[cell] = true;
-	this.fill(cell, "#1976D2");
-}
-
-//color the border and mark with an X the given cell
-//cell: (integer from 0-6) cell to be marked, color: (string) hex value of color for border
-//return: nothign
-Venn.prototype.mark = function(cell, color){
-	ctx.strokeStyle = color;
-	this.trace(cell);
-	ctx.stroke();
 }

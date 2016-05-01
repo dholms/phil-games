@@ -1,33 +1,13 @@
-.statement{
-	font-size: 28pt;
-	display: block;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	max-width: 100%;
-	word-wrap: break-word;
-	padding-left: 22px;
+body, html{
+	margin: 0;
+	min-height: 100%;
+	height: 100%;
+	padding: 0;
+	background-color: white;
 }
 
 h1 > small {
 	color: #484848;
-}
-
-.main{
-	width: 100%;
-	min-height: 90%;
-	height: 90%;
-}
-
-.title{
-	background-color: #f0f0f0;
-	height: 12%;
-	border-bottom: 1px solid #c0c0c0;
-	padding-bottom: 64px;
-	overflow: hidden;
 }
 
 hr{
@@ -39,141 +19,27 @@ hr{
     padding: 0;
 }
 
-.statement > :first-child{
-	margin-left: -22px;
-}
-
-.word{
-	display: inline-block;
-}
-
-.error{
-	color: red;
-	font-style: italic;
-}
-
-.container{
-	max-width: 100%;
-	overflow:hidden;
-}
-
-.score-info{
-	height: 100%;
-	min-height: 100%;
-	background-color: #d8d8d8;
-	border-radius: 0;
-}
-
-.term-body{
-	display: none;
-}
-
-.admin-container{
-	padding-top: 32px;
-}
-
-.scrollable{
-	overflow: scroll;
-}
-
-.hidden{
-	display: none;
-}
-
-body, html{
-	margin: 0;
-	min-height: 100%;
-	height: 100%;
-	padding: 0;
+.title{
+	background-color: #f0f0f0;
+	height: 12%;
+	border-bottom: 1px solid #c0c0c0;
+	padding-bottom: 64px;
 	overflow: hidden;
 }
 
-.game{
-	height: 100%;
-	min-height: 100%;
-	width: 80%;
-	display: inline-block;
-	padding: 32px;
-	overflow: auto;
+.title-buttons{
+	text-align: right;
 }
 
-
-.sidebar{
-	height: 100%;
-	width: 19%;
-	display: inline-block;
-	float: left;
-	border-right: 2px black;
-	text-align: left;
-	overflow: hidden;
-}
-
-#conclusion{
-	font-size: 36pt;
-	margin-top: 32px;
-}
-
-.check{
-	display: none;
-}
-
-.highlighted{
-	background-color: #FFF59D;
-}
-
-.arrow-right{
-	display: inline-block;
-	position: absolute;
-	left: -12px;
-	width: 0;
-	height: 0;
-	border-top: 24px solid transparent;
-	border-bottom: 24px solid transparent;
-	border-left: 24px solid #1976D2;
-}
-
-.blue{
-	background-color: #1976D2;
-	color: white;
-}
-
-.red{
-	background-color: #FF5722;
-	color: white;
-}
-
-.green{
-	background-color: #4CAF50;
-	color: white;
-}
-
-.alert{
-	display: none;
-	margin: 1.5em;
+.title-buttons > button, .title-buttons > a > button{
+	top: 16px;
+	position: relative;
 }
 
 .btn {
 	margin-top: 0.5em;
 }
 
-body{
-	background-color: white;
-}
-
 .btn-default{
 	background-color: #1976D2;
-}
-
-#conclusion-container{
-	display: none;
-}
-
-.title-buttons{
-	text-align: right;
-
-}
-
-.title-buttons > button, .title-buttons > a > button{
-	top: 16px;
-	position: relative;
 }

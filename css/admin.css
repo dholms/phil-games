@@ -1,0 +1,16 @@
+body, html{
+	overflow: show;
+}
+
+.main{
+	padding-top: 32px;
+}
+
+.glyphicon{
+	display: none;
+}
+
+#term-input, #onyen-input{
+	width: 60%;
+	display: inline-block;
+}

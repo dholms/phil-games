@@ -6,7 +6,7 @@ $(document).ready(function(){
 	var admin;
 	var onyen = getUrlParameter('onyen');
 	var uid = getUrlParameter('uid');
-	var pid = getUrlParameter('pid')
+	var pid = getUrlParameter('pid');
 	if(onyen && uid && pid){
 		admin = new Admin(onyen, uid, pid);
 	} else{

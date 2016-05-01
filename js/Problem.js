@@ -126,29 +126,42 @@ Problem.prototype.checkCategories = function(){
     var wrong = false;
     var correct = false;
     var correctCat = -1;
-    var highlights = []
-    for(var i = 0; i < this.categories.length; i++){
-        highlights.push(this.checkCategory(this.categories[i]));
-    }
-    for(var i = 0; i < highlights.length; i++){
-        for(var j = 0; j < highlights.length; j++){
-            //if i is highlighted in at least some statements
-            if(highlights[i] !== 0 && i!==j){
-                //if j is highlighted in at least some statements
-                //then wrong
-                if(highlights[j] !== 0){
-                    wrong = true;
-                    break;
-                }
-            }
-        }
-        if(wrong){
+    var highlights = [];
+    for(var i = 0; i < this.statements.length; i++){
+        if(this.statements[i].highlightedNonCategory(this.categories)){
+            wrong = true;
             break;
         }
-        if(highlights[i] ==2){
-            correct = true;
-            correctCat = i;
-            this.selectedCategories.push(this.categories[i]);
+    }
+    if(!wrong){
+        for(var i = 0; i < this.categories.length; i++){
+            highlights.push(this.checkCategory(this.categories[i]));
+        }
+        for(var i = 0; i < highlights.length; i++){
+            for(var j = 0; j < highlights.length; j++){
+                //if i is highlighted in at least some statements
+                if(highlights[i] !== 0 && i!==j){
+                    //if j is highlighted in at least some statements
+                    //then wrong
+                    if(highlights[j] !== 0){
+                        wrong = true;
+                        break;
+                    }
+                }
+            }
+            if(wrong){
+                break;
+            }
+            if(highlights[i] ==2){
+                if(this.selectedCategories.indexOf(this.categories[i]) > -1){
+                    wrong = true;
+                } else{
+                    correct = true;
+                    correctCat = i;
+                    this.selectedCategories.push(this.categories[i]);
+                }
+                break;
+            }
         }
     }
     var catNum = this.selectedCategories.length;
@@ -186,6 +199,7 @@ Problem.prototype.startVenn = function(){
     this.vennDiagram.activate();
     $("#statements-right").show();
     this.statements[this.currPremise].addArrow();
+    $('#venn-container > .instructions').show();
     $('#vennCheckButton').show();
     $('#vennRevertButton').show();
     $('#catCheckButton').hide();
@@ -452,8 +466,8 @@ Problem.prototype.evaluateConclusion = function(){
         }
     }
 
-    
-    
+
+
     switch(opp){
 
         case "all":
@@ -650,7 +664,7 @@ Problem.prototype.evaluateConclusion = function(){
             //check for exist keyword
 
             if (exist){
-                
+
                 //only 1 category involved
                 if (secondCat == null){
                     //select B, BC, C
@@ -789,7 +803,7 @@ Problem.prototype.evaluateConclusion = function(){
 
         case "no":
             if (exist){
-                
+
                 //only 1 category involved
                 if (secondCat == null){
                     //shade B, BC, C
@@ -807,12 +821,12 @@ Problem.prototype.evaluateConclusion = function(){
                         return false;
                     }
                 }
-                
+
                 //two categories involved
                 else{
 
                     if (firstNegated){
-                        
+
                         //shade C
                         if (secondNegated){
                             if (this.vennDiagram.shaded[C]){
@@ -830,7 +844,7 @@ Problem.prototype.evaluateConclusion = function(){
                         }
                     }
                     else{
-                        
+
                         //shade A, AC
                         if (secondNegated){
                             if (this.vennDiagram.shaded[A] && this.vennDiagram.shaded[AC]){
@@ -1035,7 +1049,7 @@ Problem.prototype.evaluateConclusion = function(){
             }
         break;
     }
-    
+
 
 }
 
@@ -1199,8 +1213,8 @@ Problem.prototype.createVenns = function(states){
 
 
         //determine shading/selecting
-        
-    
+
+
         switch(opp){
             case "all":
                 if (thirdCat!=null){
@@ -1359,7 +1373,7 @@ Problem.prototype.createVenns = function(states){
                     else{
                         //assuming 'and'
                         newVennSelect[AB] = true;
-                        newVennSelect[ABC] = true;                        
+                        newVennSelect[ABC] = true;
                     }
                 }
                 else{
@@ -1505,7 +1519,7 @@ Problem.prototype.createVenns = function(states){
                     else{
                         //assuming 'and'
                         newVennShade[AB] = true;
-                        newVennShade[ABC] = true;                        
+                        newVennShade[ABC] = true;
                     }
                 }
                 else{
@@ -1640,7 +1654,7 @@ Problem.prototype.createVenns = function(states){
                 }
             break;
         }
-        
+
 
         for (var l = 0; l < newVennSelect.length; l++){
             if (newVennShade[l] == true) newVennSelect[l] = 0;

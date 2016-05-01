@@ -1,0 +1,130 @@
+body, html{
+	overflow: hidden;
+}
+
+.term-body, .hidden, #conclusion-container, .alert, .check, #venn-container > .instructions{
+	display: none;
+}
+
+.container{
+	max-width: 100%;
+	overflow:hidden;
+}
+
+.main{
+	width: 100%;
+	min-height: 90%;
+	height: 90%;
+}
+
+.game{
+	height: 100%;
+	min-height: 100%;
+	width: 80%;
+	display: inline-block;
+	padding: 32px;
+	overflow: auto;
+}
+
+.statement{
+	font-size: 28pt;
+	display: block;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	max-width: 100%;
+	word-wrap: break-word;
+	padding-left: 22px;
+}
+
+.statement > :first-child{
+	margin-left: -22px;
+}
+
+.word{
+	display: inline-block;
+}
+
+.highlighted{
+	background-color: #FFF59D;
+}
+
+.arrow-right{
+	display: inline-block;
+	position: absolute;
+	left: -12px;
+	width: 0;
+	height: 0;
+	border-top: 24px solid transparent;
+	border-bottom: 24px solid transparent;
+	border-left: 24px solid #1976D2;
+}
+
+.blue{
+	background-color: #1976D2;
+	color: white;
+}
+
+.red{
+	background-color: #FF5722;
+	color: white;
+}
+
+.green{
+	background-color: #4CAF50;
+	color: white;
+}
+
+.error{
+	color: red;
+	font-style: italic;
+}
+
+.score-info{
+	height: 100%;
+	min-height: 100%;
+	background-color: #d8d8d8;
+	border-radius: 0;
+}
+
+.sidebar{
+	height: 100%;
+	width: 19%;
+	display: inline-block;
+	float: left;
+	border-right: 2px black;
+	text-align: left;
+	overflow: hidden;
+}
+
+.alert{
+	margin: 1.5em;
+}
+
+#conclusion{
+	font-size: 36pt;
+	margin-top: 32px;
+}
+
+.admin-container{
+	padding-top: 32px;
+}
+
+.help-image{
+	width: auto;
+	height: auto;
+	max-height: 100%;
+	max-width: 100%;
+	display: block;
+}
+
+.instructions{
+	font-style: italic;
+}
+
+#c{
+	margin-top: 16px;
+}

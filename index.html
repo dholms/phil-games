@@ -3,6 +3,7 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/application.css">
+	<link rel="stylesheet" type="text/css" href="css/game.css">
 
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
@@ -21,7 +22,7 @@
 					<h1>VennD <small>Venn Diagram Exercises for Deductive Logic</small></h1>
 				</div>
 				<div class="col-md-4 title-buttons">
-					<button class="btn btn-primary">Help</button>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".help-modal">Help</button>
 				</div>
 			</div>
 		</div>
@@ -61,6 +62,9 @@
 				<div class="row">
 					<div class="col-md-7">
 						<h2>Premises: </h2>
+						<div class="instructions">
+							-Select every instance of a category then click 'Check Category' or press enter.
+						</div>
 						<div class="statements"></div>
 						<button id = "catCheckButton" class="btn btn-primary check">Check Category</button>
 						<div class="alerts">
@@ -96,6 +100,11 @@
 						<canvas id="c" height = "300px" width = "500px"></canvas>
 						<button id = "vennCheckButton" class="btn btn-primary check">Check Venn</button>
 						<button id="vennRevertButton" class="btn btn-primary check">Clear</button>
+						<div class="instructions">
+							-Mark up one premise at a time then click 'Check Venn' or press enter.<br>
+							-Left-click and drag to say that something exists in that region.<br>
+							-Right-click to say that nothing exists in that region.
+						</div>
 						<div class="alerts">
 							<div class="alert alert-success" id="venn-right" role="alert">
 								<strong>Well done!</strong> You successfully marked up the Venn Diagram.
@@ -128,9 +137,155 @@
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 	      </div>
 	    </div>
-
 	  </div>
+	</div>
+	<div class="modal fade help-modal" tabindex="-1" role="dialog" aria-labelledby="helpModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+			        <h4 class="modal-title">Detailed Instructions</h4>
+				</div>
+				<div class="modal-body"><br>
+					This help section illustrates the process of solving deductive logic problems using venn diagrams. Given a set of premises, you'll be using VennD to determine the validity of a conclusion statement. Click on one of the example problems to see how VennD works and how you should interact with it.<br><br>
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						<div class="panel panel-default">
+					        <div class="panel-heading" role="tab" id="headingInstructions"><h4 class="panel-title">
+					            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#instructions" aria-expanded="true" aria-controls="instructions">
+					                Instructions
+					            </a>
+					        </h4></div>
+					    <div id="instructions" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingInstructions"><div class="panel-body">
+							<strong>Step 0:</strong> Login with your ONYEN.<br>
+							<strong>Step 1:</strong> Identify all categories. Highlight a category in all premises and hit check category. Once you correctly idendify one category, repeat the process for the other two categories. When you are done, you should see a Venn diagram with three sets, each one representing one of the categories in the premises.<br>
+							<strong>Step 2:</strong> Mark up the Venn diagram to represent the information in the first premise and click "Check Venn". Remember that if you left click and drag an area in the Venn diagram, you indicate that <i>something exists</i> in that area and the area should be marked with a blue grid. If you right click an area, you indicate that <i>nothing exists</i> in that area and the area should be marked with red. If you want to start marking up the Venn diagram over, click the "Clear" button.<br>
+							<strong>Step 3:</strong> Similarly, mark up the Venn diagram to represent the information in the second premise and click "Check Venn". Remember that when you are done, the Venn diagram should represent the information in <i>both</i> the first premise <i>and</i> second premise.
+
+							/* If there are three premises */<br>
+							<strong>Step 4:</strong> Again, mark up the Venn diagram to represent the information in the third premise and click "Check Venn". When you are done, the Venn diagram should represent the information in <i>all</i> of the premises.<br>
+							<strong>Step 5:</strong> Look at the Venn diagram and determine whether the conclusion statement <i>has to</i> be true. If yes, click the "Valid" button. Otherwise, click the "Not Valid" button.<br>
+							<strong>Step 6:</strong> Congratulations! You are done with this problem. To solve a new problem, click the "New Problem" button.
+					    </div></div>
+					    </div>
+					    <div class="panel panel-default">
+					        <div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">
+					            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#exampleOne" aria-expanded="false" aria-controls="exampleOne">
+					                Example #1
+					            </a>
+					        </h4></div>
+					    <div id="exampleOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne"><div class="panel-body">
+							First, VennD will present you with a set of premises. In this case, we have three premises.
+							<img class="help-image" src="img/1.1.png"><br>
+							<strong>Step 1:</strong> To identify the first category, click on all instances of the category. You'll see that the word will be highlighted with blue. In this case, we start with the category, "shephards." To undo higlighting a word, just click on it again and you'll see the highlight color disappear.
+							<img class="help-image" src="img/1.2.png"><br>
+							<strong>Step 2:</strong> Once you are confident that you identified all instances of the first category, click on the "Check Category" button. If you correctly identified all instances of the catogory in all premises, you'll see a Venn diagram with a label of that category pop up on the right hand side of the screen. Note that you can start identifying categories in any order.
+							<img class="help-image" src="img/1.3.png"><br>
+							<strong>Step 3:</strong> Now, identify the second category just as you did the first one. In this case, the second category is "hunters." Click on all instances of that category in all premises and you should see the words highlighted in orange.
+							<img class="help-image" src="img/1.4.png"><br>
+							<strong>Step 4:</strong> And, click on the "Check Category" button. You'll see a Venn diagram with the label "hunters", intersecting with the "shephards" Venn diagram.
+							<img class="help-image" src="img/1.5.png"><br>
+							<strong>Step 5:</strong> Lastly, repeat this process for the last category. In this example, our last category is "poets". You should see the words highlighted in green. Once you correctly identify and check the last category, you should see another Venn diagram with the "poets" label pop up and intersect the previous two Venn diagrams.
+							<img class="help-image" src="img/1.7.png"><br>
+							<strong>Step 6:</strong> At this point, you are done with identifying the categories! Congratulations! Now, let's mark up the Venn diagram to represent the information in premises, one premise at a time. You'll see that the first premise is highlighted yellow and there is a blue arrow pointing to the sentence on the left hand side. This yellow highlighting and the blue arrow indicate the premise for which we need to mark up the Venn Diagram.
+
+							In this problem, the first premise says "No shephards are hunters." This means that the intersection of the shephards and hunters is empty, or in other words, no element exists in that region. To indicate that nothing exists in a region, you can right click on any point inside that region and it will turn red.
+							<img class="help-image" src="img/1.8.png"><br>
+							<strong>Step 7:</strong> Once you are confident that you marked up your Venn diagram correctly, click on the "Check Venn" button. If you want to clear your work on the Venn diagram and start this step over, then click on the "Clear" button. If your Venn diagram is correct, then VennD will move on to the next premise. You can see that the second premise is highlighted yellow and there is a blue arrow next to it.<br>
+							<strong>Step 8:</strong> So let's get right to it and mark up the second premise on the Venn diagram as well. Be careful, though! The Venn diagram should represent the information in both the first premise and the second one. <i> Marking up the Venn diagram is a cumulative process. </i>
+
+							Our second premise says, "No hunters are poets." Again, that means the intersection of hunters and poets is empty, or in other words, no element exists in that region. So, we mark all the regions in that intersection with red, by clicking right on any point in that space. We then click the "Check Venn" button.
+							<img class="help-image" src="img/1.9.png"><br>
+							<strong>Step 9:</strong> Let's repeat this process for the third premise. The third premise says, "All poets are shephards." This statement means that no element that is not a shephard exists in the poets set. In other words, nothing exists outside the shephards set but inside the poets set, so we mark that region with red and click on the "Check Venn" button.
+							<img class="help-image" src="img/1.10.png"><br>
+							<strong>Step 10:</strong> We are almost done! Once you correctly mark up the Venn diagram for all the premises given to you in the beginning, a conclusion statement will show up in the end and by using the information in your Venn diagram, you will need to determine whether that statement is valid or not valid.
+							<img class="help-image" src="img/1.11.png">
+							In this case, the conclusion statement says, "All hunters are not shephards." We therefore check whether the intersection of hunters and shepards is empty, and it is since that region is marked with red. Therefore, the conclusion statement has to be true so we click on the "Valid" button. And, YAY!
+							<img class="help-image" src="img/1.12.png"><br>
+							<strong>Step 11:</strong> We are done with this problem! To practice a new problem, we click on the "New Problem" button.
+							<img class="help-image" src="img/1.13.png">
+					    </div></div>
+					    </div>
+					    <div class="panel panel-default">
+					        <div class="panel-heading" role="tab" id="headingTwo"><h4 class="panel-title">
+					            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#exampleTwo" aria-expanded="false" aria-controls="exampleTwo">
+									Example #2
+					            </a>
+					        </h4></div>
+					    <div id="exampleTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo"><div class="panel-body">
+							First, VennD will present you with a set of premises. In this case, we have three premises.
+							<img class="help-image" src="img/2.1.png"><br>
+							<strong>Step 1:</strong> To identify the first category, click on all instances of the category. You'll see that the word will be highlighted with blue. In this case, we start with the category, "archers." To undo higlighting a word, just click on it again and you'll see the highlight color disappear.
+							<img class="help-image" src="img/2.2.png"><br>
+							<strong>Step 2:</strong> Once you are confident that you identified all instances of the first category, click on the "Check Category" button. If you correctly identified all instances of the catogory in all premises, you'll see a Venn diagram with a label of that category pop up on the right hand side of the screen. Note that you can start identifying categories in any order.
+							<img class="help-image" src="img/2.3.png"><br>
+							<strong>Step 3:</strong> Now, identify the second category just as you did the first one. In this case, the second category is "rebels." Click on all instances of that category in all premises and you should see the words highlighted in orange.
+							<img class="help-image" src="img/2.4.png"><br>
+							<strong>Step 4:</strong> And, click on the "Check Category" button. You'll see a Venn diagram with the label "rebels", intersecting with the "shephards" Venn diagram.
+							<img class="help-image" src="img/2.5.png"><br>
+							<strong>Step 5:</strong> Lastly, repeat this process for the last category. In this example, our last category is "patriots". You should see the words highlighted in green. Once you correctly identify and check the last category, you should see another Venn diagram with the "patriots" label pop up and intersect the previous two Venn diagrams.
+							<img class="help-image" src="img/2.7.png"><br>
+							<strong>Step 6:</strong> At this point, you are done with identifying the categories! Congratulations! Now, let's mark up the Venn diagram to represent the information in premises, one premise at a time. You'll see that the first premise is highlighted yellow and there is a blue arrow pointing to the sentence on the left hand side. This yellow highlighting and the blue arrow indicate the premise for which we need to mark up the Venn Diagram.
+
+							In this problem, the first premise says, "Some archers are not rebels." This means that there are some archers and these archers are not rebels. In other words, there is at least one archer that is not a rebel. To represent this information, we click and drag in the region that is in archers but not in rebels. You'll see that that region is now marked up with a blue grid, which means that something exists in that region.
+							<img class="help-image" src="img/2.8.png"><br>
+							<strong>Step 7:</strong> Once you are confident that you marked up your Venn diagram correctly, click on the "Check Venn" button. If you want to clear your work on the Venn diagram and start this step over, then click on the "Clear" button. If your Venn diagram is correct, then VennD will move on to the next premise. You can see that the second premise is highlighted yellow and there is a blue arrow next to it.<br>
+							<strong>Step 8:</strong> So let's get right to it and mark up the second premise on the Venn diagram as well. Be careful, though! The Venn diagram should represent the information in both the first premise and the second one. <i> Marking up the Venn diagram is a cumulative process. </i>
+
+							Our second premise says, "No patriots are not rebels." That means there is no element in the patriots set that is also not in the rebels set, or in other words, no element exists in that region. So, we mark all the regions in that region with red, by clicking right on any point in that space. We then click the "Check Venn" button.
+							<img class="help-image" src="img/2.9.png"><br>
+							<strong>Step 9:</strong> Let's repeat this process for the third premise. The third premise says, "All rebels are archers." This statement means that no element that is not an archer exists in the rebels set. In other words, nothing exists outside the archers set but inside the rebels set, so we mark that region with red and click on the "Check Venn" button.
+							<img class="help-image" src="img/2.10.png"><br>
+							<strong>Step 10:</strong> We are almost done! Once you correctly mark up the Venn diagram for all the premises given to you in the beginning, a conclusion statement will show up in the end and by using the information in your Venn diagram, you will need to determine whether that statement is valid or not valid.
+							<img class="help-image" src="img/2.11.png">
+							In this case, the conclusion statement says, "Some non-patriots are not rebels." We then check whether there is at least one element in the regions outside patriots set, and there is since we have indicated earlier that at least one element exists where there is a blue grid. Therefore, the conclusion statement has to be true so we click on the "Valid" button. And, YAY!
+							<img class="help-image" src="img/2.13.png"><br>
+							<strong>Step 11:</strong> We are done with this problem! To practice a new problem, we click on the "New Problem" button.
+							<img class="help-image" src="img/1.13.png">
+					    </div></div>
+					    </div>
+					    <div class="panel panel-default">
+					        <div class="panel-heading" role="tab" id="headingThree"><h4 class="panel-title">
+					            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#exampleThree" aria-expanded="false" aria-controls="exampleThree">
+									Example #3
+					            </a>
+					        </h4></div>
+					    <div id="exampleThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree"><div class="panel-body">
+							First, VennD will present you with a set of premises. In this case, we have three premises.
+							<img class="help-image" src="img/3.1.png"><br>
+							<strong>Step 1:</strong> To identify the first category, click on all instances of the category. You'll see that the word will be highlighted with blue. In this case, we start with the category, "alchemists." To undo higlighting a word, just click on it again and you'll see the highlight color disappear.
+							<img class="help-image" src="img/3.2.png"><br>
+							<strong>Step 2:</strong> Once you are confident that you identified all instances of the first category, click on the "Check Category" button. If you correctly identified all instances of the catogory in all premises, you'll see a Venn diagram with a label of that category pop up on the right hand side of the screen. Note that you can start identifying categories in any order.
+							<img class="help-image" src="img/3.3.png"><br>
+							<strong>Step 3:</strong> Now, identify the second category just as you did the first one. In this case, the second category is "fishermen." Click on all instances of that category in all premises and you should see the words highlighted in orange.
+							<img class="help-image" src="img/3.4.png"><br>
+							<strong>Step 4:</strong> And, click on the "Check Category" button. You'll see a Venn diagram with the label "fisherman", intersecting with the "shephards" Venn diagram.
+							<img class="help-image" src="img/3.5.png"><br>
+							<strong>Step 5:</strong> Lastly, repeat this process for the last category. In this example, our last category is "blacksmiths". You should see the words highlighted in green. Once you correctly identify and check the last category, you should see another Venn diagram with the "blacksmiths" label pop up and intersect the previous two Venn diagrams.
+							<img class="help-image" src="img/3.7.png"><br>
+							<strong>Step 6:</strong> At this point, you are done with identifying the categories! Congratulations! Now, let's mark up the Venn diagram to represent the information in premises, one premise at a time. You'll see that the first premise is highlighted yellow and there is a blue arrow pointing to the sentence on the left hand side. This yellow highlighting and the blue arrow indicate the premise for which we need to mark up the Venn Diagram.
+
+							In this problem, the first premise says, "All alchemists are fisherman and not blackmiths" That means that there is no alchemist that is not a fisherman and that is a blacksmith. In other words, no element exists in the alchemist set that is outside the intersection of fishermen and alchemists, where the intersection of all three categories is not included. Therefore, we right-click and mark that region up with red to indicate that nothing exists in that region.
+							<img class="help-image" src="img/3.10.png"><br>
+							<strong>Step 7:</strong> Once you are confident that you marked up your Venn diagram correctly, click on the "Check Venn" button. If you want to clear your work on the Venn diagram and start this step over, then click on the "Clear" button. If your Venn diagram is correct, then VennD will move on to the next premise. You can see that the second premise is highlighted yellow and there is a blue arrow next to it.<br>
+							<strong>Step 8:</strong> So let's get right to it and mark up the second premise on the Venn diagram as well. Be careful, though! The Venn diagram should represent the information in both the first premise and the second one. <i> Marking up the Venn diagram is a cumulative process. </i>
+
+							Our second premise says, "No blacksmiths are not fishermen." That means there is no element in the blacksmits set that is also not in the fishermen set, or in other words, no element exists in that region. So, we mark all the regions in that region with red, by clicking right on any point in that space. We then click the "Check Venn" button.
+							<img class="help-image" src="img/3.11.png"><br>
+							<strong>Step 9:</strong> Let's repeat this process for the third premise. The third premise says, "No fishermen are alchemists." This statement means that no element exists at the intersection of fishermen and alchemists, so we mark that region with red and click on the "Check Venn" button.
+							<img class="help-image" src="img/3.12.png"><br>
+							<strong>Step 10:</strong> We are almost done! Once you correctly mark up the Venn diagram for all the premises given to you in the beginning, a conclusion statement will show up in the end and by using the information in your Venn diagram, you will need to determine whether that statement is valid or not valid.
+							<img class="help-image" src="img/3.13.png">
+							In this case, the conclusion statement says, "All blacksmiths are fishermen." We then check whether there can ben any elements in the blacksmiths set that does not intersect with the fishermen set. Thhe answer is no since all of those regions are marked up with red so all all blacksmiths <i>must</i> be fisherman, if there exists any. Therefore, the conclusion statement has to be true so we click on the "Valid" button. And, YAY!
+							<img class="help-image" src="img/3.14.png"><br>
+							<strong>Step 11:</strong> We are done with this problem! To practice a new problem, we click on the "New Problem" button.
+							<img class="help-image" src="img/1.13.png">
+					    </div></div>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
-<img id="pattern" style="display: none" src="cross-pattern.jpg" alt="" />
+<img id="pattern" style="display: none" src="img/cross-pattern.jpg" alt="" />
