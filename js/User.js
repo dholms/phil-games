@@ -143,7 +143,7 @@ User.prototype.getProblem = function(dif){
 		$.ajax({
 			url: dbUrl + "problem/",
 			type: 'GET',
-			data:{difficulty: 'easy'},
+			data:{difficulty: dif},
 			success: function(response) {
 				var categories = response.categories.slice(0,3);
 				var structure = response.categories.slice(3,4)[0];
@@ -168,7 +168,7 @@ User.prototype.getProblem = function(dif){
 		$.ajax({
 			url: dbUrl + "problem/",
 			type: 'GET',
-			data:{difficulty: dif},
+			data:{difficulty: 'easy'},
 			success: function(response) {
 				var categories = response.categories.slice(0,3);
 				var structure = response.categories.slice(3,4)[0];
