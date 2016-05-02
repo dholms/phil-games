@@ -125,9 +125,9 @@ Venn.prototype.drawCircle = function(circle){
 	} else{
 		y -= Venn.params.r + 8;
 		if(circle == 1){
-			x -= 8;
+			x -= 20;
 		} else{
-			x += 8;
+			x += 20;
 		}
 	}
 
