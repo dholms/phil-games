@@ -33,8 +33,8 @@ var generateJSON = function(cats, prems, con){
 }
 
 for (var i = 0; i < 8; i++){
-    JSON[i] = generateJSON(categories,premises[i],conclusion[i]);  
-    prob[i] = new Problem(JSON[i],user); 
+    JSON[i] = generateJSON(categories,premises[i],conclusion[i]);
+    prob[i] = new Problem(JSON[i],user);
 }
 
 //Take representative sample of problem structures and test for correct venn diagram construction/evaluation
@@ -171,9 +171,9 @@ describe("evaluateConclusion6", function(){
 //seventh iteration
 describe("createVennsShaded7", function() {
     it("create internal represenation of shaded areas of venns from premises", function(){
-        expect(prob[4].venns[0][0][1]).toEqual(false);
-        expect(prob[4].venns[1][0][1]).toEqual(false);
-        expect(prob[4].venns[2][0][1]).toEqual(false);
+        expect(prob[6].venns[0][0][1]).toEqual(false);
+        expect(prob[6].venns[1][0][1]).toEqual(false);
+        expect(prob[6].venns[2][0][1]).toEqual(false);
     });
 });
 
@@ -213,5 +213,3 @@ describe("evaluateConclusion8", function(){
         expect(prob[7].evaluateConclusion()).toEqual(true);
     });
 });
-
-
