@@ -22,12 +22,13 @@ var Venn = function(x, y, r, categories){
 		canvas.addEventListener('mousedown', this.processClick.bind(this), false)
 		canvas.addEventListener('mouseup', this.mouseUp.bind(this), false)
 		canvas.addEventListener('mousemove', this.mouseMove.bind(this), false)
+
+		$(canvas).bind('contextmenu', function(e){
+	    	return false;
+		});
 	} catch(err){
 		//running out of browser
 	}
-	$(canvas).bind('contextmenu', function(e){
-    	return false;
-	});
 }
 
 //coordinates for circles and angles of intersection

@@ -19,14 +19,13 @@ module.exports = function(config) {
         'js/Statement.js',
         'js/Problem.js',
         'js/User.js',
-        'js/*.js',
         'js/tests/*.js'
     ],
 
 
     // list of files to exclude
     exclude: [
-      
+
     ],
 
 
