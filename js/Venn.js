@@ -18,10 +18,13 @@ var Venn = function(x, y, r, categories){
 	//get markPattern later (on activation) so server has time to load it
 	this.markPattern;
 	this.isActive = false;
-	canvas.addEventListener('mousedown', this.processClick.bind(this), false)
-	canvas.addEventListener('mouseup', this.mouseUp.bind(this), false)
-	canvas.addEventListener('mousemove', this.mouseMove.bind(this), false)
-
+	try{
+		canvas.addEventListener('mousedown', this.processClick.bind(this), false)
+		canvas.addEventListener('mouseup', this.mouseUp.bind(this), false)
+		canvas.addEventListener('mousemove', this.mouseMove.bind(this), false)
+	} catch(err){
+		//running out of browser
+	}
 	$(canvas).bind('contextmenu', function(e){
     	return false;
 	});
