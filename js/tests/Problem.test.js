@@ -84,8 +84,8 @@ describe("evaluateConclusion2", function(){
 //third iteration
 describe("createVennsShaded3", function() {
     it("create internal represenation of shaded areas of venns from premises", function(){
-        expect(prob[2].venns[0][0]).toEqual([false,false,false,false,true,false,false]);
-        expect(prob[2].venns[1][0]).toEqual([true,false,false,false,true,false,false]);
+        expect(prob[2].venns[0][0][1]).toEqual(false);
+        expect(prob[2].venns[1][0][1]).toEqual(false);
     });
 });
 
@@ -106,8 +106,8 @@ describe("evaluateConclusion3", function(){
 //fourth iteration
 describe("createVennsShaded4", function() {
     it("create internal represenation of shaded areas of venns from premises", function(){
-        expect(prob[3].venns[0][0]).toEqual([false,false,false,false,false,true,false]);
-        expect(prob[3].venns[1][0]).toEqual([true,false,false,false,false,true,false]);
+        expect(prob[3].venns[0][0][1]).toEqual(false);
+        expect(prob[3].venns[1][0][1]).toEqual(false);
     });
 });
 
@@ -148,9 +148,9 @@ describe("evaluateConclusion5", function(){
 //sixth iteration
 describe("createVennsShaded6", function() {
     it("create internal represenation of shaded areas of venns from premises", function(){
-        expect(prob[5].venns[0][0]).toEqual([false,false,false,true,false,false,true]);
-        expect(prob[5].venns[1][0]).toEqual([false,false,false,true,false,true,true]);
-        expect(prob[5].venns[2][0]).toEqual([true,false,false,true,false,false,true]);
+        expect(prob[5].venns[0][0][1]).toEqual(false);
+        expect(prob[5].venns[1][0][1]).toEqual(false);
+        expect(prob[5].venns[2][0][1]).toEqual(false);
     });
 });
 
@@ -171,9 +171,9 @@ describe("evaluateConclusion6", function(){
 //seventh iteration
 describe("createVennsShaded7", function() {
     it("create internal represenation of shaded areas of venns from premises", function(){
-        expect(prob[4].venns[0][0]).toEqual([false,false,false,true,false,false,true]);
-        expect(prob[4].venns[1][0]).toEqual([false,false,false,true,false,true,true]);
-        expect(prob[4].venns[2][0]).toEqual([true,false,false,true,false,true,true]);
+        expect(prob[4].venns[0][0][1]).toEqual(false);
+        expect(prob[4].venns[1][0][1]).toEqual(false);
+        expect(prob[4].venns[2][0][1]).toEqual(false);
     });
 });
 
@@ -194,9 +194,9 @@ describe("evaluateConclusion7", function(){
 //eigth iteration
 describe("createVennsShaded8", function() {
     it("create internal represenation of shaded areas of venns from premises", function(){
-        expect(prob[7].venns[0][0]).toEqual([false,false,false,false,false,false,false]);
-        expect(prob[7].venns[1][0]).toEqual([false,false,false,false,false,true,true]);
-        expect(prob[7].venns[2][0]).toEqual([true,false,false,false,false,true,true]);
+        expect(prob[7].venns[0][0][1]).toEqual(false);
+        expect(prob[7].venns[1][0][1]).toEqual(false);
+        expect(prob[7].venns[2][0][1]).toEqual(false);
     });
 });
 
