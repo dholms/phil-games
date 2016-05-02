@@ -16,6 +16,8 @@
     this.createVenns(this.premises);
     this.statements = [];
     this.vennDiagram = new Venn(5, 5, 80, this.categories);
+    
+    
     this.createStatements();
     this.currPremise = 0;
     this.conclusion = problem.conclusion;
@@ -395,6 +397,7 @@ Problem.prototype.maxValue = function(selected){
 
 //does a lot of branching 'if' statements to see if conclusion is logically entailed by internal venns
 Problem.prototype.evaluateConclusion = function(){
+    var length = this.venns.length - 1;
     var splicedCon = this.conclusion.split(" ");
     var opp = splicedCon[0];
     splicedCon.splice(0,1);
@@ -504,14 +507,14 @@ Problem.prototype.evaluateConclusion = function(){
                             if (secondNegated){
                                 //shade B, C, BC
                                 if (thirdNegated){
-                                    if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[C] == true && this.vennDiagram.shaded[BC] == true){
+                                    if (this.venns[length][0][B] == true && this.venns[length][0][C] == true && this.venns[length][0][BC] == true){
                                         return true;
                                     }
                                     return false;
                                 }
                                 //shade B, BC
                                 else{
-                                    if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[BC] == true){
+                                    if (this.venns[length][0][B] == true && this.venns[length][0][BC] == true){
                                         return true;
                                     }
                                     return false;
@@ -520,14 +523,14 @@ Problem.prototype.evaluateConclusion = function(){
                             else{
                                 //shade C, BC
                                 if (thirdNegated){
-                                    if (this.vennDiagram.shaded[C] == true && this.vennDiagram.shaded[BC] == true){
+                                    if (this.venns[length][0][C] == true && this.venns[length][0][BC] == true){
                                         return true;
                                     }
                                     return false;
                                 }
                                 //shade B, C
                                 else{
-                                    if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[C] == true){
+                                    if (this.venns[length][0][B] == true && this.venns[length][0][C] == true){
                                         return true;
                                     }
                                     return false;
@@ -538,14 +541,14 @@ Problem.prototype.evaluateConclusion = function(){
                             if (secondNegated){
                                 //shade AB, AC, ABC
                                 if (thirdNegated){
-                                    if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true && this.vennDiagram.shaded[ABC] == true){
+                                    if (this.venns[length][0][AB] == true && this.venns[length][0][AC] == true && this.venns[length][0][ABC] == true){
                                         return true;
                                     }
                                     return false;
                                 }
                                 //shade A, AB, ABC
                                 else{
-                                    if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[ABC] == true){
+                                    if (this.venns[length][0][AB] == true && this.venns[length][0][A] == true && this.venns[length][0][ABC] == true){
                                         return true;
                                     }
                                     return false;
@@ -554,14 +557,14 @@ Problem.prototype.evaluateConclusion = function(){
                             else{
                                 //shade A, AC, ABC
                                 if (thirdNegated){
-                                    if (this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[AC] == true && this.vennDiagram.shaded[ABC] == true){
+                                    if (this.venns[length][0][A] == true && this.venns[length][0][AC] == true && this.venns[length][0][ABC] == true){
                                         return true;
                                     }
                                     return false;
                                 }
                                 //shade A, AB, AC
                                 else{
-                                    if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true && this.vennDiagram.shaded[A] == true){
+                                    if (this.venns[length][0][AB] == true && this.venns[length][0][AC] == true && this.venns[length][0][A] == true){
                                         return true;
                                     }
                                     return false;
@@ -574,14 +577,14 @@ Problem.prototype.evaluateConclusion = function(){
                             if (secondNegated){
                                 //shade BC
                                 if (thirdNegated){
-                                    if (this.vennDiagram.shaded[BC] == true){
+                                    if (this.venns[length][0][BC] == true){
                                         return true;
                                     }
                                     return false;
                                 }
                                 //shade B, C
                                 else{
-                                    if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[C] == true){
+                                    if (this.venns[length][0][B] == true && this.venns[length][0][C] == true){
                                         return true;
                                     }
                                     return false;
@@ -590,14 +593,14 @@ Problem.prototype.evaluateConclusion = function(){
                             else{
                                 //shade B, C
                                 if (thirdNegated){
-                                    if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[C] == true){
+                                    if (this.venns[length][0][B] == true && this.venns[length][0][C] == true){
                                         return true;
                                     }
                                     return false;
                                 }
                                 //shade BC
                                 else{
-                                    if (this.vennDiagram.shaded[BC] == true){
+                                    if (this.venns[length][0][BC] == true){
                                         return true;
                                     }
                                     return false;
@@ -608,14 +611,14 @@ Problem.prototype.evaluateConclusion = function(){
                             if (secondNegated){
                                 //shade A, ABC
                                 if (thirdNegated){
-                                    if (this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[ABC] == true){
+                                    if (this.venns[length][0][A] == true && this.venns[length][0][ABC] == true){
                                         return true;
                                     }
                                     return false;
                                 }
                                 //shade AC, AB
                                 else{
-                                    if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true){
+                                    if (this.venns[length][0][AB] == true && this.venns[length][0][AC] == true){
                                         return true;
                                     }
                                     return false;
@@ -624,14 +627,14 @@ Problem.prototype.evaluateConclusion = function(){
                             else{
                                 //shade AB, AC
                                 if (thirdNegated){
-                                    if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true){
+                                    if (this.venns[length][0][AB] == true && this.venns[length][0][AC] == true){
                                         return true;
                                     }
                                     return false;
                                 }
                                 //shade A, ABC
                                 else{
-                                    if (this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[ABC] == true){
+                                    if (this.venns[length][0][A] == true && this.venns[length][0][ABC] == true){
                                         return true;
                                     }
                                     return false;
@@ -645,7 +648,7 @@ Problem.prototype.evaluateConclusion = function(){
                 if (firstNegated){
                     //shade B, BC
                     if (secondNegated){
-                        if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[BC] == true){
+                        if (this.venns[length][0][B] == true && this.venns[length][0][BC] == true){
                             return true;
                         }
                         else{
@@ -655,7 +658,7 @@ Problem.prototype.evaluateConclusion = function(){
                     }
                     //shade C
                     else{
-                        if (this.vennDiagram.shaded[C] == true){
+                        if (this.venns[length][0][C] == true){
                             return true;
                         }
                         else{
@@ -666,7 +669,7 @@ Problem.prototype.evaluateConclusion = function(){
                 else{
                     //shade AB, ABC
                     if (secondNegated){
-                        if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[ABC] == true){
+                        if (this.venns[length][0][AB] == true && this.venns[length][0][ABC] == true){
                             return true;
                         }
                         else{
@@ -675,7 +678,7 @@ Problem.prototype.evaluateConclusion = function(){
                     }
                     //shade A, AC
                     else{
-                        if (this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[AC] == true){
+                        if (this.venns[length][0][A] == true && this.venns[length][0][AC] == true){
                             return true;
                         }
                         else{
@@ -695,14 +698,14 @@ Problem.prototype.evaluateConclusion = function(){
                 if (secondCat == null){
                     //select B, BC, C
                     if (firstNegated){
-                        if (this.vennDiagram.marked[B] || this.vennDiagram.marked[BC] || this.vennDiagram.marked[C]){
+                        if (this.venns[length][1][B] || this.venns[length][1][BC] || this.venns[length][1][C]){
                             return true;
                         }
                         return false;
                     }
                     //select A, AB, AC, ABC
                     else{
-                        if (this.vennDiagram.marked[A] || this.vennDiagram.marked[AB] || this.vennDiagram.marked[AC] || this.vennDiagram.marked[ABC]){
+                        if (this.venns[length][1][A] || this.venns[length][1][AB] || this.venns[length][1][AC] || this.venns[length][1][ABC]){
                             return true;
                         }
                         return false;
@@ -714,7 +717,7 @@ Problem.prototype.evaluateConclusion = function(){
                     if (firstNegated){
                         //select C
                         if (secondNegated){
-                            if (this.vennDiagram.marked[C]){
+                            if (this.venns[length][1][C]){
                                 return true;
                             }
                             return false;
@@ -722,7 +725,7 @@ Problem.prototype.evaluateConclusion = function(){
                         }
                         //select B, BC
                         else{
-                            if (this.vennDiagram.marked[B] || this.vennDiagram.marked[BC]){
+                            if (this.venns[length][1][B] || this.venns[length][1][BC]){
                                 return true;
                             }
                             return false;
@@ -731,14 +734,14 @@ Problem.prototype.evaluateConclusion = function(){
                     else{
                         //select A, AC
                         if (secondNegated){
-                            if (this.vennDiagram.marked[A] || this.vennDiagram.marked[AC]){
+                            if (this.venns[length][1][A] || this.venns[length][1][AC]){
                                 return true;
                             }
                             return false;
                         }
                         //select AB, ABC
                         else{
-                            if (this.vennDiagram.marked[AB] || this.vennDiagram.marked[ABC]){
+                            if (this.venns[length][1][AB] || this.venns[length][1][ABC]){
                                 return true;
                             }
                             return false;
@@ -761,17 +764,17 @@ Problem.prototype.evaluateConclusion = function(){
 
                                     //select C
                                     else{
-                                        return this.checkSelected(this.vennDiagram.marked, C, null);
+                                        return this.checkSelected(this.venns[length][1], C, null);
                                     }
                                 }
                                 else{
                                     //select B
                                     if (thirdNegated){
-                                        return this.checkSelected(this.vennDiagram.marked, B, null);
+                                        return this.checkSelected(this.venns[length][1], B, null);
                                     }
                                     //select BC
                                     else{
-                                        return this.checkSelected(this.vennDiagram.marked, BC, null);
+                                        return this.checkSelected(this.venns[length][1], BC, null);
                                     }
                                 }
                             }
@@ -780,22 +783,22 @@ Problem.prototype.evaluateConclusion = function(){
 
                                     //select A
                                     if (thirdNegated){
-                                        return this.checkSelected(this.vennDiagram.marked, A, null);
+                                        return this.checkSelected(this.venns[length][1], A, null);
                                     }
 
                                     //select AC
                                     else{
-                                        return this.checkSelected(this.vennDiagram.marked, AC, null);
+                                        return this.checkSelected(this.venns[length][1], AC, null);
                                     }
                                 }
                                 else{
                                     //select AB
                                     if (thirdNegated){
-                                        return this.checkSelected(this.vennDiagram.marked, AB, null);
+                                        return this.checkSelected(this.venns[length][1], AB, null);
                                     }
                                     //select ABC
                                     else{
-                                        return this.checkSelected(this.vennDiagram.marked, ABC, null);
+                                        return this.checkSelected(this.venns[length][1], ABC, null);
                                     }
                                 }
                             }
@@ -806,21 +809,21 @@ Problem.prototype.evaluateConclusion = function(){
                     if (firstNegated){
                         //select C
                         if (secondNegated){
-                            return this.checkSelected(this.vennDiagram.marked, C, null);
+                            return this.checkSelected(this.venns[length][1], C, null);
                         }
                         //select B, BC
                         else{
-                            return this.checkSelected(this.vennDiagram.marked, B, BC);
+                            return this.checkSelected(this.venns[length][1], B, BC);
                         }
                     }
                     else{
                         //select A, AC
                         if (secondNegated){
-                            return this.checkSelected(this.vennDiagram.marked, A, AC);
+                            return this.checkSelected(this.venns[length][1], A, AC);
                         }
                         //select AB, ABC
                         else{
-                            return this.checkSelected(this.vennDiagram.marked, AB, ABC);
+                            return this.checkSelected(this.venns[length][1], AB, ABC);
                         }
                     }
                 }
@@ -834,14 +837,14 @@ Problem.prototype.evaluateConclusion = function(){
                 if (secondCat == null){
                     //shade B, BC, C
                     if (firstNegated){
-                        if (this.vennDiagram.shaded[B] && this.vennDiagram.shaded[BC] && this.vennDiagram.shaded[C]){
+                        if (this.venns[length][0][B] && this.venns[length][0][BC] && this.venns[length][0][C]){
                             return true;
                         }
                         return false;
                     }
                     //shade A, AB, AC, ABC
                     else{
-                        if (this.vennDiagram.shaded[A] && this.vennDiagram.shaded[AB] && this.vennDiagram.shaded[AC] && this.vennDiagram.shaded[ABC]){
+                        if (this.venns[length][0][A] && this.venns[length][0][AB] && this.venns[length][0][AC] && this.venns[length][0][ABC]){
                             return true;
                         }
                         return false;
@@ -855,7 +858,7 @@ Problem.prototype.evaluateConclusion = function(){
 
                         //shade C
                         if (secondNegated){
-                            if (this.vennDiagram.shaded[C]){
+                            if (this.venns[length][0][C]){
                                 return true;
                             }
                             return false;
@@ -863,7 +866,7 @@ Problem.prototype.evaluateConclusion = function(){
                         }
                         //shade B, BC
                         else{
-                            if (this.vennDiagram.shaded[B] && this.vennDiagram.shaded[BC]){
+                            if (this.venns[length][0][B] && this.venns[length][0][BC]){
                                 return true;
                             }
                             return false;
@@ -873,14 +876,14 @@ Problem.prototype.evaluateConclusion = function(){
 
                         //shade A, AC
                         if (secondNegated){
-                            if (this.vennDiagram.shaded[A] && this.vennDiagram.shaded[AC]){
+                            if (this.venns[length][0][A] && this.venns[length][0][AC]){
                                 return true;
                             }
                             return false;
                         }
                         //shade AB, ABC
                         else{
-                            if (this.vennDiagram.shaded[AB] && this.vennDiagram.shaded[ABC]){
+                            if (this.venns[length][0][AB] && this.venns[length][0][ABC]){
                                 return true;
                             }
                             return false;
@@ -900,7 +903,7 @@ Problem.prototype.evaluateConclusion = function(){
                                     }
                                     //shade C
                                     else{
-                                        if (this.vennDiagram.shaded[C] == true){
+                                        if (this.venns[length][0][C] == true){
                                             return true;
                                         }
                                         return false;
@@ -909,14 +912,14 @@ Problem.prototype.evaluateConclusion = function(){
                                 else{
                                     //shade B
                                     if (thirdNegated){
-                                        if (this.vennDiagram.shaded[B] == true){
+                                        if (this.venns[length][0][B] == true){
                                             return true;
                                         }
                                         return false;
                                     }
                                     //shade BC
                                     else{
-                                        if (this.vennDiagram.shaded[BC] == true){
+                                        if (this.venns[length][0][BC] == true){
                                             return true;
                                         }
                                         return false;
@@ -927,14 +930,14 @@ Problem.prototype.evaluateConclusion = function(){
                                 if (secondNegated){
                                     //shade A
                                     if (thirdNegated){
-                                        if (this.vennDiagram.shaded[A] == true){
+                                        if (this.venns[length][0][A] == true){
                                             return true;
                                         }
                                         return false;
                                     }
                                     //shade AC
                                     else{
-                                        if (this.vennDiagram.shaded[AC] == true){
+                                        if (this.venns[length][0][AC] == true){
                                             return true;
                                         }
                                         return false;
@@ -943,14 +946,14 @@ Problem.prototype.evaluateConclusion = function(){
                                 else{
                                     //shade AB
                                     if (thirdNegated){
-                                        if (this.vennDiagram.shaded[AB] == true){
+                                        if (this.venns[length][0][AB] == true){
                                             return true;
                                         }
                                         return false;
                                     }
                                     //shade ABC
                                     else{
-                                        if (this.vennDiagram.shaded[ABC] == true){
+                                        if (this.venns[length][0][ABC] == true){
                                             return true;
                                         }
                                         return false;
@@ -963,14 +966,14 @@ Problem.prototype.evaluateConclusion = function(){
                                 if (secondNegated){
                                     //shade B, C
                                     if (thirdNegated){
-                                        if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[C] == true){
+                                        if (this.venns[length][0][B] == true && this.venns[length][0][C] == true){
                                             return true;
                                         }
                                         return false;
                                     }
                                     //shade BC
                                     else{
-                                        if (this.vennDiagram.shaded[BC] == true){
+                                        if (this.venns[length][0][BC] == true){
                                             return true;
                                         }
                                         return false;
@@ -979,14 +982,14 @@ Problem.prototype.evaluateConclusion = function(){
                                 else{
                                     //shade BC
                                     if (thirdNegated){
-                                        if (this.vennDiagram.shaded[BC] == true){
+                                        if (this.venns[length][0][BC] == true){
                                             return true;
                                         }
                                         return false;
                                     }
                                     //shade B, C
                                     else{
-                                        if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[C] == true){
+                                        if (this.venns[length][0][B] == true && this.venns[length][0][C] == true){
                                             return true;
                                         }
                                         return false;
@@ -997,14 +1000,14 @@ Problem.prototype.evaluateConclusion = function(){
                                 if (secondNegated){
                                     //shade AB, AC
                                     if (thirdNegated){
-                                        if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true){
+                                        if (this.venns[length][0][AB] == true && this.venns[length][0][AC] == true){
                                             return true;
                                         }
                                         return false;
                                     }
                                     //shade ABC, A
                                     else{
-                                        if (this.vennDiagram.shaded[ABC] == true && this.vennDiagram.shaded[A] == true){
+                                        if (this.venns[length][0][ABC] == true && this.venns[length][0][A] == true){
                                             return true;
                                         }
                                         return false;
@@ -1013,14 +1016,14 @@ Problem.prototype.evaluateConclusion = function(){
                                 else{
                                     //shade ABC, A
                                     if (thirdNegated){
-                                        if (this.vennDiagram.shaded[ABC] == true && this.vennDiagram.shaded[A] == true){
+                                        if (this.venns[length][0][ABC] == true && this.venns[length][0][A] == true){
                                             return true;
                                         }
                                         return false;
                                     }
                                     //shade AB, AC
                                     else{
-                                        if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[AC] == true){
+                                        if (this.venns[length][0][AB] == true && this.venns[length][0][AC] == true){
                                             return true;
                                         }
                                         return false;
@@ -1034,7 +1037,7 @@ Problem.prototype.evaluateConclusion = function(){
                     if (firstNegated){
                         //shade C
                         if (secondNegated){
-                            if (this.vennDiagram.shaded[C] == true){
+                            if (this.venns[length][0][C] == true){
                                return true;
                             }
                             else{
@@ -1043,7 +1046,7 @@ Problem.prototype.evaluateConclusion = function(){
                         }
                         //shade BC, B
                         else{
-                            if (this.vennDiagram.shaded[B] == true && this.vennDiagram.shaded[BC] == true){
+                            if (this.venns[length][0][B] == true && this.venns[length][0][BC] == true){
                                 return true;
                             }
                             else{
@@ -1054,7 +1057,7 @@ Problem.prototype.evaluateConclusion = function(){
                     else{
                         //shade A, AC
                         if (secondNegated){
-                            if (this.vennDiagram.shaded[A] == true && this.vennDiagram.shaded[AC] == true){
+                            if (this.venns[length][0][A] == true && this.venns[length][0][AC] == true){
                                 return true;
                             }
                             else{
@@ -1063,7 +1066,7 @@ Problem.prototype.evaluateConclusion = function(){
                         }
                         //shade AB, ABC
                         else{
-                            if (this.vennDiagram.shaded[AB] == true && this.vennDiagram.shaded[ABC] == true){
+                            if (this.venns[length][0][AB] == true && this.venns[length][0][ABC] == true){
                                 return true;
                             }
                             else{
