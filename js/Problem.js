@@ -59,6 +59,7 @@
     });
 };
 
+//breaks down display, replacing and hiding elements then gets a new problem
 Problem.prototype.replace = function(difficulty){
     var self = this;
     $('.statements').html("");
@@ -67,6 +68,7 @@ Problem.prototype.replace = function(difficulty){
     $('.check').each(function(){
         $(this).replaceWith($(this).clone());
     });
+    $('#venn-container > .instructions').hide();
     $('#newProblemButton').hide();
     $(document).off();
     $('#conclusion-container').hide();
@@ -78,6 +80,7 @@ Problem.prototype.replace = function(difficulty){
     this.user.getProblem(difficulty);
 }
 
+//checks validity of conclusion
 Problem.prototype.checkInvalid = function(){
     var correct = !this.evaluateConclusion();
     $('#newProblemButton').show();
@@ -93,6 +96,7 @@ Problem.prototype.checkInvalid = function(){
     }
 }
 
+// checks invalidity of conclusion
 Problem.prototype.checkValid = function(){
     var correct = this.evaluateConclusion();
     $('#conclusion-buttons').hide();
